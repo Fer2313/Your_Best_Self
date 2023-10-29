@@ -1,0 +1,50 @@
+<nav class="flex flex-col ">
+    <section class="flex items-center justify-between w-full h-16 px-8 bg-[#C3DFFA] border-b border-[#295FCC]">
+        <button routerLink="" class="text-slate-400">YourBestSelf</button>
+        <div class="flex items-center gap-6">
+            <div class="flex gap-1 items-center">
+                <div class=" flex items-center rounded-lg h-8">
+                    <button [@hiden]="animar ? 'si' : 'no'" class="absolute bg-[#F0F7FE] rounded-l p-1">
+                        <img width="20" src="../../../../assets/Vector.png" alt="..">
+                    </button>
+                    <div style="width: 31px;"></div>
+                    <input aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                        [@desplazamiento]="animar ? 'derecha' : 'izquierda'"
+                        class="focus:outline-none text-slate-600 text-sm rounded-r h-6 w-full" type="text"
+                        name="Search">
+                </div>
+                <button (click)="toggleAnimacion()"><img width="20" src="../../../../assets/Vector.png"
+                        alt=".."></button>
+            </div>
+            <button (click)="toggleAnimacion2()" class="flex gap-2 items-center">
+                <img width="50" src="../../../../assets/Ellipse 4.png" alt="..">
+                <img width="10" src="../../../../assets/Polygon 1.png" alt="..">
+            </button>
+            <div [@desplazamiento2]="animar2 ? 'abajo' : 'arriba'"
+                class="w-40  rounded text-white top-14 right-1 bg-white border-2 border-[#6374AE] absolute">
+                <div class="flex flex-col m-1 gap-1">
+                    <button *ngIf="animar2" class="bg-[#9FC2F1] rounded">Mi prefil</button>
+                    <button *ngIf="animar2" class="bg-[#9FC2F1] rounded">Mi progreso</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="flex justify-center items-center px-4 h-11 rounded-bl-full bg-[#9FC2F1]">
+        <ul class="flex gap-5 text-sm text-white">
+            <button routerLink="/home" class="hover:underline">Entrenamientos</button>
+            <button routerLink="/home/comp_entrenamientos" class="hover:underline">Entrenamientos de la comunidad</button>
+            <button routerLink="/home/pers_entrenamientos" class="hover:underline">Mis Entrenamientos</button>
+        </ul>
+   <!--      <section class="flex flex-col">
+        <button (click)="toggleAnimacion3()"class="bg-white text-[#84AEE5] rounded-2xl text-sm px-2 py-1 border-[#3273DE] border-2">Filtrar</button>
+        
+            <div [@hiden]="animar3 ? 'si' : 'no'" class="grid gap-3 grid-cols-2 absolute right-1 top-32 p-2 rounded bg-[#C3DFFA]">
+                <div class="flex flex-col items-center justify-center h-44 w-40 bg-white rounded">abdomen</div>
+                <div class="flex flex-col items-center justify-center h-44 w-40 bg-white rounded">flexiones</div>
+                <div class="flex flex-col items-center justify-center h-44 w-40 bg-white rounded">piernas</div>
+                <div class="flex flex-col items-center justify-center h-44 w-40 bg-white rounded">cuerpo completo</div>
+            </div>
+        </section> -->
+    </section>
+
+</nav>

@@ -1,0 +1,44 @@
+<app-nav-bar></app-nav-bar>
+<section class="flex justify-center my-5 items-center w-full">
+    <div class="flex shadow-xl rounded w-1/2 h-5/6">
+        <div class="w-2/3 rounded-tl rounded-bl bg-[#FFFFFF]">
+            <form (submit)="handleConsole()" class="flex flex-col mx-3 my-4 gap-5">
+                <span class="flex flex-col gap-1">
+                    <label class="text-[#6AAFF0] text-xl">Email</label>
+                     <input name="email" [(ngModel)]="user.email" type="email" placeholder="Ingresa tu email" class="form-control {{ email.valid || email.untouched ? '':'border-danger'}}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required #email="ngModel" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}">
+                     <p  class="text-red-900 text-xs"  [hidden]="email.valid || email.untouched">Email es un campo requerido y debe ser un email válido</p>
+                </span>
+                <span class="flex flex-col gap-1">
+                    <label class="text-[#6AAFF0] text-xl">Contraseña</label>
+                     <input name="password" [(ngModel)]="user.password" type="password" placeholder="Ingresa tu contraseña" class="form-control {{password.valid || password.untouched  ? '':'border-danger'}}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required #password="ngModel">
+                <p class="text-red-900 text-xs"  [hidden]="password.valid || password.untouched">Completa con una contraseña</p>
+    
+            </span>
+                   
+                <div class="flex items-center justify-center gap-1">
+                    <h5>No tienes cuenta?</h5>
+                    <a routerLink="/register" class="text-[#FE4A49]">Registrate!</a>
+                </div>
+                <div class="flex justify-center">
+                <button class="py-2 px-5 text-lg rounded shadow-md {{!email.valid||!password.valid ? 'bg-[#4868a783]':'bg-[#295FCC]'}}  text-white" [disabled]="!email.valid||!password.valid">Inicia</button>
+            </div>  
+            </form>
+        </div>
+        <div class="w-1/3 rounded-tr rounded-br bg-[#F4F4F8] shadow-md border border-[#B9B9BB]">
+            <div class="flex justify-center items-center my-4">
+                <h6 class="text-[#6AAFF0]">O puedes iniciar con:</h6>
+            </div>
+            <article class="flex flex-col mx-2 gap-4 ">
+                <button class="flex items-center gap-1 bg-[#4690ea71] py-2 px-2 rounded w-full">
+                    <img src="../../assets/1298738_facebook_brand_fb_logo_social media_icon 1.png">      
+                    <p>Facebook</p>
+                </button>
+                <button class="flex items-center gap-1 bg-[#fe49496e] py-2 px-2 rounded w-full">
+                    <img src="../../assets/1298745_google_brand_branding_logo_network_icon 1.png" alt="..">
+                    <p>Google</p>
+                </button>
+            </article>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

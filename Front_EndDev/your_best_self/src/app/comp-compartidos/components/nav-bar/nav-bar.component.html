@@ -1,5 +1,8 @@
-<nav class="flex">
-    <h5>YourBestSelf</h5>
-    <p>Iniciar secion</p>
-    <p>Registrarse</p>
+<nav class="flex items-center justify-between w-full h-16 px-8 bg-[#C3DFFA] border-b border-[#295FCC]">
+    <button routerLink="" class="text-slate-400">YourBestSelf</button>
+    <span class="flex items-center gap-5">
+        <button routerLink="/login" routerLinkActive="router-link-active"
+            class="text-white bg-[#295FCC] py-1 px-3 rounded-md shadow-md">Iniciar</button>
+        <button routerLink="/register" class="text-[#295FCC]">Registrarse</button>
+    </span>
 </nav>

@@ -1,0 +1,14 @@
+.caja {
+    width: 100px;
+    height: 100px;
+    background-color: #3498db;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+  }
+  
+  button {
+    margin-top: 20px;
+  }
