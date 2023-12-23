@@ -12,13 +12,13 @@ import {
   styleUrls: ['./nav-bar2.component.css'],
   animations: [
     trigger('desplazamiento', [
-      state('izquierda', style({ width: '0px' })),
-      state('derecha', style({ width: '200px' })),
+      state('izquierda', style({ width: '0px'})),
+      state('derecha', style({ width: '200px', padding:"5px"})),
       transition('izquierda <=> derecha', animate('0.5s ease-in-out')),
     ]),
     trigger('desplazamiento2', [
       state('arriba', style({ height: '0px', border: '0px', opacity: 0 })),
-      state('abajo', style({ height: '80px' })),
+      state('abajo', style({ height: '65px' })),
       transition('arriba <=> abajo', animate('0.5s ease-in-out')),
     ]),
     trigger('hiden', [

@@ -1,0 +1,24 @@
+<section class="flex flex-col ">
+    <div class="flex justify-end m-2">
+        <button (click)="toggleAnimacion()" class="w-32 bg-[#6374AE] rounded-xl text-sm px-2 py-1 text-white">Compartir Entrenemiento</button>
+    </div>
+    <div  [@hiden]="animar ? 'si' : 'no'" class="flex justify-center opacity-1">
+        <div class="flex flex-col absolute bg-white border-2 border-[#295FCC] w-1/2 rounded p-1 h-96 top-56">
+            <div class="flex justify-between">     
+                    <img class="opacity-0" width="25" src="../../../../assets/Group 35.png">
+                <h1 class="text-[#909090] text-xl">No tienes entrenamientos</h1>
+                <button (click)="toggleAnimacion2()" class="flex ">
+                    <img width="25" src="../../../../assets/Group 35.png">
+                </button>
+            </div>
+            <div class="flex h-full items-center justify-center">
+              <button class="text-white bg-[#84AEE5] p-2 shadow">
+                Crear Entrenamientos
+              </button>
+            </div>
+        </div>
+    </div>
+    <div class="flex items-center justify-center my-20">
+        <div class="flex items-center justify-center bg-[#9FC2F1] w-72 rounded h-80">card</div>
+    </div>
+</section>

@@ -1,14 +1,15 @@
-import { PersEntrenamientosComponent } from './home/pages/pers-entrenamientos/pers-entrenamientos.component';
-import { CompEntrenamientosComponent } from './home/pages/comp-entrenamientos/comp-entrenamientos.component';
-import { HomeComponent } from './home/pages/home/home.component';
-import { HPComponent } from './home/hp/hp.component';
-import { NotFoundComponentComponent } from './not-found-component/not-found-component.component';
+import { LibrayEjecicesComponent } from './pages/home/pages/libray-ejecices/libray-ejecices.component';
+import { PersEntrenamientosComponent } from './pages/home/pages/pers-entrenamientos/pers-entrenamientos.component';
+import { CompEntrenamientosComponent } from './pages/home/pages/comp-entrenamientos/comp-entrenamientos.component';
+import { HomeComponent } from './pages/home/pages/home/home.component';
+import { HPComponent } from './pages/home/hp/hp.component';
+import { NotFoundComponentComponent } from './pages/not-found-component/not-found-component.component';
 import { NgModule, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { LandingPageComponent } from './landing-page/landing-page.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { LandingPageComponent } from './pages/landing-page/landing-page.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 const router: Routes = [
   {
     path:"",
@@ -37,6 +38,10 @@ const router: Routes = [
       {
         path:"pers_entrenamientos",
         component:PersEntrenamientosComponent
+      },
+      {
+        path:"library_Ejercices",
+        component:LibrayEjecicesComponent
       }
     ],
   },
