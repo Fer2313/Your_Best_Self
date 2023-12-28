@@ -15,6 +15,7 @@ import { HomeModule } from './pages/home/home.module';
 import { NotFoundComponentComponent } from './pages/not-found-component/not-found-component.component';
 import { HttpClientModule } from '@angular/common/http';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +26,6 @@ import { HttpClientModule } from '@angular/common/http';
     LoginComponent,
     RegisterComponent,
     NotFoundComponentComponent,
-
   ],
   imports: [
     HttpClientModule,

@@ -1,0 +1,12 @@
+<button class="bg-[#DDECFC] hover:bg-[#bad8f8] text-start rounded-md border-2 border-[#9FC2F1]" *ngFor="let item of ejercices">
+    <div class="flex flex-col gap-2 mb-3">
+        <img class="h-40 w-full rounded-t-md" src={{item.imagen}} alt="aca aparecerian las imagenes">
+        <span class="flex h-9 mx-3">
+            <h5 class="text-sm">{{ item.nombre_ejercicios}}</h5>
+        </span>
+        
+    </div>
+    <span class=" flex justify-start mx-3 mb-3">
+        <h6 class="bg-white text-[#295FCC] rounded-xl text-sm px-2 py-1">{{ item.categoria}}</h6>
+    </span>
+</button>   

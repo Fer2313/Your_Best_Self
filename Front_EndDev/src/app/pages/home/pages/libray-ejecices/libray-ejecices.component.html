@@ -1,0 +1,12 @@
+<section *ngIf="ejercices.length > 0" class="flex">
+<button class="absolute left-11 mt-1 bg-[#295fcc] text-white rounded px-2 py-1">Filtrar</button>
+</section>
+<article class="flex flex-col m-10" *ngIf="ejercices.length > 0" >
+<section class="grid grid-cols-4 gap-4">
+    <app-card></app-card>
+</section>
+<app-modal></app-modal>
+</article>
+<div *ngIf="ejercices.length === 0"  class="w-full h-full flex justify-center items-center">
+    <mat-spinner></mat-spinner>
+</div>
