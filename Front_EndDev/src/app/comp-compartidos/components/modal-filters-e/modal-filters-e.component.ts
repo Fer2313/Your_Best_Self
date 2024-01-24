@@ -23,6 +23,7 @@ import {
 export class ModalFiltersEComponent implements OnInit {
   @Output() animar = new EventEmitter<boolean>();
   @Output() ejercicios = new EventEmitter<any>();
+  @Output() filter = new EventEmitter<boolean>();
   @Input() animacion?: boolean;
 
   obj: any = {};
@@ -41,6 +42,7 @@ export class ModalFiltersEComponent implements OnInit {
   handleSubmit() {
     if (this.objSummit.categoria.length||this.objSummit.dificultad.length||this.objSummit.arrMusculos.length) {
        const Musculos = `[${this.objSummit.arrMusculos}]`;
+       this.filter.emit(true)
     this.ApipeticionesService.filterEjercices(
       this.objSummit.dificultad,
       this.objSummit.categoria,
@@ -56,6 +58,7 @@ export class ModalFiltersEComponent implements OnInit {
         }
       );
     }else {
+    this.filter.emit(false)
      this.ApipeticionesService.getEjercicesPaginate(1,8).subscribe((data)=>{
       this.ejercicios.emit(data);
      })

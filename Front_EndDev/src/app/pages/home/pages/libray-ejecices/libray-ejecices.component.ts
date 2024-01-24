@@ -13,6 +13,7 @@ export class LibrayEjecicesComponent implements OnInit {
   exerciceId?: any;
   booleanModel: boolean = false;
   animar: boolean = false;
+  filter: boolean = false;
   ejercicesLength: any = []
     
   animarFunction() {
@@ -20,6 +21,10 @@ export class LibrayEjecicesComponent implements OnInit {
   } 
   handleFilter(event:any){
     this.ejercices = event;
+  }
+  booleanFilter(event:boolean){
+    this.filter = event;
+    console.log(this.filter)
   }
   recivedEjercicesLength(event:any){
     this.ejercicesLength = event

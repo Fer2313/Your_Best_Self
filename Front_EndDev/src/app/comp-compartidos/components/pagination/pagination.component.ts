@@ -1,5 +1,5 @@
 import { ApipeticionesService } from './../../../servicios/apipeticiones.service';
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-pagination',
@@ -10,6 +10,7 @@ export class PaginationComponent implements OnInit{
   @Input() currentPage: any;
   @Output() ejercices= new EventEmitter<any>()
   @Input() allEjercices:any;
+  @Input() filter?:boolean;
   itemsPerPage:number= 8; 
   ejercicesLength?: any;
   pages:any; 
@@ -17,6 +18,7 @@ export class PaginationComponent implements OnInit{
   constructor(private apipeticionesService: ApipeticionesService){
 
   }
+  
   ngOnInit(): void {
     this.apipeticionesService.getEjercicesLength().subscribe((data) => {
       this.ejercicesLength=data
@@ -25,7 +27,7 @@ export class PaginationComponent implements OnInit{
       this.items.push(index)
     }
     });
-    
+    console.log(this.filter)
   }
   handleItem(currentPage:number){
     this.apipeticionesService.getEjercicesPaginate(currentPage,this.itemsPerPage).subscribe((data) => {

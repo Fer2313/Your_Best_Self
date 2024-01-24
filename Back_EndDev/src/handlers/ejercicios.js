@@ -40,7 +40,7 @@ export async function getExercisesFiltered(categoria, dificultad, Musculos) {
       return result;
     } else if (Musculos) {
       const [result] = await pool.query(
-        `SELECT DISTINCT E.Id_ejercicios AS Id_ejercicios, E.nombre_ejercicios AS nombre_ejercicios, E.Descripcion AS descripcion, E.Video AS video, E.Imagen AS imagen, E.categoria AS categoria, E.dificultad AS dificultad FROM Ejercicios E JOIN EjercicioMusculo EM ON E.Id_ejercicios = EM.Id_ejercicios WHERE EM.id_musculo IN (${value})`,
+        `SELECT DISTINCT E.Id_ejercicios AS Id_ejercicios, E.nombre_ejercicios AS nombre_ejercicios, E.Descripcion AS descripcion, E.Video AS video, E.Imagen AS imagen, E.categoria AS categoria, E.dificultad AS dificultad FROM Ejercicios E JOIN EjercicioMusculo EM ON E.Id_ejercicios = EM.Id_ejercicios WHERE EM.id_musculo IN (${value}) ORDER BY id_ejercicios LIMIT ${0}, ${8}`,
         arr
       );
       return result;

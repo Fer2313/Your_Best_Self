@@ -4,10 +4,10 @@
             class="absolute left-11 mt-1 bg-[#295fcc] text-white rounded px-2 py-1">Filtrar</button>
     </section>
     <section class="flex flex-col m-10" *ngIf="ejercices.length > 0">
-        <app-modal-filters-e (ejercicios)="handleFilter($event)" [animacion]="animar" (animar)="recibedAnimar($event)"></app-modal-filters-e>
+        <app-modal-filters-e (filter)="booleanFilter($event)" (ejercicios)="handleFilter($event)" [animacion]="animar" (animar)="recibedAnimar($event)"></app-modal-filters-e>
         <app-card (sendBoolean)="recivedBoolean($event)" (sendExercise)="recivedmensage($event)"
             class="grid grid-cols-4 gap-4" [ejercices]="ejercices"></app-card>
-        <app-pagination [allEjercices]="ejercices" (ejercices)="recivedEjercices($event)"
+        <app-pagination [filter]="filter" [allEjercices]="ejercices" (ejercices)="recivedEjercices($event)"
             [currentPage]="currentPage"></app-pagination>
             
         <app-modal [exerciceId]="exerciceId" [BooleanM]="booleanModel" class="flex justify-center items-center"
