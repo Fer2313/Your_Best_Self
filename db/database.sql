@@ -14,9 +14,10 @@ CREATE TABLE ejercicios (
   descripcion varchar(1000),
   dificultad ENUM("Principiante","Experimentado","Avanzado"),
   video varchar(500),
-  imagen varchar(500)
+  imagen varchar(500),
   categoria ENUM("Fuerza","Cardio","Estiramiento")
 );
+
 CREATE TABLE EjercicioMusculo (
     Id_ejercicios INT,
     id_musculo INT,
