@@ -11,6 +11,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import { ModalFiltersEComponent } from './components/modal-filters-e/modal-filters-e.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { Pagination2Component } from './components/pagination2/pagination2.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { FormsModule } from '@angular/forms';
   CardComponent,
   PaginationComponent,
   ModalFiltersEComponent,
+  Pagination2Component,
 ],
   imports: [
     CommonModule,
