@@ -6,7 +6,7 @@ import {
   getExercisesLengthRoute,
   getExercisesQueryRoute,
 } from "./routes/ejercicios.js";
-import { createTraining } from "./handlers/crearEntrenamiento.js"
+import { crearEntrenamiento } from "./handlers/crearEntrenamiento.js"
 import { getAllMusclesRoute, getMuscleByIDRoute } from "./routes/musculos.js";
 
 const router = Router();
@@ -39,7 +39,7 @@ router.get("/muscle", (req, res) => {
 router.post('/crear-entrenamiento', async (req, res) => {
   try {
     const { entrenamiento, detalles } = req.body;
-    const resultado = await createTraining(entrenamiento, detalles);
+    const resultado = await crearEntrenamiento(entrenamiento, detalles);
     res.status(200).json(resultado);
   } catch (error) {
     console.error(error.message);
