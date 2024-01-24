@@ -6,6 +6,7 @@ import {
   getExercisesLengthRoute,
   getExercisesQueryRoute,
 } from "./routes/ejercicios.js";
+import { createTraining } from "./handlers/crearEntrenamiento.js"
 import { getAllMusclesRoute, getMuscleByIDRoute } from "./routes/musculos.js";
 
 const router = Router();
@@ -33,6 +34,17 @@ router.get("/muscle/getMuscleByID/:id", (req, res) => {
 
 router.get("/muscle", (req, res) => {
   getAllMusclesRoute(req, res);
+});
+
+router.post('/crear-entrenamiento', async (req, res) => {
+  try {
+    const { entrenamiento, detalles } = req.body;
+    const resultado = await createTraining(entrenamiento, detalles);
+    res.status(200).json(resultado);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ message: 'Error al procesar la solicitud' });
+  }
 });
 
 export default router;
