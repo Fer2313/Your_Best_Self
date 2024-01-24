@@ -11,11 +11,11 @@
   }
   
   .mimodal {
-    background: #ffffff;
+    background: #F0F7FE;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    width: 95%;
+    width: 60%;
     height: 90%;
     overflow-y: auto; /* Permite el scroll dentro del modal si el contenido es demasiado grande */
   }
@@ -23,8 +23,7 @@
   .modal-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #ccc;
+    align-items: flex-start;
     padding-bottom: 10px;
     margin-bottom: 10px;
   }
@@ -32,7 +31,7 @@
   .close-btn {
     cursor: pointer;
     font-size: 20px;
-    color: #333;
+    color: #000000;
   }
   
   .modal-body {

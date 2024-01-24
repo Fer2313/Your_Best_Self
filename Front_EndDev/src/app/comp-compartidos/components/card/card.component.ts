@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ApipeticionesService } from './../../../../app/servicios/apipeticiones.service';
 
 
@@ -7,17 +7,17 @@ import { ApipeticionesService } from './../../../../app/servicios/apipeticiones.
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css']
 })
-export class CardComponent implements OnInit{
-  ejercices: any = []
-
-  constructor(private apipeticionesService : ApipeticionesService){
-
+export class CardComponent{
+  @Input() ejercices: any;
+  @Output() sendExercise = new EventEmitter<any>()
+  @Output() sendBoolean = new EventEmitter<boolean>()
+  constructor(private Apipeticiones: ApipeticionesService){}
+  getIdMetod(id:number){
+    this.Apipeticiones.getExercicebyID(id).subscribe((data) => {
+      this.sendExercise.emit(data);
+    });
+    this.sendBoolean.emit(true)
   }
- 
-  ngOnInit(): void {
-    this.apipeticionesService.getEjercices().subscribe(data=>{
-      console.log(data)
-      this.ejercices = data
-    })
-  }
+
+
 }

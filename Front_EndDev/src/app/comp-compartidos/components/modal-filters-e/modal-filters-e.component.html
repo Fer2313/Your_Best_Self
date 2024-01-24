@@ -1,0 +1,80 @@
+<div [@desplazamiento]="animacion ? 'abajo' : 'arriba'" class="modal-overlay">
+    <form (submit)="handleSubmit()" class="mimodal">
+        <div class="modal-header">
+            <button class="close-btn" type="submit" (click)="setOutModal()">&times;</button>
+            <section>
+                <h4>Filtros por categoria</h4>
+                <div class="flex gap-3">
+                    <span class="flex gap-2">
+                        <input [(ngModel)]="objSummit.categoria" type="radio" name="category" value="Fuerza">
+                        <p class="text-sm">Fuerza</p>
+                    </span>
+                    <span class="flex gap-2">
+                        <input [(ngModel)]="objSummit.categoria" type="radio" name="category" value="Estiramiento">
+                        <p class="text-sm">Estiramiento</p>
+                    </span>
+                    <span class="flex gap-2">
+                        <input [(ngModel)]="objSummit.categoria" type="radio" name="category" value="Cardio">
+                        <p class="text-sm">Cardio</p>
+                    </span>
+                </div>
+                <div class="flex absolute gap-2 text-xs w-full">
+                    <span *ngIf="objSummit.categoria.length" (click)="onDesactivate(objSummit.categoria)" class="flex gap-1 px-1 border rounded bg-gray-200">
+                        <button style="font-size: 10px;">x</button>
+                        <p>{{objSummit.categoria}}</p>
+                    </span>
+                    <span *ngIf="objSummit.dificultad.length" (click)="onDesactivate(objSummit.dificultad)" class="flex gap-1 px-1 border rounded bg-gray-200">
+                        <button style="font-size: 10px;">x</button>
+                        <p>{{objSummit.dificultad}}</p>
+                    </span>
+                </div>
+            </section>
+            <section>
+                <h4>Filtros por dificultad</h4>
+                <div class="flex gap-3">
+                    <span class="flex gap-2">
+                        <input [(ngModel)]="objSummit.dificultad" type="radio" name="difficulty" value="Principiante">
+                        <p class="text-sm">Principiante</p>
+                    </span>
+                    <span class="flex gap-2">
+                        <input [(ngModel)]="objSummit.dificultad" type="radio" name="difficulty" value="Experimentado">
+                        <p class="text-sm">Experimentado</p>
+                    </span>
+                    <span class="flex gap-2">
+                        <input [(ngModel)]="objSummit.dificultad" type="radio" name="difficulty" value="Avanzado">
+                        <p class="text-sm">Avanzado</p>
+                    </span>
+                </div>
+            </section>
+        </div>
+        <div class="modal-body">
+            <h4>Filtros por musculos</h4>
+            <div class="grid grid-cols-4 gap-2 p-2">
+                <div class="flex items-center justify-center" *ngFor="let item of muscles">
+                    <img [ngClass]="obj['checkboxValue' + item.id_musculo] === true?'border-2 rounded border-[#295FCC]':''"
+                        class="w-96 h-80 rounded-md" src={{item.imagen_musculo}}
+                        alt="aqui aparece la imagen del musculo">
+                    <h6 class="absolute">{{item.nombre_musculo}}</h6>
+                    <div class="flex flex-col items-end justify-end w-full h-full">
+                        <input (change)="handleFilter(item.id_musculo)"
+                            [(ngModel)]="obj['checkboxValue'+item.id_musculo]" class="absolute w-5 h-5" type="checkbox"
+                            name="muscles" value="{{item.nombre_musculo}}">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- <article [@desplazamiento]="animar ? 'abajo' : 'arriba'" class="absolute bg-white">
+    
+  
+    <section>
+        <h4>Filtros por musculo</h4>
+        <div>
+            <div *ngFor="let item of muscles">
+                  <h6>{{item.nombre_musculo}}</h6>
+            </div>
+        </div>
+    </section>
+</article> -->

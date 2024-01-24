@@ -1,0 +1,44 @@
+<div [@hiden]="BooleanM ? 'Verdadero' : 'Falso'" class="modal-overlay">
+  <div class="mimodal">
+    <div class="modal-header">
+      <h2 class="text-lg text-[#295FCC]">{{this.exerciceId.nombre_ejercicios}}</h2>
+      <span class="close-btn" (click)="sendEventM()">&times;</span>
+    </div>
+    <div class="modal-body">
+      <section class="flex">
+        <video class="rounded w-4/6" src="{{this.exerciceId.video}}" controls></video>
+        <span class=" m-1 p-4 border-l-2 w-full border-gray-300">
+          <h4 class="font-semibold">Tipo de dificultad</h4>
+          <p>{{this.exerciceId.dificultad}}</p>
+          <h4 class="font-semibold">Categoria</h4>
+          <p>{{this.exerciceId.categoria}}</p>
+          <h4 class="font-semibold mb-1">Musculos afectados</h4>
+          <div class="flex flex-col gap-1 w-full max-h-72 overflow-y-auto" >
+            <div class="flex gap-3 bg-slate-200 w-full items-center p-1 rounded" *ngFor="let item of this.exerciceId.musculosRelacionados">
+              <img class="w-20 rounded" src="{{item.imagen_musculos}}" alt="aqui aparece la imagen del musculo">
+              <h5>{{item.nombre_Musculos}}</h5>
+            </div>
+          </div>
+        </span>
+      </section>
+      <p>{{this.exerciceId.descripcion}}</p>
+      <div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- <div [@hiden]="BooleanM ? 'Verdadero' : 'Falso'" class="modal-overlay">
+  <div class="mimodal">
+    <div class="modal-header">
+      <span class="close-btn" (click)="sendEventM()">&times;</span>
+    </div>
+    <div class="modal-body">
+      <div>
+      </div>
+    </div>
+  </div>
+</div> -->

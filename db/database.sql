@@ -625,6 +625,21 @@ FROM Ejercicios E
 JOIN EjercicioMusculo EM ON E.EjercicioID = EM.EjercicioID
 WHERE EM.MusculoID = 1;
 
+
+ SELECT DISTINCT
+    E.Id_ejercicios AS Id_ejercicios,
+    E.nombre_ejercicios AS nombre_ejercicios,
+    E.Descripcion AS descripcion,
+    E.Video AS video,
+    E.Imagen AS imagen,
+    E.categoria AS categoria,
+    E.dificultad AS dificultad
+FROM Ejercicios E
+JOIN EjercicioMusculo EM ON E.Id_ejercicios = EM.Id_ejercicios
+WHERE EM.id_musculo IN (2,3,4,5,6,7) AND E.categoria = "Cardio" AND E.dificultad = "Experimentado";
+
+SELECT DISTINCT E.Id_ejercicios AS Id_ejercicios, E.nombre_ejercicios AS nombre_ejercicios, E.Descripcion AS descripcion, E.Video AS video, E.Imagen AS imagen, E.categoria AS categoria, E.dificultad AS dificultad FROM Ejercicios E JOIN EjercicioMusculo EM ON E.Id_ejercicios = EM.Id_ejercicios WHERE E.categoria = "Cardio" AND E.dificultad = "Experimentado" AND EM.id_musculo IN (1,2,3,4,5,6)
+
 SELECT
     M.id_musculo AS id_Musculos,
     M.nombre_musculo AS nombre_Musculos,
