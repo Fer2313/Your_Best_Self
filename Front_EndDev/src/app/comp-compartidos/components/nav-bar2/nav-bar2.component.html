@@ -2,12 +2,12 @@
     <section class="flex items-center justify-between w-full h-16 px-8 bg-[#C3DFFA] border-b border-[#295FCC]">
         <button routerLink="" class="text-slate-400">YourBestSelf</button>
         <div class="flex items-center gap-6">
-            <div class="flex gap-1 items-center">
-                <div class=" flex items-center justify-end rounded-lg h-8">
-                    <button [@hiden]="animar ? 'si' : 'no'" class="absolute rounded-l p-1">
+            <div *ngIf="!obj.misEntrenamientos" class="flex gap-1 items-center">
+                <div  class=" flex items-center justify-end rounded-lg h-8">
+                    <button (click)="handleSearch()" [@hiden]="animar ? 'si' : 'no'" class="absolute rounded-l p-1">
                         <img width="16" src="../../../../assets/Vector.png" alt="..">
                     </button>
-                    <input aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                    <input [(ngModel)]="imputValue" (change)="getExercices()" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
                         [@desplazamiento]="animar ? 'derecha' : 'izquierda'"
                         class="focus:outline-none text-slate-600 text-sm rounded h-7 w-full" type="text"
                         name="Search">
@@ -30,11 +30,11 @@
     </section>
     <section class="flex justify-center items-center px-4 h-11 rounded-bl-full bg-[#9FC2F1]">
         <ul class="flex gap-5 text-sm text-white">
-            <button routerLink="/home" class="hover:underline">Entrenamientos</button>
-            <button routerLink="/home/comp_entrenamientos" class="hover:underline">Entrenamientos de la
+            <button [class]="this.obj.entrenamientos ? 'underline':'no-underline'" routerLink="/home" class="hover:underline" (click)="changeSection('entrenamientos')">Entrenamientos</button>
+            <button [class]="this.obj.entrenamientosComunidad ? 'underline':'no-underline'" routerLink="/home/comp_entrenamientos" (click)="changeSection('entrenamientosComunidad')" class="hover:underline">Entrenamientos de la
                 comunidad</button>
-            <button routerLink="/home/pers_entrenamientos" class="hover:underline">Mis Entrenamientos</button>
-            <button routerLink="/home/library_Ejercices" class="hover:underline">Bibloteca de Ejercicios</button>
+            <button [class]="this.obj.misEntrenamientos ? 'underline':'no-underline'" routerLink="/home/pers_entrenamientos" (click)="changeSection('misEntrenamientos')" class="hover:underline">Mis Entrenamientos</button>
+            <button [class]="this.obj.bibliotecaEjercicios ? 'underline':'no-underline'" routerLink="/home/library_Ejercices" (click)="changeSection('bibliotecaEjercicios')" class="hover:underline">Bibloteca de Ejercicios</button>
         </ul>
         <!--      <section class="flex flex-col">
         <button (click)="toggleAnimacion3()"class="bg-white text-[#84AEE5] rounded-2xl text-sm px-2 py-1 border-[#3273DE] border-2">Filtrar</button>

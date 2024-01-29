@@ -14,23 +14,29 @@ export class LibrayEjecicesComponent implements OnInit {
   booleanModel: boolean = false;
   animar: boolean = false;
   filter: boolean = false;
-  ejercicesLength: any = []
-    
+  ejercicesLength: any;
+
   animarFunction() {
     this.animar = true;
-  } 
-  handleFilter(event:any){
+  }
+  recibedCurrentPage(event: number) {
+    this.currentPage = event;
+    console.log(this.currentPage)
+  }
+  ejercicesFilterRecived(event: any) {
     this.ejercices = event;
   }
-  booleanFilter(event:boolean){
+  handleFilter(event: any) {
+    this.ejercices = event;
+  }
+  booleanFilter(event: boolean) {
     this.filter = event;
-    console.log(this.filter)
   }
-  recivedEjercicesLength(event:any){
-    this.ejercicesLength = event
+  recivedEjercicesLength(event: any) {
+    this.ejercicesLength = event;
   }
-  recibedAnimar(event:boolean){
-   this.animar = event;
+  recibedAnimar(event: boolean) {
+    this.animar = event;
   }
   recivedmensage(event: any) {
     this.exerciceId = event;

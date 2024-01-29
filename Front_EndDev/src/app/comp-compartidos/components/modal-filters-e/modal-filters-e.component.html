@@ -19,11 +19,13 @@
                     </span>
                 </div>
                 <div class="flex absolute gap-2 text-xs w-full">
-                    <span *ngIf="objSummit.categoria.length" (click)="onDesactivate(objSummit.categoria)" class="flex gap-1 px-1 border rounded bg-gray-200">
+                    <span *ngIf="objSummit.categoria.length" (click)="onDesactivate(objSummit.categoria)"
+                        class="flex gap-1 px-1 border rounded bg-gray-200">
                         <button style="font-size: 10px;">x</button>
                         <p>{{objSummit.categoria}}</p>
                     </span>
-                    <span *ngIf="objSummit.dificultad.length" (click)="onDesactivate(objSummit.dificultad)" class="flex gap-1 px-1 border rounded bg-gray-200">
+                    <span *ngIf="objSummit.dificultad.length" (click)="onDesactivate(objSummit.dificultad)"
+                        class="flex gap-1 px-1 border rounded bg-gray-200">
                         <button style="font-size: 10px;">x</button>
                         <p>{{objSummit.dificultad}}</p>
                     </span>
@@ -52,15 +54,15 @@
             <div class="grid grid-cols-4 gap-2 p-2">
                 <div class="flex items-center justify-center" *ngFor="let item of muscles">
                     <img [ngClass]="obj['checkboxValue' + item.id_musculo] === true?'border-2 rounded border-[#295FCC]':''"
-                        class="w-96 h-80 rounded-md" src={{item.imagen_musculo}}
+                        class="h-80 w-full rounded-md" src={{item.imagen_musculo}}
                         alt="aqui aparece la imagen del musculo">
                     <h6 class="absolute">{{item.nombre_musculo}}</h6>
-                    <div class="flex flex-col items-end justify-end w-full h-full">
+                    <div class=" flex items-end justify-end h-full">
                         <input (change)="handleFilter(item.id_musculo)"
                             [(ngModel)]="obj['checkboxValue'+item.id_musculo]" class="absolute w-5 h-5" type="checkbox"
                             name="muscles" value="{{item.nombre_musculo}}">
-
                     </div>
+ 
                 </div>
             </div>
         </div>

@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   getAllEjercicesRoute,
   getExerciseByIDRoute,
+  getExerciseByNameRoute,
   getExercisesFilteredRoute,
   getExercisesLengthRoute,
   getExercisesQueryRoute,
@@ -26,6 +27,9 @@ getExercisesFilteredRoute(req, res)
 });
 router.get("/exercise/getExerciseByID/:id", (req, res) => {
   getExerciseByIDRoute(req, res);
+});
+router.get("/exercise/getExercisesByName/:name", (req, res) => {
+  getExerciseByNameRoute(req, res);
 });
 router.get("/muscle/getMuscleByID/:id", (req, res) => {
   getMuscleByIDRoute(req, res);
