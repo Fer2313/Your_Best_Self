@@ -6,8 +6,9 @@ import {
   getExercisesLengthRoute,
   getExercisesQueryRoute,
 } from "./routes/ejercicios.js";
-import { createTraining } from "./handlers/crearEntrenamiento.js"
+import { crearEntrenamiento } from "./handlers/crearEntrenamiento.js"
 import { getAllMusclesRoute, getMuscleByIDRoute } from "./routes/musculos.js";
+import { registerUserRoute, loginUserRoute, authenticateJWT } from "./routes/login.js";
 
 const router = Router();
 
@@ -39,7 +40,7 @@ router.get("/muscle", (req, res) => {
 router.post('/crear-entrenamiento', async (req, res) => {
   try {
     const { entrenamiento, detalles } = req.body;
-    const resultado = await createTraining(entrenamiento, detalles);
+    const resultado = await crearEntrenamiento(entrenamiento, detalles);
     res.status(200).json(resultado);
   } catch (error) {
     console.error(error.message);
@@ -47,6 +48,17 @@ router.post('/crear-entrenamiento', async (req, res) => {
   }
 });
 
+router.get('/admin/dashboard', authenticateJWT, (req, res) => {
+  if(req.user.role !== 'admin'){
+    return res.status(404).json({ error: 'Acceso denegado. No eres administrador' });
+  }
+
+  res.json({ message: 'Bienvenido al dashboard de administrador '});
+})
+
+router.post('/register', registerUserRoute());
+
+router.post('/login', loginUserRoute());
 export default router;
 
 /*  app.get("/muscleR", async (req,res)=> {
