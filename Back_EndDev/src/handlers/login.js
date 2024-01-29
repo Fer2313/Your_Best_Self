@@ -1,6 +1,6 @@
 import { pool } from "../../db.js"
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 
 export async function registerUser(username, password, role = 'admin') {

@@ -1,5 +1,5 @@
-import { registerUser, loginUser } from "../handlers/login";
-const jwt = require('jsonwebtoken');
+import { registerUser, loginUser } from "../handlers/login.js";
+import jwt from 'jsonwebtoken';
 
 export async function registerUserRoute(req, res){
     const { username, password } = req.body;
