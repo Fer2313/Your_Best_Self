@@ -6,7 +6,13 @@ import {
   getExercisesLengthRoute,
   getExercisesQueryRoute,
 } from "./routes/ejercicios.js";
+import { crearEntrenamiento } from "./handlers/crearEntrenamiento.js";
 import { getAllMusclesRoute, getMuscleByIDRoute } from "./routes/musculos.js";
+import {
+  registerUserRoute,
+  loginUserRoute,
+  authenticateJWT,
+} from "./routes/login.js";
 
 const router = Router();
 
@@ -19,10 +25,10 @@ router.get("/exercise", (req, res) => {
     : getAllEjercicesRoute(req, res);
 });
 router.get("/exercisesLength", (req, res) => {
-getExercisesLengthRoute(req, res)    
+  getExercisesLengthRoute(req, res);
 });
 router.get("/exercises/filters", (req, res) => {
-getExercisesFilteredRoute(req, res)    
+  getExercisesFilteredRoute(req, res);
 });
 router.get("/exercise/getExerciseByID/:id", (req, res) => {
   getExerciseByIDRoute(req, res);
@@ -33,6 +39,35 @@ router.get("/muscle/getMuscleByID/:id", (req, res) => {
 
 router.get("/muscle", (req, res) => {
   getAllMusclesRoute(req, res);
+});
+
+router.post("/crear-entrenamiento", async (req, res) => {
+  try {
+    const { entrenamiento, detalles } = req.body;
+    const resultado = await crearEntrenamiento(entrenamiento, detalles);
+    res.status(200).json(resultado);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ message: "Error al procesar la solicitud" });
+  }
+});
+
+router.get("/admin/dashboard", authenticateJWT, (req, res) => {
+  if (req.user.role !== "admin") {
+    return res
+      .status(404)
+      .json({ error: "Acceso denegado. No eres administrador" });
+  }
+
+  res.json({ message: "Bienvenido al dashboard de administrador " });
+});
+
+router.post("/register", (req, res) => {
+  registerUserRoute(req, res);
+});
+
+router.post("/login", (req, res) => {
+  loginUserRoute(req, res);
 });
 
 export default router;
