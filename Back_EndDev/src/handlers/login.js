@@ -3,14 +3,14 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 
-export async function registerUser(username, password, role = 'admin') {
+export async function registerUser(username, password, age, weight, height, gender, role = 'admin') {
 
     const connection = await pool.promise().getConnection();
 
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
-        const query = 'INSERT INTO usuario (username, password, role) VALUES (?,?,?)';
-        await connection.query.execute(query, [username, hashedPassword, role]);
+        const query = 'INSERT INTO usuario (username, password, age, weight, height, gender, role) VALUES (?,?,?,?,?,?)';
+        await connection.query.execute(query, [username, hashedPassword, age, weight, height, gender, role]);
 
         console.log(`Usuario "${username}" registrado con exito`);
         return true;
