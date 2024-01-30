@@ -61,6 +61,9 @@ export async function getExerciseByNameRoute(req, res){
   try {
     const { name } = req.params;
     const result = await getExerciseByName(name);
+    if(!result.length){
+      return res.status(400).send("No hay resultados en su busqueda")
+    }
     res.status(200).json(result);
   } catch (error) {
     res.status(400).send({ err: error.message });

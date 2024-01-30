@@ -1,15 +1,22 @@
+import { Sharedservice2Service } from 'src/app/servicios/sharedservice2.service';
 import { ApipeticionesService } from './../../../../servicios/apipeticiones.service';
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import { IdexercicesService } from 'src/app/servicios/idexercices.service';
+
 
 @Component({
   selector: 'app-libray-ejecices',
   templateUrl: './libray-ejecices.component.html',
   styleUrls: ['./libray-ejecices.component.css'],
 })
-export class LibrayEjecicesComponent implements OnInit {
+export class LibrayEjecicesComponent implements OnInit{
+  ejercices: any = [];
+  search: boolean= false;
   currentPage: number = 1;
   itemsPerPage: number = 8;
-  ejercices: any = [];
   exerciceId?: any;
   booleanModel: boolean = false;
   animar: boolean = false;
@@ -19,9 +26,18 @@ export class LibrayEjecicesComponent implements OnInit {
   animarFunction() {
     this.animar = true;
   }
+  desactivateSearch(){
+    this.sharedService.updateData([])
+    this.apipeticionesService
+      .getEjercicesPaginate(this.currentPage, this.itemsPerPage)
+      .subscribe((data) => {
+        this.ejercices = data;
+      });
+      this.search= false
+  }
   recibedCurrentPage(event: number) {
     this.currentPage = event;
-    console.log(this.currentPage)
+    console.log(this.currentPage);
   }
   ejercicesFilterRecived(event: any) {
     this.ejercices = event;
@@ -51,13 +67,37 @@ export class LibrayEjecicesComponent implements OnInit {
     this.ejercices = event;
   }
 
-  constructor(private apipeticionesService: ApipeticionesService) {}
+  constructor(
+    private apipeticionesService: ApipeticionesService,
+    private sharedService: Sharedservice2Service,
+    private exerciceidshared: IdexercicesService
+  ) {
+    this.exerciceidshared.data$.subscribe((data) => {
+      const newId = data;
+      console.log(newId)
+      if (newId.nombre_ejercicios) {
+        this.exerciceId = newId;
+        this.booleanModel = true
+      }
+    });
+    this.sharedService.data$.subscribe((data) => {
+      const newData = data;
+      if (newData.length) {
+        this.search = true;
+        this.ejercices = newData;
+      }else{
+        this.search= false
+      }
+    });
+  }
 
   ngOnInit(): void {
+    this.sharedService.updateData([])
     this.apipeticionesService
       .getEjercicesPaginate(this.currentPage, this.itemsPerPage)
       .subscribe((data) => {
         this.ejercices = data;
       });
   }
+
 }

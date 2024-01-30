@@ -9,6 +9,10 @@ export class ApipeticionesService {
   getMuscles() {
     return this.httpClient.get(this.baseUrl + 'muscle');
   }
+  
+  getExercicesByName( name: string ){
+    return this.httpClient.get(this.baseUrl + 'exercise/getExercisesByName/' + name);
+  }
 
   filterEjercices(dificultad: string, categoria: string, arrMusculos: any) {
     if (arrMusculos.length >= 3 && dificultad.length !== 0 && !categoria.length) {
