@@ -26,5 +26,6 @@ export class ModalComponent {
   @Input() exerciceId?: any;
   sendEventM() {
     this.sendBooleanM.emit(false);
+    
   }
 }

@@ -62,6 +62,7 @@ export class LibrayEjecicesComponent implements OnInit{
   }
   recivedBooleanM(event: boolean) {
     this.booleanModel = event;
+    this.exerciceidshared.updateData(0)
   }
   recivedEjercices(event: any) {
     this.ejercices = event;
@@ -74,8 +75,8 @@ export class LibrayEjecicesComponent implements OnInit{
   ) {
     this.exerciceidshared.data$.subscribe((data) => {
       const newId = data;
-      console.log(newId)
       if (newId.nombre_ejercicios) {
+        console.log(newId)
         this.exerciceId = newId;
         this.booleanModel = true
       }

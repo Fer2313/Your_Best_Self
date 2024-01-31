@@ -10,6 +10,9 @@ export class IdexercicesService {
   private dataSubject = new BehaviorSubject<any>({});
   public data$ = this.dataSubject.asObservable();
   updateData(id: any) {
+    if(id === 0){
+      this.dataSubject.next({});
+    }
     this.apiPeticiones.getExercicebyID(id).subscribe((data) => {
       this.dataSubject.next(data);
     });
