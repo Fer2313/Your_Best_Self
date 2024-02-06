@@ -12,8 +12,11 @@ export class RegisterComponent {
   this.miFormulario=this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     nombre: ['', Validators.required],
+    apellido: ['', Validators.required],
     genero:['',Validators.required],
     peso:[null,Validators.required],
+    altura:[null,Validators.required],
+    edad:[null,Validators.required],
     password:['',[Validators.required,Validators.minLength(8),Validators.maxLength(15)]],
     repeatPassword:['',Validators.required]
   }

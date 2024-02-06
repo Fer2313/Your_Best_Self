@@ -20,6 +20,15 @@
                     </div>
                 </span>
                 <span class="flex flex-col gap-2">
+                    <h3 class="text-[#6AAFF0] text-xl">Apellido</h3>
+                     <input formControlName="apellido" type="text" placeholder="Pon tu apellido" class="form-control {{miFormulario.get('apellido')?.valid || miFormulario.get('apellido')?.untouched?'':'border-red-700'}}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                     <div [hidden]="miFormulario.get('apellido')?.valid || miFormulario.get('apellido')?.untouched">
+                        <span class="text-red-700 text-xs">El apellido es obligatorio</span>
+                    </div>
+                </span>
+            </article>
+            <div class="flex gap-2">
+                <span class="flex flex-col gap-2">
                     <h3 class="text-[#6AAFF0] text-xl">Genero</h3>
                 <select class="form-select text-[#295FCC] {{miFormulario.get('genero')?.valid || miFormulario.get('genero')?.untouched?'':'border-red-700'}}" aria-label="Default select example" formControlName="genero">
                     <option value="DEFAULT" disabled>Selecionar Genero</option>
@@ -29,7 +38,7 @@
                   <div [hidden]="miFormulario.get('genero')?.valid || miFormulario.get('genero')?.untouched">
                     <span class="text-red-700 text-xs">El genero obligatorio</span>
                 </div>
-                </span>
+                </span>         
                 <span class="flex flex-col gap-2 w-1/4">
                     <h3 class="text-[#6AAFF0] text-xl">Peso</h3>
                      <input formControlName="peso" type="number" min="0" placeholder="Kg" class="form-control pr-1 {{miFormulario.get('peso')?.valid || miFormulario.get('peso')?.untouched?'':'border-red-700'}}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
@@ -37,7 +46,21 @@
                         <span class="text-red-700 text-xs">Obligatorio</span>
                     </div>
                 </span>
-            </article>
+                <span class="flex flex-col gap-2 w-1/4">
+                    <h3 class="text-[#6AAFF0] text-xl">Altura</h3>
+                     <input formControlName="altura" type="number" placeholder="Cm" class="form-control pr-1 {{miFormulario.get('altura')?.valid || miFormulario.get('altura')?.untouched?'':'border-red-700'}}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                     <div [hidden]="miFormulario.get('altura')?.valid || miFormulario.get('altura')?.untouched">
+                        <span class="text-red-700 text-xs">Obligatorio</span>
+                    </div>
+                </span>
+                <span class="flex flex-col gap-2 w-1/4">
+                    <h3 class="text-[#6AAFF0] text-xl">Edad</h3>
+                     <input formControlName="edad" type="number" min="5" placeholder="Ej: 18" class="form-control pr-1 {{miFormulario.get('edad')?.valid || miFormulario.get('edad')?.untouched?'':'border-red-700'}}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                     <div [hidden]="miFormulario.get('edad')?.valid || miFormulario.get('edad')?.untouched">
+                        <span class="text-red-700 text-xs">Obligatorio</span>
+                    </div>
+                </span>
+            </div>
             <span class="flex flex-col gap-2">
                 <h3 class="text-[#6AAFF0] text-xl">Contraseña</h3>
                  <input formControlName="password" type="password" placeholder="Ingresa una contraseña" class="form-control {{miFormulario.get('password')?.valid || miFormulario.get('password')?.pristine?'':'border-red-700'}}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
