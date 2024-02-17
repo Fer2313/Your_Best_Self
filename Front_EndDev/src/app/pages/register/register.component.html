@@ -20,16 +20,25 @@
                     </div>
                 </span>
                 <span class="flex flex-col gap-2">
+                    <h3 class="text-[#6AAFF0] text-xl">Apellido</h3>
+                     <input formControlName="apellido" type="text" placeholder="Pon tu apellido" class="form-control {{miFormulario.get('apellido')?.valid || miFormulario.get('apellido')?.untouched?'':'border-red-700'}}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                     <div [hidden]="miFormulario.get('apellido')?.valid || miFormulario.get('apellido')?.untouched">
+                        <span class="text-red-700 text-xs">El apellido es obligatorio</span>
+                    </div>
+                </span>
+            </article>
+            <div class="flex gap-2">
+                <span class="flex flex-col gap-2">
                     <h3 class="text-[#6AAFF0] text-xl">Genero</h3>
                 <select class="form-select text-[#295FCC] {{miFormulario.get('genero')?.valid || miFormulario.get('genero')?.untouched?'':'border-red-700'}}" aria-label="Default select example" formControlName="genero">
-                    <option value="DEFAULT" disabled>Selecionar Genero</option>
+                    <option value="DEFAULT" disabled>Seleccionar Genero</option>
                     <option value="Masculino">Masculino</option>
                     <option value="Femenino">Femenino</option>
                   </select>
                   <div [hidden]="miFormulario.get('genero')?.valid || miFormulario.get('genero')?.untouched">
                     <span class="text-red-700 text-xs">El genero obligatorio</span>
                 </div>
-                </span>
+                </span>         
                 <span class="flex flex-col gap-2 w-1/4">
                     <h3 class="text-[#6AAFF0] text-xl">Peso</h3>
                      <input formControlName="peso" type="number" min="0" placeholder="Kg" class="form-control pr-1 {{miFormulario.get('peso')?.valid || miFormulario.get('peso')?.untouched?'':'border-red-700'}}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
@@ -37,14 +46,28 @@
                         <span class="text-red-700 text-xs">Obligatorio</span>
                     </div>
                 </span>
-            </article>
+                <span class="flex flex-col gap-2 w-1/4">
+                    <h3 class="text-[#6AAFF0] text-xl">Altura</h3>
+                     <input formControlName="altura" type="number" placeholder="Cm" min="1" max="3" class="form-control pr-1 {{miFormulario.get('altura')?.valid || miFormulario.get('altura')?.untouched?'':'border-red-700'}}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                     <div [hidden]="miFormulario.get('altura')?.valid || miFormulario.get('altura')?.untouched">
+                        <span class="text-red-700 text-xs">Altura invalida</span>
+                    </div>
+                </span>
+                <span class="flex flex-col gap-2 w-1/4">
+                    <h3 class="text-[#6AAFF0] text-xl">Edad</h3>
+                     <input formControlName="edad" type="number" min="10" max="75" placeholder="Ej: 18" class="form-control pr-1 {{miFormulario.get('edad')?.valid || miFormulario.get('edad')?.untouched?'':'border-red-700'}}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                     <div [hidden]="miFormulario.get('edad')?.valid || miFormulario.get('edad')?.untouched">
+                        <span class="text-red-700 text-xs">Obligatorio</span>
+                    </div>
+                </span>
+            </div>
             <span class="flex flex-col gap-2">
                 <h3 class="text-[#6AAFF0] text-xl">Contraseña</h3>
                  <input formControlName="password" type="password" placeholder="Ingresa una contraseña" class="form-control {{miFormulario.get('password')?.valid || miFormulario.get('password')?.pristine?'':'border-red-700'}}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                  <div [hidden]="miFormulario.get('password')?.valid || miFormulario.get('password')?.pristine">
                     <span class="text-red-700 text-xs" *ngIf="miFormulario.get('password')?.errors?.['required']">La contraseña es obligatoria</span>
-                    <span class="text-red-700 text-xs" *ngIf="miFormulario.get('password')?.errors?.['minlength']">La contraseña debe tener un minimo de 8 caracteres</span>
-                    <span class="text-red-700 text-xs" *ngIf="miFormulario.get('password')?.errors?.['maxlength']">La contraseña debe tener un maximo de 15 caracteres</span>
+                    <span class="text-red-700 text-xs" *ngIf="miFormulario.get('password')?.errors?.['minlength']">La contraseña debe tener un mínimo de 8 caracteres</span>
+                    <span class="text-red-700 text-xs" *ngIf="miFormulario.get('password')?.errors?.['maxlength']">La contraseña debe tener un máximo de 15 caracteres</span>
                 </div>
             </span>
             <span class="flex flex-col gap-2">
@@ -59,7 +82,7 @@
                 <a routerLink="/login" class="text-[#FE4A49]">Inicia!</a>
             </div>
             <div class="flex justify-center">
-                <button [disabled]="miFormulario.invalid" class="py-2 px-5 text-lg rounded shadow-md  {{miFormulario.valid?'bg-[#295FCC]':'bg-[#295fcc62]'}} text-white">Registrate</button>
+                <button [disabled]="miFormulario.invalid" class="py-2 px-5 text-lg rounded shadow-md  {{miFormulario.valid?'bg-[#295FCC]':'bg-[#295fcc62]'}} text-white">Regístrate</button>
             </div>
             </form>
         </div>
@@ -67,16 +90,15 @@
             <div class="flex justify-center items-center my-4">
                 <h6 class="text-[#6AAFF0]">O puedes iniciar con:</h6>
             </div>
-            <article class="flex flex-col mx-2 gap-4 ">
-                <button class="flex items-center gap-1 bg-[#4690ea71] py-2 px-2 rounded w-full">
-                    <img src="../../assets/1298738_facebook_brand_fb_logo_social media_icon 1.png">      
-                    <p>Facebook</p>
-                </button>
-                <button class="flex items-center gap-1 bg-[#fe49496e] py-2 px-2 rounded w-full">
-                    <img src="../../assets/1298745_google_brand_branding_logo_network_icon 1.png" alt="..">
-                    <p>Google</p>
-                </button>
-            </article>
+            <div class="flex justify-center">
+            <button (click)="loginWithGoogle()" class="flex flex-col mx-2 p-1 items-center justify-center gap-1 rounded hover:bg-[#7ba7ff] bg-[#91b5ff]">
+                <h1 class="text-sm text-[#f3f7ff]">Autenticación de terceros</h1>
+                <div class="flex justify-center w-full gap-2">
+                        <img class="w-5" src="../../assets/1298738_facebook_brand_fb_logo_social media_icon 1.png">
+                        <img class="w-5" src="../../assets/1298745_google_brand_branding_logo_network_icon 1.png" alt="..">
+                </div>
+            </button>
+        </div>
         </div>
             
     </div>

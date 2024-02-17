@@ -1,7 +1,7 @@
 <app-nav-bar></app-nav-bar>
-<section class="flex justify-center my-20 items-center h-2/3">
-    <div class="flex justify-between rounded shadow-xl bg-[#FFFFFF] w-5/12 h-full">
-        <form (submit)="handleConsole()" class="flex w-2/3 flex-col mx-3 my-4 gap-5 justify-evenly">
+<section class="flex justify-center my-20 items-center">
+    <div class="flex justify-between rounded shadow-xl bg-[#FFFFFF] w-5/12">
+        <form (submit)="handleConsole()" class="flex w-2/3 flex-col mx-3 my-10 gap-5 justify-evenly">
             <span class="flex flex-col gap-1">
                 <label class="text-[#6AAFF0] text-xl">Email</label>
                 <input name="email" [(ngModel)]="user.email" type="email" placeholder="Ingresa tu email"
@@ -36,16 +36,13 @@
             <div class="flex justify-center items-center my-4">
                 <h6 class="text-[#6AAFF0]">Alternativas</h6>
             </div>
-            <article class="flex flex-col mx-2 gap-4 ">
-                <button class="flex items-center gap-1 bg-[#4690ea71] py-2 px-2 rounded w-full">
-                    <img src="../../assets/1298738_facebook_brand_fb_logo_social media_icon 1.png">
-                    <p>Facebook</p>
-                </button>
-                <button class="flex items-center gap-1 bg-[#fe49496e] py-2 px-2 rounded w-full">
-                    <img src="../../assets/1298745_google_brand_branding_logo_network_icon 1.png" alt="..">
-                    <p>Google</p>
-                </button>
-            </article>
+            <button (click)="loginWithGoogle()" class="flex flex-col mx-2 p-1 gap-1 rounded hover:bg-[#7ba7ff] bg-[#91b5ff]">
+                <h1 class="text-sm text-[#f3f7ff]">Autenticación de terceros</h1>
+                <div class="flex justify-center w-full gap-2">
+                        <img class="w-5" src="../../assets/1298738_facebook_brand_fb_logo_social media_icon 1.png">
+                        <img class="w-5" src="../../assets/1298745_google_brand_branding_logo_network_icon 1.png" alt="..">
+                </div>
+            </button>
         </div>
     </div>
 </section>

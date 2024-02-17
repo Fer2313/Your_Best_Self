@@ -10,18 +10,23 @@ import { Routes, RouterModule } from '@angular/router';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { loginGuard } from '../../guards/loginguard';
+import { noLoginguard } from '../../guards/Nologinandregisterguard';
 const router: Routes = [
   {
     path:"",
-    component: LandingPageComponent
+    component: LandingPageComponent,
+    canActivate:[noLoginguard]
   },
   {
     path:"login",
-    component:LoginComponent
+    component:LoginComponent,
+    canActivate:[noLoginguard]
   },
   {
     path:"register",
-    component:RegisterComponent
+    component:RegisterComponent,
+    canActivate:[noLoginguard]
   },
   {
     path:"home",
@@ -44,6 +49,7 @@ const router: Routes = [
         component:LibrayEjecicesComponent
       }
     ],
+    canActivate:[loginGuard]
   },
   { path: '**', component: NotFoundComponentComponent }
 ]

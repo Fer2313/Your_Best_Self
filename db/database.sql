@@ -1,11 +1,14 @@
 CREATE DATABASE IF NOT EXISTS youbestself;
 CREATE TABLE usuario (
   id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+  email VARCHAR(100),
+  contraseña varchar(150),
   nombre VARCHAR(45),
   edad INT,
   peso INT,
   altura FLOAT,
-  sexo VARCHAR(10)
+  sexo VARCHAR(10),
+  rol ENUM("admin","user")
 );
 
 CREATE TABLE ejercicios (

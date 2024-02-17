@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeModule } from './pages/home/home.module';
 import { NotFoundComponentComponent } from './pages/not-found-component/not-found-component.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthModule } from '@auth0/auth0-angular';
 
 
 @NgModule({
@@ -28,6 +29,13 @@ import { HttpClientModule } from '@angular/common/http';
     NotFoundComponentComponent,
   ],
   imports: [
+    AuthModule.forRoot({
+      domain: 'dev-ggwsk35kn6tzmdhq.us.auth0.com',
+      clientId: '4XyhRiwtfinxhwemj0Bhi76pvGtTyLjH',
+      authorizationParams: {
+        redirect_uri: window.location.origin
+      }
+    }),
     HttpClientModule,
     FormsModule,
     BrowserModule,
@@ -35,7 +43,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    HomeModule
+    HomeModule,  
   ],
   providers: [],
   bootstrap: [AppComponent]
