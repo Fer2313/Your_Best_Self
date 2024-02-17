@@ -10,8 +10,6 @@ import { ApipeticionesService } from 'src/app/servicios/apipeticiones.service';
 import { Sharedservice2Service } from 'src/app/servicios/sharedservice2.service';
 import { IdexercicesService } from 'src/app/servicios/idexercices.service';
 import { Router } from '@angular/router';
-import { ApipeticionesService } from 'src/app/servicios/apipeticiones.service';
-import { AuthService } from '@auth0/auth0-angular';
 import { AthenticationService } from 'src/app/servicios/athentication.service';
 @Component({
   selector: 'app-nav-bar2',
@@ -38,27 +36,9 @@ import { AthenticationService } from 'src/app/servicios/athentication.service';
 export class NavBar2Component implements OnInit {
   constructor(
     private router: Router,
-    private apiservice: ApipeticionesService,
-    private auth:AthenticationService
-  ) {}
-  user: any ;
-  animar = false;
-  animar2 = false;
-  animar3 = false;
-  animar4 = false;
-  ejercicios: any = [];
-  imputValue = '';
-  currentRoute = '';
-  obj: any = {
-    entrenamientos: false,
-    entrenamientosComunidad: false,
-    misEntrenamientos: false,
-    bibliotecaEjercicios: false,
-  };
-  constructor(
-    private router: Router,
     private apiService: ApipeticionesService,
     private sharedService: Sharedservice2Service,
+    private auth:AthenticationService,
     private exerciceidshared: IdexercicesService
   ) {
     this.currentRoute = this.router.url;
@@ -99,8 +79,23 @@ export class NavBar2Component implements OnInit {
         bibliotecaEjercicios: true,
       };
     }
-
+  
   }
+  user: any ;
+  animar = false;
+  animar2 = false;
+  animar3 = false;
+  animar4 = false;
+  ejercicios: any = [];
+  imputValue = '';
+  currentRoute = '';
+  obj: any = {
+    entrenamientos: false,
+    entrenamientosComunidad: false,
+    misEntrenamientos: false,
+    bibliotecaEjercicios: false,
+  };
+  
   activateModal(id:number){
     console.log(id)
     this.exerciceidshared.updateData(id)
@@ -185,7 +180,7 @@ export class NavBar2Component implements OnInit {
     this.router.navigate(['/']);
   }
   ngOnInit(): void {
-    this.apiservice.obtenerUsuario().subscribe((data:any) => {
+    this.apiService.obtenerUsuario().subscribe((data:any) => {
       console.log(data)
       this.user = data;
     });

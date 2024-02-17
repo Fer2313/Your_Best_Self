@@ -14,7 +14,7 @@
     <span *ngIf="ejercices.length < 5" class="mt-16"></span>
     <app-pagination *ngIf="!filter && !search" (ejercicesLengthEmit)="recivedEjercicesLength($event)"
         [allEjercices]="ejercices" (ejercices)="recivedEjercices($event)" [currentPage]="currentPage"></app-pagination>
-    <app-pagination-fd *ngIf="filter && !search" [currentPage]="currentPage" [ejercices]="ejercicesLength"
+    <app-pagination-fd *ngIf="filter || search" [currentPage]="currentPage" [ejercices]="ejercicesLength"
         (ejercicios)="ejercicesFilterRecived($event)" [ejerciciosfiltrados]="ejercices"></app-pagination-fd>
 
     <app-modal [exerciceId]="exerciceId" [BooleanM]="booleanModel" class="flex justify-center items-center"

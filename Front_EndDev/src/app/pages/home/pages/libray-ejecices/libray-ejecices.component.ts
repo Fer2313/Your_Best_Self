@@ -5,6 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { IdexercicesService } from 'src/app/servicios/idexercices.service';
+import { PaginadoFrontService } from 'src/app/servicios/paginado-front.service';
 
 
 @Component({
@@ -69,6 +70,7 @@ export class LibrayEjecicesComponent implements OnInit{
   }
 
   constructor(
+    private Paginado: PaginadoFrontService,
     private apipeticionesService: ApipeticionesService,
     private sharedService: Sharedservice2Service,
     private exerciceidshared: IdexercicesService
@@ -81,7 +83,7 @@ export class LibrayEjecicesComponent implements OnInit{
         this.booleanModel = true
       }
     });
-    this.sharedService.data$.subscribe((data) => {
+    /* this.sharedService.data$.subscribe((data) => {
       const newData = data;
       if (newData.length) {
         this.search = true;
@@ -89,6 +91,15 @@ export class LibrayEjecicesComponent implements OnInit{
       }else{
         this.search= false
       }
+    }); */
+    this.sharedService.data$.subscribe((data:any) => {
+      const newData = data;
+        if (newData.length) {
+         this.ejercices = this.Paginado.paginateFront(newData, this.currentPage, this.itemsPerPage);
+         this.search = true;
+        }else{
+         this.search= false
+        }  
     });
   }
 

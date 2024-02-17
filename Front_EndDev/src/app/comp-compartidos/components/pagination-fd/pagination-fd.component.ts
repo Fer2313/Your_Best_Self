@@ -1,3 +1,4 @@
+import { SharedService } from './../../../servicios/shared.service';
 import {
   Component,
   EventEmitter,
@@ -6,8 +7,9 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
+import { IdexercicesService } from 'src/app/servicios/idexercices.service';
 import { PaginadoFrontService } from 'src/app/servicios/paginado-front.service';
-import { SharedService } from 'src/app/servicios/shared.service';
+import { Sharedservice2Service } from 'src/app/servicios/sharedservice2.service';
 
 @Component({
   selector: 'app-pagination-fd',
@@ -18,12 +20,18 @@ export class PaginationFDComponent implements OnChanges {
   @Input() ejercices: any;
   @Input() ejerciciosfiltrados: any;
   @Input() currentPage:any;
+  @Output() search?: boolean;
   @Output() ejercicios = new EventEmitter<any>();
   ejercicios2: any;
+  ejerciciosS: any;
   items: any = [];
   pages?: any;
   itemsPerPage = 8;
-  constructor(private Paginado: PaginadoFrontService, private sharedService: SharedService ) {}
+  constructor(private Paginado: PaginadoFrontService, private sharedService: SharedService,private SharedService2: Sharedservice2Service ) {
+    this.SharedService2.data$.subscribe((data)=>{
+     this.ejerciciosS = data;
+    })
+  }
   updateValue(num:number) {
     this.sharedService.updateData(num);
   }
@@ -58,13 +66,22 @@ export class PaginationFDComponent implements OnChanges {
       this.ejercicios2
     );
   }
-  ngOnChanges(): void {
+  ngOnChanges(): void { 
+    if(this.ejerciciosS.length ){ 
+      this.ejercices = this.ejerciciosS;
+      if(this.currentPage === 1){
+       this.updateValue(this.currentPage)
+      }
+    }
     if(this.currentPage!==1){
       setTimeout(() => {
       window.scrollTo(0, 500);
     }, 0);
     }
       this.pages = Math.ceil(this.ejercices.length / this.itemsPerPage);
+     if(this.currentPage > this.pages){
+    this.updateValue(1)
+    }
     this.items = [];
     for (let index = 1; index <= this.pages; index++) {
       this.items.push(index);
