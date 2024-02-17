@@ -3,6 +3,7 @@ import { Publico } from "./middlewares/authorization.js";
 import {
   getAllEjercicesRoute,
   getExerciseByIDRoute,
+  getExerciseByNameRoute,
   getExercisesFilteredRoute,
   getExercisesLengthRoute,
   getExercisesQueryRoute,
@@ -37,6 +38,9 @@ router.get("/exercises/filters", Publico, (req, res) => {
 });
 router.get("/exercise/getExerciseByID/:id", Publico,  (req, res) => {
   getExerciseByIDRoute(req, res);
+});
+router.get("/exercise/getExercisesByName/:name", (req, res) => {
+  getExerciseByNameRoute(req, res);
 });
 router.get("/muscle/getMuscleByID/:id", Publico,  (req, res) => {
   getMuscleByIDRoute(req, res);

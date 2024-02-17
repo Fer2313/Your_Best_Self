@@ -20,12 +20,16 @@ export class ApipeticionesService {
   getMuscles() {
     return this.httpClient.get(this.baseUrl + 'muscle', this.getToken());
   }
-   registerUser(body: any){
+     registerUser(body: any){
        return this.httpClient.post(this.baseUrl + "register", body);
    }
    loginUser(body: any){
        return this.httpClient.post(this.baseUrl + "login", body)
    }
+  getExercicesByName( name: string ){
+    return this.httpClient.get(this.baseUrl + 'exercise/getExercisesByName/' + name);
+  }
+
   filterEjercices(dificultad: string, categoria: string, arrMusculos: any) {
     if (arrMusculos.length >= 3 && dificultad.length !== 0 && !categoria.length) {
       return this.httpClient.get(

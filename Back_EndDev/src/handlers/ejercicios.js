@@ -83,3 +83,11 @@ export async function getEjercicesById(id) {
   result[0]["musculosRelacionados"] = musclesAsociates;
   return result[0];
 }
+
+export async function getExerciseByName(name) {
+    const [result] = await pool.query(
+      `SELECT * FROM ejercicios WHERE nombre_ejercicios LIKE ?`,
+      [`%${name}%`]
+    );
+    return result;
+}

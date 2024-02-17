@@ -20,6 +20,7 @@ CREATE TABLE ejercicios (
   imagen varchar(500),
   categoria ENUM("Fuerza","Cardio","Estiramiento")
 );
+
 CREATE TABLE EjercicioMusculo (
     Id_ejercicios INT,
     id_musculo INT,

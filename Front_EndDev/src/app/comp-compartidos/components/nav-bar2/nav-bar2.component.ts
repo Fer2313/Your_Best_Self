@@ -6,9 +6,10 @@ import {
   transition,
   animate,
 } from '@angular/animations';
-import { Router } from '@angular/router';
 import { ApipeticionesService } from 'src/app/servicios/apipeticiones.service';
-import { AuthService } from '@auth0/auth0-angular';
+import { Sharedservice2Service } from 'src/app/servicios/sharedservice2.service';
+import { IdexercicesService } from 'src/app/servicios/idexercices.service';
+import { Router } from '@angular/router';
 import { AthenticationService } from 'src/app/servicios/athentication.service';
 @Component({
   selector: 'app-nav-bar2',
@@ -35,15 +36,136 @@ import { AthenticationService } from 'src/app/servicios/athentication.service';
 export class NavBar2Component implements OnInit {
   constructor(
     private router: Router,
-    private apiservice: ApipeticionesService,
-    private auth:AthenticationService
-  ) {}
+    private apiService: ApipeticionesService,
+    private sharedService: Sharedservice2Service,
+    private auth:AthenticationService,
+    private exerciceidshared: IdexercicesService
+  ) {
+    this.currentRoute = this.router.url;
+    console.log('Ruta actual:', this.currentRoute); 
+    if (this.currentRoute === '/home') {
+      this.animar4 = false
+      this.obj = {
+        entrenamientos: true,
+        entrenamientosComunidad: false,
+        misEntrenamientos: false,
+        bibliotecaEjercicios: false,
+      };
+    }
+    if (this.currentRoute === '/home/comp_entrenamientos') {
+      this.animar4 = false
+      this.obj = {
+        entrenamientos: false,
+        entrenamientosComunidad: true,
+        misEntrenamientos: false,
+        bibliotecaEjercicios: false,
+      };
+    }
+    if (this.currentRoute === '/home/pers_entrenamientos') {
+      this.animar4 = false
+      this.obj = {
+        entrenamientos: false,
+        entrenamientosComunidad: false,
+        misEntrenamientos: true,
+        bibliotecaEjercicios: false,
+      };
+    }
+    if (this.currentRoute === '/home/library_Ejercices') {
+      this.animar4 = false
+      this.obj = {
+        entrenamientos: false,
+        entrenamientosComunidad: false,
+        misEntrenamientos: false,
+        bibliotecaEjercicios: true,
+      };
+    }
+  
+  }
   user: any ;
   animar = false;
   animar2 = false;
   animar3 = false;
+  animar4 = false;
+  ejercicios: any = [];
+  imputValue = '';
+  currentRoute = '';
+  obj: any = {
+    entrenamientos: false,
+    entrenamientosComunidad: false,
+    misEntrenamientos: false,
+    bibliotecaEjercicios: false,
+  };
+  
+  activateModal(id:number){
+    console.log(id)
+    this.exerciceidshared.updateData(id)
+  }
+  handleSearch(name: string) {
+    if (this.obj.bibliotecaEjercicios) {
+      this.apiService.getExercicesByName(name).subscribe((data)=>{
+       this.sharedService.updateData(data)
+       this.animar = false
+       this.animar4= false  
+      })
+    }
+  }
+  getExercices(name: string) {
+    if (this.obj.bibliotecaEjercicios){
+    if (name === '') {
+      this.animar4 = false;
+    }else{
+       this.apiService.getExercicesByName(name).subscribe((data: any) => {
+      this.ejercicios = data.slice(0,5);
+      this.animar4 = true;
+    },()=>{
+     this.ejercicios = [{
+      nombre_ejercicios:"No se encontraron ejercicios"
+     }]
+    });
+    }
+  }
+   
+  }
+  changeSection(input: any) {
+    if (input === 'entrenamientos') {
+      this.obj = {
+        entrenamientos: true,
+        entrenamientosComunidad: false,
+        misEntrenamientos: false,
+        bibliotecaEjercicios: false,
+      };
+    }
+    if (input === 'entrenamientosComunidad') {
+      this.obj = {
+        entrenamientos: false,
+        entrenamientosComunidad: true,
+        misEntrenamientos: false,
+        bibliotecaEjercicios: false,
+      };
+    }
+    if (input === 'misEntrenamientos') {
+      this.obj = {
+        entrenamientos: false,
+        entrenamientosComunidad: false,
+        misEntrenamientos: true,
+        bibliotecaEjercicios: false,
+      };
+    }
+    if (input === 'bibliotecaEjercicios') {
+      this.obj = {
+        entrenamientos: false,
+        entrenamientosComunidad: false,
+        misEntrenamientos: false,
+        bibliotecaEjercicios: true,
+      };
+      console.log(this.obj);
+    }
+  }
   toggleAnimacion() {
     this.animar = !this.animar;
+    if (this.ejercicios.length && this.imputValue !== '') {
+      this.animar4 = !this.animar4;
+    }
   }
   toggleAnimacion2() {
     this.animar2 = !this.animar2;
@@ -58,7 +180,7 @@ export class NavBar2Component implements OnInit {
     this.router.navigate(['/']);
   }
   ngOnInit(): void {
-    this.apiservice.obtenerUsuario().subscribe((data:any) => {
+    this.apiService.obtenerUsuario().subscribe((data:any) => {
       console.log(data)
       this.user = data;
     });

@@ -1,5 +1,5 @@
 <div [@hiden]="BooleanM ? 'Verdadero' : 'Falso'" class="modal-overlay">
-  <div class="mimodal">
+  <div *ngIf="BooleanM" class="mimodal">
     <div class="modal-header">
       <h2 class="text-lg text-[#295FCC]">{{this.exerciceId.nombre_ejercicios}}</h2>
       <span class="close-btn" (click)="sendEventM()">&times;</span>

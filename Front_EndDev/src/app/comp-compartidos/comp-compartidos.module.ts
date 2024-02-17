@@ -11,7 +11,9 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import { ModalFiltersEComponent } from './components/modal-filters-e/modal-filters-e.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import { Pagination2Component } from './components/pagination2/pagination2.component';
+import { PaginationFDComponent } from './components/pagination-fd/pagination-fd.component';
+
+
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { Pagination2Component } from './components/pagination2/pagination2.compo
   CardComponent,
   PaginationComponent,
   ModalFiltersEComponent,
-  Pagination2Component,
+  PaginationFDComponent,
+
+
 ],
   imports: [
     CommonModule,
@@ -39,7 +43,8 @@ import { Pagination2Component } from './components/pagination2/pagination2.compo
     ModalComponent,
     CardComponent,
     PaginationComponent,
-    ModalFiltersEComponent
+    ModalFiltersEComponent,
+    PaginationFDComponent,
   ],
 
 })
