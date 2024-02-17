@@ -1,11 +1,9 @@
 import { pool } from "../../db.js"
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv'
-
-dotenv.config()
-
 import jsonwebtoken from 'jsonwebtoken';
 
+dotenv.config()
 
 export async function registerUser( email, contraseña, nombre, edad, peso, altura, sexo, rol ) {
     const [user] = await pool.query(`SELECT nombre FROM usuario WHERE email = "${email}"`)
@@ -19,27 +17,46 @@ export async function registerUser( email, contraseña, nombre, edad, peso, altu
     }
 }
 
-export async function loginUser(email, contraseña) {
-  const [user] = await pool.query(`SELECT nombre, contraseña FROM usuario where email = '${email}'`)
+export function getUser(token){
+  let user 
+  jsonwebtoken.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      console.error('Error al verificar el token:', err);
+    } else {
+      user = {
+        nombreUsuario: decoded.username,
+        idUsuario: decoded.user
+      }
+      
+    }
+  });
+  return user
+}
+
+export async function loginUser(req,res) {
+  if (req.body.name) {
+    const {name, nickname} = req.body
+    const token = jsonwebtoken.sign({
+      user:nickname,
+      username:name,
+      rol:"user"
+    }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES})
+    return token
+  } 
+  const { email, contraseña } = req.body;
+  const [user] = await pool.query(`SELECT id_usuario, rol, nombre, contraseña FROM usuario where email = '${email}'`)
   if (!user.length) {
     throw new Error("La contraseña y/o el email son incorrectos")
   }
   const password = user[0].contraseña
-  const usuario = user[0].nombre
   let compare = bcrypt.compareSync(contraseña, password)
   if(compare) {
     const token = jsonwebtoken.sign({
-      user:usuario
+      user:user[0].id_usuario,
+      username:user[0].nombre,
+      rol:user[0].rol
     }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES})
-    const cookieOptions = {
-      expired: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRATION * 24 * 60 * 60 * 1000),
-      path: "/"
-    }
-    const data = {
-      token,
-      cookieOptions
-    }
-    return data
+    return token
   }else {
     throw new Error("La contraseña y/o el email son incorrectos")
   }

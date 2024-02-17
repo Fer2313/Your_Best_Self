@@ -15,6 +15,7 @@
                 <button (click)="toggleAnimacion()"><img width="20" src="../../../../assets/Vector.png"
                         alt=".."></button>
             </div>
+            <span class="text-[#295FCC]">{{user.nombreUsuario}}</span>
             <button (click)="toggleAnimacion2()" class="flex gap-2 items-center">
                 <img width="50" src="../../../../assets/Ellipse 4.png" alt="..">
                 <img width="10" src="../../../../assets/Polygon 1.png" alt="..">
@@ -24,6 +25,7 @@
                 <div class="flex flex-col h-full justify-evenly gap-1">
                     <button *ngIf="animar2" class="bg-[#9FC2F1] rounded">Mi prefil</button>
                     <button *ngIf="animar2" class="bg-[#9FC2F1] rounded">Mi progreso</button>
+                    <button (click)="cerrarSesion()" *ngIf="animar2" class="bg-red-400 rounded">Cerrar sesíon</button>
                 </div>
             </div>
         </div>

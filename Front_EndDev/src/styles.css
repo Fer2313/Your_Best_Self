@@ -7,7 +7,12 @@
 
 
 
-
+.toast-error {
+    background-color: #e74c3c; /* Color de fondo para alertas de error */
+    color: #ffffff; /* Color de texto para alertas de error */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra personalizada */
+  }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 body { background-color: #F0F7FE; }

@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { Publico } from "./middlewares/authorization.js";
 import {
   getAllEjercicesRoute,
   getExerciseByIDRoute,
@@ -12,6 +13,7 @@ import {
   registerUserRoute,
   loginUserRoute,
   authenticateJWT,
+  getUserRoute,
 } from "./routes/login.js";
 
 const router = Router();
@@ -19,25 +21,28 @@ const router = Router();
 router.get("/", (req, res) => {
   res.send("Hola Mundo");
 });
-router.get("/exercise", (req, res) => {
+router.get("/user", Publico, (req, res) => {
+  getUserRoute(req, res);
+});
+router.get("/exercise", Publico, (req, res) => {
   req.query.currentPage
     ? getExercisesQueryRoute(req, res)
     : getAllEjercicesRoute(req, res);
 });
-router.get("/exercisesLength", (req, res) => {
+router.get("/exercisesLength", Publico, (req, res) => {
   getExercisesLengthRoute(req, res);
 });
-router.get("/exercises/filters", (req, res) => {
+router.get("/exercises/filters", Publico, (req, res) => {
   getExercisesFilteredRoute(req, res);
 });
-router.get("/exercise/getExerciseByID/:id", (req, res) => {
+router.get("/exercise/getExerciseByID/:id", Publico,  (req, res) => {
   getExerciseByIDRoute(req, res);
 });
-router.get("/muscle/getMuscleByID/:id", (req, res) => {
+router.get("/muscle/getMuscleByID/:id", Publico,  (req, res) => {
   getMuscleByIDRoute(req, res);
 });
 
-router.get("/muscle", (req, res) => {
+router.get("/muscle", Publico,  (req, res) => {
   getAllMusclesRoute(req, res);
 });
 
