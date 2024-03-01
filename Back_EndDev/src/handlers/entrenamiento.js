@@ -1,5 +1,30 @@
 import { pool } from "../../db.js"
 
+export async function getAllTrainings(){
+    const [entren] = await pool.query("SELECT * FROM entrenamiento WHERE id_entrenamiento = 1");
+    return entren
+}
+
+export async function getTrainingById(id){
+    const [entren] = await pool.query("SELECT * FROM entrenamiento WHERE id_entrenamiento =" + id);
+    const [exercise] = await pool.query(`SELECT
+    E.Id_ejercicios AS Id_ejercicios,
+    E.nombre_ejercicios AS nombre_ejercicios,
+    E.Descripcion AS descripcion,
+    E.Video AS video,
+    E.Imagen AS imagen,
+    E.categoria AS categoria,
+    E.dificultad AS dificultad,
+    ED.series AS series,
+    ED.repeticiones AS repeticiones,
+    ED.tiempo AS tiempo,
+    ED.lado AS lado
+    FROM Ejercicios E
+    JOIN detalle_ejercicio ED ON E.Id_ejercicios = ED.Id_ejercicios
+    WHERE ED.id_entrenamiento = ${id}`);
+    entren[0]["ejercicios_relacionados"] = exercise
+    return entren[0]
+}
 
 export async function crearEntrenamiento(entrenamiento, detalles){
     const connection = await pool.promise().getConnection();

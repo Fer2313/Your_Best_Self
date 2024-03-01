@@ -1,0 +1,56 @@
+<div class="modal-overlay">
+    <section class="mimodal">
+        <div class="modal-header">
+
+            <div class="flex gap-2 items-center">
+                <button (click)="handleAlert()" class="text-red-500 text-lg h-5 ">
+                    <mat-icon>keyboard_return</mat-icon>
+
+                </button>
+                
+                <h6 class="text-2xl text-[#295FCC]">Prepárate para el siguiente ejercicio empieza en {{tiempo}}
+                    segundos!</h6>
+            </div>
+            <button class="rounded-full text-center h-5 text-[#295FCC]" (click)="handlePausa()">
+                <mat-icon *ngIf="pausaBoolean===false">pause_circle_outline</mat-icon>
+                <mat-icon *ngIf="pausaBoolean===true">play_circle_outline</mat-icon>
+            </button>
+
+        </div>
+        <div class="modal-body">
+            <video [src]="ejercicio.video" autoplay loop></video>
+            <div class="flex justify-center">
+            </div>
+            <!-- <button class="close-btn absolute w-full text-white px-3 py-1 rounded bg-[#295FCC]">Estoy Listo!</button> -->
+            <div class="flex justify-between text-lg">
+                <h2 class="font-medium">{{ejercicio.nombre_ejercicios}}</h2>
+                <div class="flex gap-3">
+                    <div class="flex items-center gap-1 text-[#295FCC]">
+                        <span *ngIf="ejercicio.series">Series:</span>
+                        <span *ngIf="ejercicio.tiempo">Tiempo:</span>
+                        <h4>{{ejercicio.series || ejercicio.tiempo}}</h4>
+                    </div>
+                    <div class="flex items-center gap-1 text-[#295FCC]">
+                        <span *ngIf="ejercicio.repeticiones">Repeticiones:</span>
+                        <span *ngIf="ejercicio.lado">Lado:</span>
+                        <h4>{{ejercicio.repeticiones || ejercicio.lado}}</h4>
+                    </div>
+                </div>
+            </div>
+            <p class="text-sm">{{ejercicio.descripcion}}</p>
+            <button (click)="handleOmitir()" class="text-lg text-center text-slate-500">Omitir ></button>
+            <app-alert *ngIf="alertBoolean" (alertM)="recivedBoolean($event)" (start)="handleExit($event)" [title]="'¿Quieres salir?'" [descripcion]="'Estas seguro de que quieres salir del entrenamiento?'"></app-alert>
+        </div>
+    </section>
+
+</div>
+
+<!-- <div [@desplazamiento]="animacion ? 'abajo' : 'arriba'" class="modal-overlay">
+    <form (submit)="handleSubmit()" class="mimodal">
+        <div class="modal-header">
+            <button class="close-btn" type="submit" (click)="setOutModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+        </div>
+    </form>
+</div> -->

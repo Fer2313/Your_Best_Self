@@ -15,7 +15,8 @@ import { HomeModule } from './pages/home/home.module';
 import { NotFoundComponentComponent } from './pages/not-found-component/not-found-component.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthModule } from '@auth0/auth0-angular';
-
+import { NgIconsModule } from '@ng-icons/core';
+import { heroUsers } from '@ng-icons/heroicons/outline';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { AuthModule } from '@auth0/auth0-angular';
         redirect_uri: window.location.origin
       }
     }),
+    NgIconsModule.withIcons({ heroUsers }),
     HttpClientModule,
     FormsModule,
     BrowserModule,

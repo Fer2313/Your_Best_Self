@@ -8,7 +8,7 @@ import {
   getExercisesLengthRoute,
   getExercisesQueryRoute,
 } from "./routes/ejercicios.js";
-import { crearEntrenamiento } from "./handlers/crearEntrenamiento.js";
+import { crearEntrenamiento } from "./handlers/entrenamiento.js";
 import { getAllMusclesRoute, getMuscleByIDRoute } from "./routes/musculos.js";
 import {
   registerUserRoute,
@@ -16,6 +16,7 @@ import {
   authenticateJWT,
   getUserRoute,
 } from "./routes/login.js";
+import { getAllTrainingsRoute, getTrainingByIdRoute } from "./routes/entrenamientos.js";
 
 const router = Router();
 
@@ -30,6 +31,12 @@ router.get("/exercise", Publico, (req, res) => {
     ? getExercisesQueryRoute(req, res)
     : getAllEjercicesRoute(req, res);
 });
+router.get("/training", Publico, (req,res) => {
+    getAllTrainingsRoute(req, res)
+})
+router.get("/training/getTrainingByID/:id",Publico, (req,res)=>{
+  getTrainingByIdRoute(req,res);
+})
 router.get("/exercisesLength", Publico, (req, res) => {
   getExercisesLengthRoute(req, res);
 });

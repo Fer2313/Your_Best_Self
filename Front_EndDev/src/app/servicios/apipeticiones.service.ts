@@ -17,6 +17,12 @@ export class ApipeticionesService {
     const token = localStorage.getItem("token")
     return this.httpClient.get(this.baseUrl + `user?token=${token}`, this.getToken())
   }
+  getTrainings(){
+    return this.httpClient.get(this.baseUrl + "training", this.getToken())
+  }
+  getTrainingById(id:number){
+    return this.httpClient.get(this.baseUrl + "training/getTrainingByID/" + id, this.getToken())
+  }
   getMuscles() {
     return this.httpClient.get(this.baseUrl + 'muscle', this.getToken());
   }

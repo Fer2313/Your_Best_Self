@@ -12,6 +12,12 @@ import { ModalFiltersEComponent } from './components/modal-filters-e/modal-filte
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { PaginationFDComponent } from './components/pagination-fd/pagination-fd.component';
+import { PContentComponent } from './components/pcontent/pcontent.component';
+import { MatIconModule } from '@angular/material/icon';
+import { DificultyRComponent } from './components/dificulty-r/dificulty-r.component';
+import { ModalCronometroComponent } from './components/modal-cronometro/modal-cronometro.component';
+import { AlertComponent } from './components/alert/alert.component';
+import { InicioEntrenamientoComponent } from './components/inicio-entrenamiento/inicio-entrenamiento.component';
 
 
 
@@ -26,6 +32,11 @@ import { PaginationFDComponent } from './components/pagination-fd/pagination-fd.
   PaginationComponent,
   ModalFiltersEComponent,
   PaginationFDComponent,
+  PContentComponent,
+  DificultyRComponent,
+  ModalCronometroComponent,
+  AlertComponent,
+  InicioEntrenamientoComponent,
 
 
 ],
@@ -34,7 +45,8 @@ import { PaginationFDComponent } from './components/pagination-fd/pagination-fd.
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    FormsModule 
+    FormsModule,
+    MatIconModule 
   ],
   exports:[
     NavBarComponent,
@@ -45,6 +57,11 @@ import { PaginationFDComponent } from './components/pagination-fd/pagination-fd.
     PaginationComponent,
     ModalFiltersEComponent,
     PaginationFDComponent,
+    PContentComponent,
+    DificultyRComponent,
+    ModalCronometroComponent,
+    AlertComponent,
+    InicioEntrenamientoComponent,
   ],
 
 })

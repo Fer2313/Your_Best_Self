@@ -16,7 +16,7 @@
                 <button (click)="toggleAnimacion()"><img width="20" src="../../../../assets/Vector.png"
                         alt=".."></button>
             </div>
-            <span class="text-[#295FCC]">{{user.nombreUsuario}}</span>
+            <span *ngIf="user" class="text-[#295FCC]">{{user.nombreUsuario}}</span>
             <button (click)="toggleAnimacion2()" class="flex gap-2 items-center">
                 <img width="50" src="../../../../assets/Ellipse 4.png" alt="..">
                 <img width="10" src="../../../../assets/Polygon 1.png" alt="..">

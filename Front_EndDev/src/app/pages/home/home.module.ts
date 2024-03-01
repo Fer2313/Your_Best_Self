@@ -8,7 +8,7 @@ import { CompEntrenamientosComponent } from './pages/comp-entrenamientos/comp-en
 import { PersEntrenamientosComponent } from './pages/pers-entrenamientos/pers-entrenamientos.component';
 import { LibrayEjecicesComponent } from './pages/libray-ejecices/libray-ejecices.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { ModalComponent } from 'src/app/comp-compartidos/components/modal/modal.component';
+import { EntrenamientosComponent } from './pages/entrenamientos/entrenamientos.component';
 
 
 @NgModule({
@@ -19,6 +19,7 @@ import { ModalComponent } from 'src/app/comp-compartidos/components/modal/modal.
     CompEntrenamientosComponent,
     PersEntrenamientosComponent,
     LibrayEjecicesComponent,
+    EntrenamientosComponent,
   ],
   imports: [
     AppRoutingModule,
