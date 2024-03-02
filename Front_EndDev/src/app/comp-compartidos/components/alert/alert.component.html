@@ -1,0 +1,18 @@
+<div class="modal-overlay">
+    <section class="mimodal">
+        <div class="modal-header"> 
+            <h1 class="text-lg text-[#295FCC]">{{title}}</h1>         
+            <span (click)="handleClose()" class="close-btn">&times;</span>
+        </div>
+        <div class="modal-body">
+          <p>{{descripcion}}</p>
+          <div *ngIf="!ok" class="flex justify-center gap-5">
+            <button (click)="handleExit()"  class="px-3 rounded py-1 bg-red-100 text-red-500">Si</button>
+            <button (click)="handleClose()" class="px-3 rounded py-1 bg-[#DDECFC] text-[#295FCC]">No</button>
+          </div>
+          <div *ngIf="ok" class="flex justify-center">
+            <button (click)="handleClose()" class="px-3 rounded py-1 bg-[#DDECFC] text-[#295FCC]">Ok</button>
+          </div>
+        </div>
+    </section>
+</div>

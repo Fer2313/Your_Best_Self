@@ -1,6 +1,7 @@
 import {
   getAllEjercices,
   getEjercicesById,
+  getExerciseByName,
   getExercisesFiltered,
   getExercisesLength,
   getExercisesQuery,
@@ -51,6 +52,18 @@ export async function getExerciseByIDRoute(req, res) {
   try {
     const { id } = req.params;
     const result = await getEjercicesById(id);
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(400).send({ err: error.message });
+  }
+}
+export async function getExerciseByNameRoute(req, res){
+  try {
+    const { name } = req.params;
+    const result = await getExerciseByName(name);
+    if(!result.length){
+      return res.status(400).send("No hay resultados en su busqueda")
+    }
     res.status(200).json(result);
   } catch (error) {
     res.status(400).send({ err: error.message });

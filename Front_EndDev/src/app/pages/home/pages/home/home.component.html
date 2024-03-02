@@ -1,6 +1,6 @@
-<section class="grid grid-cols-4 gap-5 m-20">
-    <div class="bg-[#84AEE5] w-full h-60 rounded-md" *ngFor="let item of arr">
-        <h1>Nombre:
-        {{ item.nombre }}</h1>
-    </div>
+<section *ngIf="trainings.length" class="m-10">
+  <app-pcontent [Trainings]="trainings"></app-pcontent>
 </section>
+<div *ngIf="!trainings.length" class="w-full h-full flex justify-center items-center">
+    <mat-spinner></mat-spinner>
+</div>

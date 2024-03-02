@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { ApipeticionesService } from './../../../../app/servicios/apipeticiones.service';
 
 
@@ -18,6 +18,5 @@ export class CardComponent{
     });
     this.sendBoolean.emit(true)
   }
-
 
 }

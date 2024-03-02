@@ -1,0 +1,16 @@
+<article class="flex justify-center">
+    <div (click)="handleEntrenamiento(Trainings[0].id_entrenamiento)" class="hover:bg-[#e4eeff] bg-slate-50 rounded border-3 border-[#295FCC] cursor-pointer">
+        <h1 class="p-1 text-lg text-[#295FCC]">{{Trainings[0].nombre_entrenamiento}}</h1>
+        <div class="flex ">
+            <img [width]="600" class="rounded-bl" [src]="Trainings[0].imagen" alt="img de training">
+            <div class="flex flex-col p-1 justify-between">
+                <span class="text-sm">{{Trainings[0].descripcion}}</span>
+                <div class="flex items-center"> 
+                    <span class="text-[#295FCC]">Dificultad:</span>
+                     <app-dificulty-r [dificulty]="Trainings[0].dificultad"></app-dificulty-r>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</article>

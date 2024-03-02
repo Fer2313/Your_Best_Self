@@ -1,11 +1,14 @@
 CREATE DATABASE IF NOT EXISTS youbestself;
 CREATE TABLE usuario (
   id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+  email VARCHAR(100),
+  contraseña varchar(150),
   nombre VARCHAR(45),
   edad INT,
   peso INT,
   altura FLOAT,
-  sexo VARCHAR(10)
+  sexo VARCHAR(10),
+  rol ENUM("admin","user")
 );
 
 CREATE TABLE ejercicios (
@@ -34,6 +37,7 @@ CREATE TABLE musculos (
 CREATE TABLE entrenamiento (
   id_entrenamiento int AUTO_INCREMENT PRIMARY KEY,
   id_usuario int,
+  imagen varchar(500),
   nombre_entrenamiento varchar(20),
   dificultad int,
   descripcion varchar(500),
@@ -41,7 +45,7 @@ CREATE TABLE entrenamiento (
   FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) 
 );
 
-CREATE TABLE detalle_entrenamientos (
+CREATE TABLE detalle_ejercicio (
   id_detalle_entrenamiento int AUTO_INCREMENT PRIMARY KEY,
   id_usuario int,
   id_ejercicios int,
@@ -49,6 +53,7 @@ CREATE TABLE detalle_entrenamientos (
   series int,
   repeticiones int,
   tiempo timestamp,
+  lado ENUM("izquierdo","derecho"),
  FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
  FOREIGN KEY (id_ejercicios) REFERENCES ejercicios(id_ejercicios),
  FOREIGN KEY (id_entrenamiento) REFERENCES entrenamiento(id_entrenamiento)
@@ -607,9 +612,84 @@ VALUES (
   'Estiramiento'
 );
 
+
 INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (39, 1);
 INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (39, 8);
 INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (39, 16);
+
+SINTAXIS 
+CREATE TABLE entrenamiento (
+  id_entrenamiento int AUTO_INCREMENT PRIMARY KEY,
+  id_usuario int,
+  nombre_entrenamiento varchar(20),
+  dificultad int,
+  descripcion varchar(500),
+  fecha date,
+  FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) 
+);
+
+CREATE TABLE detalle_ejercicio (
+  id_detalle_entrenamiento int AUTO_INCREMENT PRIMARY KEY,
+  id_usuario int,
+  id_ejercicios int,
+  id_entrenamiento int,
+  series int,
+  repeticiones int,
+  tiempo timestamp,
+ FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
+ FOREIGN KEY (id_ejercicios) REFERENCES ejercicios(id_ejercicios),
+ FOREIGN KEY (id_entrenamiento) REFERENCES entrenamiento(id_entrenamiento)
+);
+
+Creacion de entrenamientos
+
+INSERT INTO entrenamiento (id_usuario, nombre_entrenamiento, dificultad, descripcion, fecha)
+VALUES(
+  1,
+  'Rutina Núcleo Firme: Desafío Abdominal Total'
+  3,
+  'Es un entrenamiento intenso diseñado para fortalecer y esculpir tus músculos abdominales. Incorpora ejercicios variados, desde abdominales clásicos hasta planchas, adaptándose a diferentes niveles de condición física. Prepárate para sentir la activación profunda de tus abdominales y avanzar hacia un núcleo fuerte y tonificado.',
+  '2024-02-19'
+)
+INSERT INTO detalle_ejercicio (id_usuario, id_ejercicios, id_entrenamiento, series,  repeticiones)
+VALUES(
+  1,
+  1,
+  1,
+  3,
+  12
+);
+INSERT INTO detalle_ejercicio (id_usuario, id_ejercicios, id_entrenamiento, tiempo, lado)
+VALUES(
+  1,
+  2,
+  1,
+  30,
+  "derecho"
+);
+INSERT INTO detalle_ejercicio (id_usuario, id_ejercicios, id_entrenamiento, tiempo, lado)
+VALUES(
+  1,
+  2,
+  1,
+  30,
+  "izquierdo"
+);
+INSERT INTO detalle_ejercicio (id_usuario, id_ejercicios, id_entrenamiento, tiempo)
+VALUES(
+  1,
+  27,
+  1,
+  60
+);
+INSERT INTO detalle_ejercicio (id_usuario, id_ejercicios, id_entrenamiento, tiempo)
+VALUES(
+  1,
+ 34,
+  1,
+  30
+);
+
 
 */
 
@@ -626,6 +706,30 @@ FROM Ejercicios E
 JOIN EjercicioMusculo EM ON E.EjercicioID = EM.EjercicioID
 WHERE EM.MusculoID = 1;
 
+SELECT
+    M.id_musculo AS id_Musculos,
+    M.nombre_musculo AS nombre_Musculos,
+    M.imagen_musculo AS imagen_musculos
+FROM Musculos M
+JOIN EjercicioMusculo EM ON M.id_musculo = EM.id_musculo
+WHERE EM.id_ejercicios = 4;
+
+    
+    SELECT
+    E.Id_ejercicios AS Id_ejercicios,
+    E.nombre_ejercicios AS nombre_ejercicios,
+    E.Descripcion AS descripcion,
+    E.Video AS video,
+    E.Imagen AS imagen,
+    E.categoria AS categoria,
+    E.dificultad AS dificultad,
+    ED.series AS series,
+    ED.repeticiones AS repeticiones,
+    ED.tiempo AS tiempo,
+    ED.lado AS lado
+    FROM Ejercicios E
+    JOIN detalle_ejercicio ED ON E.Id_ejercicios = ED.Id_ejercicios
+    WHERE ED.id_entrenamiento = ${id}`
 
  SELECT DISTINCT
     E.Id_ejercicios AS Id_ejercicios,
@@ -641,13 +745,7 @@ WHERE EM.id_musculo IN (2,3,4,5,6,7) AND E.categoria = "Cardio" AND E.dificultad
 
 SELECT DISTINCT E.Id_ejercicios AS Id_ejercicios, E.nombre_ejercicios AS nombre_ejercicios, E.Descripcion AS descripcion, E.Video AS video, E.Imagen AS imagen, E.categoria AS categoria, E.dificultad AS dificultad FROM Ejercicios E JOIN EjercicioMusculo EM ON E.Id_ejercicios = EM.Id_ejercicios WHERE E.categoria = "Cardio" AND E.dificultad = "Experimentado" AND EM.id_musculo IN (1,2,3,4,5,6)
 
-SELECT
-    M.id_musculo AS id_Musculos,
-    M.nombre_musculo AS nombre_Musculos,
-    M.imagen_musculo AS imagen_musculos
-FROM Musculos M
-JOIN EjercicioMusculo EM ON M.id_musculo = EM.id_musculo
-WHERE EM.id_ejercicios = 4;
+
 
 UPDATE ejercicios
 SET categoria = 'Fuerza'

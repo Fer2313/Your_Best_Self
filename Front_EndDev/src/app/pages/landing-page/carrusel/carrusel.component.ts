@@ -62,7 +62,6 @@ CarruselItems:CarruselItem[] =[
    return this.i= this.i + 1
   }
   applyAnimationClass(boolean: boolean): string {
-    console.log(this.bolean)
     return boolean ? 'fade-in-out-animation' : '';
   }
  

@@ -4,56 +4,64 @@ import { CompEntrenamientosComponent } from './pages/home/pages/comp-entrenamien
 import { HomeComponent } from './pages/home/pages/home/home.component';
 import { HPComponent } from './pages/home/hp/hp.component';
 import { NotFoundComponentComponent } from './pages/not-found-component/not-found-component.component';
-import { NgModule, Component } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { loginGuard } from '../../guards/loginguard';
+import { noLoginguard } from '../../guards/Nologinandregisterguard';
+import { EntrenamientosComponent } from './pages/home/pages/entrenamientos/entrenamientos.component';
 const router: Routes = [
   {
-    path:"",
-    component: LandingPageComponent
+    path: '',
+    component: LandingPageComponent,
+    canActivate: [noLoginguard],
   },
   {
-    path:"login",
-    component:LoginComponent
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [noLoginguard],
   },
   {
-    path:"register",
-    component:RegisterComponent
+    path: 'register',
+    component: RegisterComponent,
+    canActivate: [noLoginguard],
   },
   {
-    path:"home",
-    component:HPComponent,
-    children:[
+    path: 'home',
+    component: HPComponent,
+    children: [
       {
-        path:"",
-        component:HomeComponent
+        path: '',
+        component: HomeComponent,
       },
       {
-        path:"comp_entrenamientos",
-        component:CompEntrenamientosComponent
+        path: 'comp_entrenamientos',
+        component: CompEntrenamientosComponent,
       },
       {
-        path:"pers_entrenamientos",
-        component:PersEntrenamientosComponent
+        path: 'entrenamiento/:id',
+        component: EntrenamientosComponent,
       },
       {
-        path:"library_Ejercices",
-        component:LibrayEjecicesComponent
-      }
+        path: 'pers_entrenamientos',
+        component: PersEntrenamientosComponent,
+      },
+      {
+        path: 'library_Ejercices',
+        component: LibrayEjecicesComponent,
+      },
     ],
+    canActivate: [loginGuard],
   },
-  { path: '**', component: NotFoundComponentComponent }
-]
+  { path: '**', component: NotFoundComponentComponent },
+];
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    RouterModule.forRoot(router)
-  ],
-  exports:[RouterModule]
+  imports: [CommonModule, RouterModule.forRoot(router)],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

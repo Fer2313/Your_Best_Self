@@ -11,7 +11,15 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import { ModalFiltersEComponent } from './components/modal-filters-e/modal-filters-e.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import { Pagination2Component } from './components/pagination2/pagination2.component';
+import { PaginationFDComponent } from './components/pagination-fd/pagination-fd.component';
+import { PContentComponent } from './components/pcontent/pcontent.component';
+import { MatIconModule } from '@angular/material/icon';
+import { DificultyRComponent } from './components/dificulty-r/dificulty-r.component';
+import { ModalCronometroComponent } from './components/modal-cronometro/modal-cronometro.component';
+import { AlertComponent } from './components/alert/alert.component';
+import { InicioEntrenamientoComponent } from './components/inicio-entrenamiento/inicio-entrenamiento.component';
+
+
 
 
 @NgModule({
@@ -23,14 +31,22 @@ import { Pagination2Component } from './components/pagination2/pagination2.compo
   CardComponent,
   PaginationComponent,
   ModalFiltersEComponent,
-  Pagination2Component,
+  PaginationFDComponent,
+  PContentComponent,
+  DificultyRComponent,
+  ModalCronometroComponent,
+  AlertComponent,
+  InicioEntrenamientoComponent,
+
+
 ],
   imports: [
     CommonModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    FormsModule 
+    FormsModule,
+    MatIconModule 
   ],
   exports:[
     NavBarComponent,
@@ -39,7 +55,13 @@ import { Pagination2Component } from './components/pagination2/pagination2.compo
     ModalComponent,
     CardComponent,
     PaginationComponent,
-    ModalFiltersEComponent
+    ModalFiltersEComponent,
+    PaginationFDComponent,
+    PContentComponent,
+    DificultyRComponent,
+    ModalCronometroComponent,
+    AlertComponent,
+    InicioEntrenamientoComponent,
   ],
 
 })
