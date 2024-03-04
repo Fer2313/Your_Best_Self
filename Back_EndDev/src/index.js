@@ -9,6 +9,7 @@ app.listen(3000,()=>{
  console.log("Server localhost running on port 3000");
 });
 
+
 //Configuracion
 app.use(cors());
 app.use(express.json())
@@ -16,9 +17,9 @@ app.use(express.urlencoded({ extended: true }))
 
 
 //Rutas
-app.use(router);
+app.use(router); 
 
-app.use(express.json());
+
 
 
 
