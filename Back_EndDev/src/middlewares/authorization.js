@@ -7,7 +7,6 @@ export function Publico(req, res, next) {
   if (!req.headers["authorization"]) {
     return res.status(400).json({ error: "Debes incluir el header con el token" });
   }
-
   const token = req.headers["authorization"];
   let payload;
   try {

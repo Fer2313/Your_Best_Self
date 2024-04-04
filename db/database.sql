@@ -8,8 +8,12 @@ CREATE TABLE usuario (
   peso INT,
   altura FLOAT,
   sexo VARCHAR(10),
-  rol ENUM("admin","user")
+  update_token VARCHAR(255),
+  imagen_perfil varchar(255),
+  verify ENUM("true", "false") default 'false'
+  rol ENUM('admin', 'user') DEFAULT 'user'
 );
+
 
 CREATE TABLE ejercicios (
   Id_ejercicios INT AUTO_INCREMENT PRIMARY KEY,

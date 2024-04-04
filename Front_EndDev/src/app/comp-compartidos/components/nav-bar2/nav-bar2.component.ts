@@ -42,7 +42,6 @@ export class NavBar2Component implements OnInit {
     private exerciceidshared: IdexercicesService
   ) {
     this.currentRoute = this.router.url;
-    console.log('Ruta actual:', this.currentRoute); 
     if (this.currentRoute === '/home') {
       this.animar4 = false
       this.obj = {

@@ -18,6 +18,8 @@ import { DificultyRComponent } from './components/dificulty-r/dificulty-r.compon
 import { ModalCronometroComponent } from './components/modal-cronometro/modal-cronometro.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { InicioEntrenamientoComponent } from './components/inicio-entrenamiento/inicio-entrenamiento.component';
+import { ProfileNavComponent } from './components/profile-nav/profile-nav.component';
+import { ModalVerifyComponent } from './components/modal-verify/modal-verify.component';
 
 
 
@@ -37,7 +39,8 @@ import { InicioEntrenamientoComponent } from './components/inicio-entrenamiento/
   ModalCronometroComponent,
   AlertComponent,
   InicioEntrenamientoComponent,
-
+  ProfileNavComponent,
+  ModalVerifyComponent,
 
 ],
   imports: [
@@ -62,6 +65,8 @@ import { InicioEntrenamientoComponent } from './components/inicio-entrenamiento/
     ModalCronometroComponent,
     AlertComponent,
     InicioEntrenamientoComponent,
+    ProfileNavComponent,
+    ModalVerifyComponent,
   ],
 
 })

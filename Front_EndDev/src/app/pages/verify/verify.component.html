@@ -1,0 +1,13 @@
+<article class="flex flex-col w-full h-full justify-center items-center">
+     <div class="flex flex-col shadow-sm gap-2 p-10 bg-white w-80" *ngIf="verify">
+        <h1 class="text-lime-500 text-xl">Estas verificado</h1>
+        <button (click)="handleExit()" class="py-1 px-2 bg-lime-400 text-white">Continuar</button>
+     </div>
+     <div class="flex flex-col shadow-sm gap-2 p-10 bg-white w-80" *ngIf="!verify">
+        <h1 class="text-red-500 text-xl">Error en el verificado</h1>
+        <button (click)="handleExit()" class="py-1 px-2 bg-red-500 text-white">Salir</button>
+     </div>
+     <div *ngIf="verify === 'loading'" class="w-full h-full flex justify-center items-center">
+      <mat-spinner></mat-spinner>
+  </div>
+</article>

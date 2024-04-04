@@ -16,8 +16,9 @@ export class AppComponent implements OnInit{
   }
   
   ngOnInit(): void {
+    const token= localStorage.getItem("token")
     this.auth.isAuthenticated$.subscribe(isAuth=>{
-      if(isAuth){
+      if(isAuth && !token){
         this.auth.user$.subscribe(data=>{
        this.apiservice.loginUser(data).subscribe((data:any)=>{
         localStorage.setItem("token",data.token['token'])

@@ -48,7 +48,7 @@
                 </span>
                 <span class="flex flex-col gap-2 w-1/4">
                     <h3 class="text-[#6AAFF0] text-xl">Altura</h3>
-                     <input formControlName="altura" type="number" placeholder="Cm" min="1" max="3" class="form-control pr-1 {{miFormulario.get('altura')?.valid || miFormulario.get('altura')?.untouched?'':'border-red-700'}}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                     <input formControlName="altura" type="number" placeholder="1,80 Cm" min="1" max="3" class="form-control pr-1 {{miFormulario.get('altura')?.valid || miFormulario.get('altura')?.untouched?'':'border-red-700'}}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                      <div [hidden]="miFormulario.get('altura')?.valid || miFormulario.get('altura')?.untouched">
                         <span class="text-red-700 text-xs">Altura invalida</span>
                     </div>
