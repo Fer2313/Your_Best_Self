@@ -5,9 +5,12 @@ import {
   deleteUser,
   getAllUsers,
   getUserById,
+  resetPassword,
   sendChangeEmail,
   sendDeleteUser,
+  sendResetPassword,
   sendVerifyUser,
+  verifyResetPassword,
   verifyUser,
 } from "../handlers/user.js";
 
@@ -29,6 +32,7 @@ export async function getAllUsersRoute(req, res) {
     res.status(400).json({ error: error.message });
   }
 }
+
 export async function sendVerifyUserRoute(req, res) {
   const { email, verificationLink } = req.body;
   try {
@@ -42,6 +46,20 @@ export async function sendVerifyUserRoute(req, res) {
     res.status(400).json({ correo_status: "fallido", error: error.message });
   }
 }
+export async function  sendResetPasswordRoute(req, res){
+  const { email, verificationLink } = req.body;
+  try {
+    const { transporter, mailOptions } = await sendResetPassword(
+      email,
+      verificationLink
+    );
+    await transporter.sendMail(mailOptions);
+    res.json({ correo_status: "enviado" });
+  } catch (error) {
+    res.status(400).json({ correo_status: "fallido", error: error.message });
+  }
+};
+
 export async function VerifyUserRoute(req, res) {
   const { id, hashEmail } = req.body;
   try {
@@ -90,6 +108,32 @@ try {
   res.status(400).json({ error: error.message });
 }
 }
+
+export async function verifyResetPasswordRoute(req, res){
+  const { token } = req.body;
+  try {
+    await verifyResetPassword(token)
+    res.json({
+      status:"ok",
+      message:"Acceso autorizado"
+    })
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+export async function resetPasswordRoute(req, res){
+  const { token, password } = req.body;
+  try {
+    await resetPassword(token, password)
+    res.json({
+      status:"ok",
+      message:"Contraseña actualizada"
+    })
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
 export async function sendDeleteUserRoute(req,res){
   const { email, verificationLink } = req.body;

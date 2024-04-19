@@ -54,6 +54,81 @@ export async function sendVerifyUser(email, verificationLink) {
   };
   return { transporter, mailOptions };
 }
+export async function sendResetPassword(email, verificationLink) {
+  if (!email || !verificationLink) {
+    throw Error("Faltan datos");
+  }
+  const [result2] = await pool.query(
+    `SELECT email from usuario WHERE email = "${email}"`
+  );
+
+  if (!result2.length) {
+    throw Error("Error al enviar el correo");
+  }
+
+  const tokenUpdate = jsonwebtoken.sign(
+    { email },
+    process.env.JWT_UPDATE_SECRET,
+    { expiresIn: "10m" }
+  );
+
+  await pool.query(`UPDATE usuario
+  SET update_token = "${tokenUpdate}"
+  WHERE email = "${email}"`);
+
+  const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true, // Use `true` for port 465, `false` for all other ports
+    auth: {
+      user: process.env.google_email,
+      pass: process.env.google_apps_pasword,
+    },
+  });
+
+  const mailOptions = {
+    from: process.env.google_email,
+    to: email,
+    subject: "Cambio de contraseña",
+    html: `
+    <div style="background: #38B6FF; padding: 2px; border-radius: 5px; display: flex;">
+     <img width="200" src='https://res.cloudinary.com/dvp8rjepk/image/upload/v1710252705/logo/uevc85obhuptng2csbe7.png'>
+    </div>
+    <p>Haz clic en el siguiente enlace para cambiar su contraseña (Importante: Si usted no hizo esta orden NO CONFIRME EL CAMBIO):</p>
+    <a style="font-size: 16px;" href="${verificationLink}/${tokenUpdate}">Confirma aqui!</a>`,
+  };
+  return { transporter, mailOptions };
+}
+
+export async function verifyResetPassword(token) {
+  if (!token) {
+    throw Error("No esta autorizado");
+  }
+  jsonwebtoken.verify(token, process.env.JWT_UPDATE_SECRET, (err, decoded) => {
+    if (err) {
+      throw Error("El token ha expirado");
+    }
+    if (decoded) {
+      return true;
+    }
+  });
+}
+
+export async function resetPassword(token, password){
+  if(!token||!password){
+    throw Error("No se pudo cambiar la contraseña")
+  }
+  const hashPassword = await bcrypt.hash(password, 10);
+      await pool.query(`UPDATE usuario
+      SET contraseña = "${hashPassword}"
+      WHERE update_token = "${token}"`);
+      
+      await pool.query(`UPDATE usuario
+      SET update_token = ${null}
+      WHERE update_token = "${token}"`);
+      return true;
+}
+
 export async function sendChangeEmail(email, newEmail, verificationLink) {
   if (!email || !newEmail || !verificationLink) {
     throw Error("Faltan datos");
@@ -146,7 +221,7 @@ export async function changePassword(id, oldPassword, newPassword) {
   );
   const { contraseña } = userChangePass[0];
   if (userChangePass.length) {
-    const comparenew = bcrypt.compareSync(newPassword,contraseña);
+    const comparenew = bcrypt.compareSync(newPassword, contraseña);
     if (comparenew) {
       throw Error("La nueva contraseña es igual a la actual");
     }
@@ -165,7 +240,7 @@ export async function changePassword(id, oldPassword, newPassword) {
   }
 }
 
-export async function sendDeleteUser(email,verificationLink){
+export async function sendDeleteUser(email, verificationLink) {
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -178,12 +253,12 @@ export async function sendDeleteUser(email,verificationLink){
   const [user] = await pool.query(
     `SELECT id_usuario from usuario WHERE email = "${email}"`
   );
-  const id = user[0].id_usuario
+  const id = user[0].id_usuario;
   const token = jsonwebtoken.sign(
     { id, email },
     process.env.JWT_DELETE_SECRET,
     { expiresIn: "10m" }
-  ); 
+  );
 
   const mailOptions = {
     from: process.env.google_email,
@@ -199,21 +274,19 @@ export async function sendDeleteUser(email,verificationLink){
   return { transporter, mailOptions };
 }
 
-export async function deleteUser(token){
-  let id
-  jsonwebtoken.verify(token, process.env.JWT_DELETE_SECRET,(err,decoded)=>{
+export async function deleteUser(token) {
+  let id;
+  jsonwebtoken.verify(token, process.env.JWT_DELETE_SECRET, (err, decoded) => {
     if (err) {
-     throw Error("Algo a salido mal") 
+      throw Error("Algo a salido mal");
     }
     if (decoded) {
-       id = decoded.id
+      id = decoded.id;
     }
-  })
-  console.log("hola")
-  await pool.query(
-    `delete from usuario where id_usuario = ${id}`
-  );
-  return {status: "ok", message: "el usuario a sido borrado"}
+  });
+  console.log("hola");
+  await pool.query(`delete from usuario where id_usuario = ${id}`);
+  return { status: "ok", message: "el usuario a sido borrado" };
 }
 
 export async function verifyUser(id, hashEmail) {
