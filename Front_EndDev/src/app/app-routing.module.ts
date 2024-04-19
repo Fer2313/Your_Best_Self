@@ -1,3 +1,4 @@
+
 import { LibrayEjecicesComponent } from './pages/home/pages/libray-ejecices/libray-ejecices.component';
 import { PersEntrenamientosComponent } from './pages/home/pages/pers-entrenamientos/pers-entrenamientos.component';
 import { CompEntrenamientosComponent } from './pages/home/pages/comp-entrenamientos/comp-entrenamientos.component';
@@ -20,6 +21,7 @@ import { ProgresoComponent } from './pages/perfil/pages/progreso/progreso.compon
 import { VerifyComponent } from './pages/verify/verify.component';
 import { ChangeEmailComponent } from './pages/change-email/change-email.component';
 import { DeleteUserComponent } from './pages/delete-user/delete-user.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 const router: Routes = [
   {
@@ -44,6 +46,10 @@ const router: Routes = [
   { 
     path:"changeEmail/:token",
     component:ChangeEmailComponent,
+  },
+  { 
+    path:"resetPassword/:token",
+    component:ResetPasswordComponent,
   },
   { 
     path:"deleteUser/:token",

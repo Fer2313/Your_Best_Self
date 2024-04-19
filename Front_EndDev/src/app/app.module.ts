@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { CompCompartidosModule } from './comp-compartidos/comp-compartidos.module';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
-import { PerfilComponent } from './pages/perfil/perfil.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BannerComponent } from './pages/landing-page/banner/banner.component';
 import { TargetsComponent } from './pages/landing-page/targets/targets.component';
@@ -18,14 +17,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthModule } from '@auth0/auth0-angular';
 import { NgIconsModule } from '@ng-icons/core';
 import { heroUsers } from '@ng-icons/heroicons/outline';
-import { InfoGeneralComponent } from './pages/perfil/pages/info-general/info-general.component';
-import { ProgresoComponent } from './pages/perfil/pages/progreso/progreso.component';
-import { SeguridadComponent } from './pages/perfil/pages/seguridad/seguridad.component';
 import { PerfilModule } from './pages/perfil/perfil.module';
 import { VerifyComponent } from './pages/verify/verify.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ChangeEmailComponent } from './pages/change-email/change-email.component';
 import { DeleteUserComponent } from './pages/delete-user/delete-user.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 
 @NgModule({
@@ -41,6 +38,7 @@ import { DeleteUserComponent } from './pages/delete-user/delete-user.component';
     VerifyComponent,
     ChangeEmailComponent,
     DeleteUserComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     AuthModule.forRoot({
@@ -60,7 +58,7 @@ import { DeleteUserComponent } from './pages/delete-user/delete-user.component';
     ReactiveFormsModule,
     HomeModule,  
     PerfilModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

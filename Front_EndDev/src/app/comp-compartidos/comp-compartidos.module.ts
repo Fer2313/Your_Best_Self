@@ -1,3 +1,5 @@
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
@@ -20,6 +22,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { InicioEntrenamientoComponent } from './components/inicio-entrenamiento/inicio-entrenamiento.component';
 import { ProfileNavComponent } from './components/profile-nav/profile-nav.component';
 import { ModalVerifyComponent } from './components/modal-verify/modal-verify.component';
+import { ModalUpdatePasswordComponent } from './components/modal-update-password/modal-update-password.component';
 
 
 
@@ -41,7 +44,7 @@ import { ModalVerifyComponent } from './components/modal-verify/modal-verify.com
   InicioEntrenamientoComponent,
   ProfileNavComponent,
   ModalVerifyComponent,
-
+  ModalUpdatePasswordComponent,
 ],
   imports: [
     CommonModule,
@@ -49,7 +52,9 @@ import { ModalVerifyComponent } from './components/modal-verify/modal-verify.com
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
-    MatIconModule 
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule 
   ],
   exports:[
     NavBarComponent,
@@ -67,6 +72,8 @@ import { ModalVerifyComponent } from './components/modal-verify/modal-verify.com
     InicioEntrenamientoComponent,
     ProfileNavComponent,
     ModalVerifyComponent,
+    ModalUpdatePasswordComponent,
+
   ],
 
 })

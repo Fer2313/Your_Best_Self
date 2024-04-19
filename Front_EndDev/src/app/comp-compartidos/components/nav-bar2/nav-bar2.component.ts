@@ -180,7 +180,7 @@ export class NavBar2Component implements OnInit {
   }
   ngOnInit(): void {
     this.apiService.obtenerUsuario().subscribe((data:any) => {
-      console.log(data)
+      console.log(data.imagen)
       this.user = data;
     });
   }

@@ -26,11 +26,13 @@
                 <h5>No tienes cuenta?</h5>
                 <a routerLink="/register" class="text-[#FE4A49]">Registrate!</a>
             </div>
+                <a (click)="openModal()" class="text-center cursor-pointer hover:underline text-[#6AAFF0]">Olvidaste tu contraseña?</a>
             <div class="flex justify-center">
                 <button
                     class="py-2 px-5 text-lg rounded shadow-md {{!email.valid||!password.valid ? 'bg-[#4868a783]':'bg-[#295FCC]'}}  text-white"
                     [disabled]="!email.valid||!password.valid">Inicia</button>
             </div>
+             
         </form>
         <div class="w-1/3 rounded-tr rounded-br bg-[#F4F4F8] shadow-md border border-[#B9B9BB]">
             <div class="flex justify-center items-center my-4">
@@ -45,7 +47,9 @@
             </button>
         </div>
     </div>
+    <app-modal-update-password *ngIf="openModalUpadateP" (modalUpdateP)="reciveBooleanM($event)"></app-modal-update-password>
 </section>
+
 <app-footer></app-footer>
 
 

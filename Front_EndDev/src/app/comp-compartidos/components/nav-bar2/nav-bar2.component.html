@@ -20,8 +20,8 @@
             </div>
             <span *ngIf="user" class="text-[#295FCC]">{{user.nombreUsuario}}</span>
             <button (click)="toggleAnimacion2()" class="flex gap-2 items-center">
-                <img *ngIf="!user.imagen" width="50" src="../../../../assets/Ellipse 4.png" alt="..">
-                <img *ngIf="user.imagen" class="rounded-full" width="50" [src]="user.imagen" alt="..">
+                <img *ngIf="!user.imagen.length" width="50" src="../../../../assets/Ellipse 4.png" alt="..">
+                <img *ngIf="user.imagen.length" class="rounded-full" width="50" [src]="user.imagen" alt="..">
                 <img width="10" src="../../../../assets/Polygon 1.png" alt="..">
             </button>
             <div [@desplazamiento2]="animar2 ? 'abajo' : 'arriba'"

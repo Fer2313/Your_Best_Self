@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environment'
+import { environment } from '../../../environment';
 @Injectable({
   providedIn: 'root',
 })
@@ -10,7 +10,8 @@ import { environment } from '../../../environment'
     'Content-Type': 'multipart/form-data',
   }),
 }
- */export class ApipeticionesService {
+ */
+export class ApipeticionesService {
   private baseUrl = environment.apiUrl;
   constructor(private httpClient: HttpClient) {}
   getToken() {
@@ -20,36 +21,71 @@ import { environment } from '../../../environment'
       }),
     };
   }
-  sendVerifyUser(body:any){
-   return this.httpClient.post(this.baseUrl + "sendVerifyUser", body, this.getToken())
+  sendVerifyUser(body: any) {
+    return this.httpClient.post(
+      this.baseUrl + 'sendVerifyUser',
+      body,
+      this.getToken()
+    );
   }
-   VerifyUser(body:any){
-   console.log(body)
-   return this.httpClient.post(this.baseUrl + "verifyUser", body)
+  VerifyUser(body: any) {
+    console.log(body);
+    return this.httpClient.post(this.baseUrl + 'verifyUser', body);
   }
-  sendDeleteUser(body:any){
-    return this.httpClient.post(this.baseUrl + "sendDeleteUser", body, this.getToken())
+  sendResetPassword(body: any) {
+    return this.httpClient.post(this.baseUrl + 'sendResetPassword', body);
   }
-  deleteUser(token:string){  
-    return this.httpClient.delete(this.baseUrl + "deleteUser/"+ token, this.getToken())
+  verifyResetPassword(body: any) {
+    return this.httpClient.post(this.baseUrl + 'verifyResetPassword', body);
   }
-  sendChangeEmail(body:any){
-   return this.httpClient.post(this.baseUrl + "sendChangeEmail", body, this.getToken()) 
+  resetPassword(body:any){
+    return this.httpClient.patch(this.baseUrl + 'resetPassword', body)
   }
-  changeEmail(body:any){
-   return this.httpClient.patch(this.baseUrl + "changeEmail", body) 
+  sendDeleteUser(body: any) {
+    return this.httpClient.post(
+      this.baseUrl + 'sendDeleteUser',
+      body,
+      this.getToken()
+    );
   }
-  changePassword(body:any){
-   return this.httpClient.patch(this.baseUrl + "changePassword", body, this.getToken()) 
+  deleteUser(token: string) {
+    return this.httpClient.delete(
+      this.baseUrl + 'deleteUser/' + token,
+      this.getToken()
+    );
+  }
+  sendChangeEmail(body: any) {
+    return this.httpClient.post(
+      this.baseUrl + 'sendChangeEmail',
+      body,
+      this.getToken()
+    );
+  }
+  changeEmail(body: any) {
+    return this.httpClient.patch(this.baseUrl + 'changeEmail', body);
+  }
+  changePassword(body: any) {
+    return this.httpClient.patch(
+      this.baseUrl + 'changePassword',
+      body,
+      this.getToken()
+    );
   }
   uploadCloudinary(file: any) {
-    return this.httpClient.post(this.baseUrl + 'cloudinary', file, this.getToken());
+    return this.httpClient.post(
+      this.baseUrl + 'cloudinary',
+      file,
+      this.getToken()
+    );
   }
-  getUsers(){
-    return this.httpClient.get(this.baseUrl + 'allUsers', this.getToken())
+  getUsers() {
+    return this.httpClient.get(this.baseUrl + 'allUsers', this.getToken());
   }
-  getUsersOnlyEmail(){
-    return this.httpClient.get(this.baseUrl + 'allUsers?onlyemail=true', this.getToken())
+  getUsersOnlyEmail() {
+    return this.httpClient.get(
+      this.baseUrl + 'allUsers?onlyemail=true',
+      this.getToken()
+    );
   }
   uploadUser(body: any) {
     return this.httpClient.patch(this.baseUrl + 'user', body, this.getToken());
