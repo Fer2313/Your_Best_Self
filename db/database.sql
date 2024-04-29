@@ -6,11 +6,14 @@ CREATE TABLE usuario (
   nombre VARCHAR(45),
   edad INT,
   peso INT,
+  pesoIdeal INT,
   altura FLOAT,
+  racha int,
   sexo VARCHAR(10),
   update_token VARCHAR(255),
   imagen_perfil varchar(255),
-  verify ENUM("true", "false") default 'false'
+  update_token varchar(355),
+  verify ENUM("true", "false") default 'false',
   rol ENUM('admin', 'user') DEFAULT 'user'
 );
 
@@ -32,6 +35,7 @@ CREATE TABLE EjercicioMusculo (
     FOREIGN KEY (Id_ejercicios) REFERENCES ejercicios(Id_ejercicios),
     FOREIGN KEY (id_musculo) REFERENCES musculos(id_musculo)
 );
+
 CREATE TABLE musculos (
   id_musculo INT AUTO_INCREMENT PRIMARY KEY,
   nombre_musculo varchar(50),
@@ -46,6 +50,8 @@ CREATE TABLE entrenamiento (
   dificultad int,
   descripcion varchar(500),
   fecha date,
+  descanso_entre_series int,
+  descanso_entre_ejercicio int,
   FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) 
 );
 

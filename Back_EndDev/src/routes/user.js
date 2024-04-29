@@ -122,6 +122,7 @@ export async function verifyResetPasswordRoute(req, res){
   }
 };
 
+
 export async function resetPasswordRoute(req, res){
   const { token, password } = req.body;
   try {

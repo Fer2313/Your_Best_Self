@@ -28,7 +28,7 @@
                 class="flex flex-col justify-center p-1 w-40 rounded text-white top-14 right-1  bg-white border-2 border-[#6374AE] absolute">
                 <div class="flex flex-col h-full justify-evenly gap-1">
                     <button routerLink="/perfil" *ngIf="animar2" class="bg-[#9FC2F1] rounded">Mi prefil</button>
-                    <button *ngIf="animar2" class="bg-[#9FC2F1] rounded">Mi progreso</button>
+                    <button *ngIf="animar2" routerLink="/perfil/progreso" class="bg-[#9FC2F1] rounded">Mi progreso</button>
                     <button (click)="cerrarSesion()" *ngIf="animar2" class="bg-red-400 rounded">Cerrar sesíon</button>
                 </div>
             </div>

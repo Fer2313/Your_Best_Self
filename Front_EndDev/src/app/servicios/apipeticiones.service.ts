@@ -32,6 +32,9 @@ export class ApipeticionesService {
     console.log(body);
     return this.httpClient.post(this.baseUrl + 'verifyUser', body);
   }
+  trainingLog(body: any) {
+    return this.httpClient.post(this.baseUrl + 'training/trainingLog', body, this.getToken());
+  }
   sendResetPassword(body: any) {
     return this.httpClient.post(this.baseUrl + 'sendResetPassword', body);
   }

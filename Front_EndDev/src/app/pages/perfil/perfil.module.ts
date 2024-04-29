@@ -9,6 +9,8 @@ import { CompCompartidosModule } from 'src/app/comp-compartidos/comp-compartidos
 import { ApipeticionesService } from 'src/app/servicios/apipeticiones.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
+
 
 
 
@@ -26,8 +28,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     FormsModule,
+    MatIconModule
   ]
 })
+
 export class PerfilModule {
   
  }

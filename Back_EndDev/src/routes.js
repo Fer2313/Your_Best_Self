@@ -9,7 +9,6 @@ import {
   getExercisesLengthRoute,
   getExercisesQueryRoute,
 } from "./routes/ejercicios.js";
-import { crearEntrenamiento } from "./handlers/entrenamiento.js";
 import { getAllMusclesRoute, getMuscleByIDRoute } from "./routes/musculos.js";
 import {
   registerUserRoute,
@@ -18,8 +17,11 @@ import {
   getUserRoute,
 } from "./routes/login.js";
 import {
+  crearEntrenamientoRoute,
   getAllTrainingsRoute,
   getTrainingByIdRoute,
+  getTrainingLogByIDRoute,
+  trainingLogRoute,
 } from "./routes/entrenamientos.js";
 import {
   VerifyUserRoute,
@@ -47,6 +49,10 @@ const upload = multer({ storage: storage });
 router.get("/", (req, res) => {
   res.send("Hola Mundo");
 });
+
+router.get("/training/getTrainingLogById/:id",Publico,(req,res)=>{
+  getTrainingLogByIDRoute(req,res)
+})
 
 router.get("/allUsers", Publico, (req, res) => {
   getAllUsersRoute(req, res);
@@ -108,6 +114,13 @@ router.get("/admin/dashboard", authenticateJWT, (req, res) => {
 });
 
 //Post
+router.post("/crearEntrenamito", Publico, (req, res)=>{
+  crearEntrenamientoRoute(req,res)
+})
+
+router.post("/training/trainingLog", Publico, (req, res) => {
+  trainingLogRoute(req, res);
+});
 
 router.post("/sendVerifyUser", Publico, (req, res) => {
   sendVerifyUserRoute(req, res);
@@ -161,6 +174,8 @@ router.patch("/changePassword", Publico, (req, res) => {
 router.patch("/user", Publico, (req, res) => {
   actualizarUserRoute(req, res);
 });
+
+
 
 //Delete
 

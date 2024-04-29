@@ -5,6 +5,10 @@ export async function getAllTrainings(){
     return entren
 }
 
+export async function getTrainingLogById(id){
+
+}
+
 export async function getTrainingById(id){
     const [entren] = await pool.query("SELECT * FROM entrenamiento WHERE id_entrenamiento =" + id);
     const [exercise] = await pool.query(`SELECT
@@ -26,7 +30,18 @@ export async function getTrainingById(id){
     return entren[0]
 }
 
-export async function crearEntrenamiento(entrenamiento, detalles){
+export async function trainingLog(id_usuario, id_entrenamiento, fecha, kcal){
+    if (!id_usuario || !id_entrenamiento || !fecha || !kcal) {
+        throw Error("Faltan datos")
+    }
+    const query =
+    "INSERT INTO Registro_entrenamiento (id_usuario, id_entrenamiento, fecha, kcal) VALUES (?,?,?,?)";
+    await pool.query(query,[id_usuario, id_entrenamiento, fecha, kcal])
+    return true
+}
+
+
+/* export async function crearEntrenamiento(entrenamiento, detalles){
     const connection = await pool.promise().getConnection();
 
     try {
@@ -45,4 +60,4 @@ export async function crearEntrenamiento(entrenamiento, detalles){
     } finally {
         connection.release();
     }
-}
+} */

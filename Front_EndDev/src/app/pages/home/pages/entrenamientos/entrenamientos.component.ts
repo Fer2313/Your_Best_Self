@@ -7,6 +7,8 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription, interval } from 'rxjs';
+import { Usuario } from 'src/app/interfaces/perfilInterfaces';
 import { ApipeticionesService } from 'src/app/servicios/apipeticiones.service';
 
 @Component({
@@ -14,14 +16,12 @@ import { ApipeticionesService } from 'src/app/servicios/apipeticiones.service';
   templateUrl: './entrenamientos.component.html',
   styleUrls: ['./entrenamientos.component.css'],
 })
-export class EntrenamientosComponent implements OnInit {
+export class EntrenamientosComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private apiService: ApipeticionesService,
     private router: Router
-  ) {
-    console.log(this.series);
-  }
+  ) {}
   training: Training = {
     id_entrenamiento: 0,
     id_usuario: 0,
@@ -33,6 +33,20 @@ export class EntrenamientosComponent implements OnInit {
     descanso_entre_series: 0,
     descanso_entre_ejercicio: 0,
     ejercicios_relacionados: [],
+  };
+  user: Usuario = {
+    id_usuario: 0,
+    nombre: '',
+    edad: 0,
+    peso: 0,
+    altura: 0,
+    pesoIdeal: 0,
+    sexo: 'none',
+    email: '',
+    contraseña: '',
+    rol: 'none',
+    verify: 'false',
+    imagen_perfil: '',
   };
   ejercicio: Ejercicio = {
     Id_ejercicios: 0,
@@ -48,108 +62,37 @@ export class EntrenamientosComponent implements OnInit {
     lado: null,
   };
   modal_temporizador: boolean = false;
- /*  tiempo: number = 15; */
   modal: boolean = false;
   start: boolean = false;
   currentExercice: number = 0;
   modalAlert: boolean = false;
-/*   Temporizador: any;
-  tiempoEjercicio: number = 0; */
   series: any;
+  tiempoTranscurrido = 0;
+  cronometroSubscription?: Subscription;
 
-/*   iniciarTemporizador(): void {
-    console.log(this.ejercicio.tiempo, 'hasdfasdf');
-    this.tiempoEjercicio = this.ejercicio.tiempo;
-    console.log(this.tiempoEjercicio, 'hola12312');
-    this.Temporizador = setInterval(() => {
-      if (this.tiempoEjercicio > 0) {
-        this.tiempoEjercicio--;
-      } else {
-        this.detenerTemporizador();
-        // Puedes agregar acciones adicionales cuando el temporizador llega a cero
-      }
-    }, 1000);
-  } */
+  iniciarCronometro() {
+    this.cronometroSubscription = interval(1000).subscribe(() => {
+      this.tiempoTranscurrido++;
+    });
+  }
 
-/*   detenerTemporizador(): void {
-    clearInterval(this.Temporizador);
-  } */
+  detenerCronometro() {
+    this.cronometroSubscription?.unsubscribe();
+  }
+
+  reiniciarCronometro() {
+    this.tiempoTranscurrido = 0;
+  }
 
   startTraining() {
+    console.log();
     this.start = true;
     this.ejercicio =
       this.training.ejercicios_relacionados![this.currentExercice];
     this.series = this.ejercicio.series;
     this.modal_temporizador = true;
+    this.iniciarCronometro();
   }
-/*   nextExercice() {
-    if (this.ejercicio.series !== null) {
-      this.tiempo = this.training.descanso_entre_series;
-      this.ejercicio.series--;
-      this.modal_temporizador = true;
-    } else {
-      this.tiempo = this.training.descanso_entre_ejercicio;
-      this.currentExercice++;
-      this.ejercicio =
-        this.training.ejercicios_relacionados![this.currentExercice];
-        console.log(this.ejercicio, this.currentExercice)
-      if (this.ejercicio.tiempo !== 0) {
-        this.detenerTemporizador();
-      }
-      this.modal_temporizador = true;
-    }
-    if (this.ejercicio.series === 0) {
-      this.tiempo = this.training.descanso_entre_ejercicio;
-      this.currentExercice++;
-      this.ejercicio =
-        this.training.ejercicios_relacionados![this.currentExercice];
-        console.log(this.ejercicio, this.currentExercice)
-      if (this.ejercicio.tiempo !== 0) {
-        this.detenerTemporizador();
-      }
-      this.modal_temporizador = true;
-    }
-  } */
-/*   previousExercice() {
-    if (this.ejercicio.series !== null && this.series !== this.ejercicio.series) {
-      this.tiempo = this.training.descanso_entre_series;
-      this.ejercicio.series++;
-      this.modal_temporizador = true;
-    } else {
-      this.tiempo = this.training.descanso_entre_ejercicio;
-      this.currentExercice = this.currentExercice - 1;
-      this.ejercicio =
-        this.training.ejercicios_relacionados![this.currentExercice];
-        
-        if (this.ejercicio.repeticiones) {
-          if (this.ejercicio.series !== null ) {
-            this.ejercicio.series++
-          }
-        }
-      if (this.ejercicio.tiempo !== 0) {
-        this.detenerTemporizador();
-      }
-      this.modal_temporizador = true;
-    }
-     if (this.ejercicio.series === 0) {
-      this.tiempo = this.training.descanso_entre_ejercicio;
-      this.currentExercice--;
-      this.ejercicio =
-        this.training.ejercicios_relacionados![this.currentExercice];
-        console.log(this.ejercicio, this.currentExercice)
-      if (this.ejercicio.tiempo !== 0) {
-        this.detenerTemporizador();
-      }
-      this.modal_temporizador = true;
-    } 
-     if (this.ejercicio.series) {
-      this.ejercicio.series++;
-    } else {
-      this.currentExercice--;
-      this.ejercicio =
-        this.training.ejercicios_relacionados![this.currentExercice];
-    } 
-  } */
 
   handleModal(item: Ejercicio) {
     this.apiService
@@ -171,13 +114,90 @@ export class EntrenamientosComponent implements OnInit {
       });
     this.modal = true;
   }
-  recivedFinishB(event: boolean){
+  recivedFinishB(event: boolean) {
+    // Se detiene el cronometro
+    this.detenerCronometro();
+    // Se cierra el modal y termina el entrenamiento
+    this.modalAlert = event;
+    // Se recuperan los datos del usuario
+    this.apiService.obtenerUsuario().subscribe((data: any) => {
+      this.apiService.getUserById(data.idUsuario).subscribe((data2: any) => {
+        this.user = data2;
+        // Se calcula que MET tiene cada ejercicio
+        let MET = 0;
+        if (this.training.ejercicios_relacionados !== null) {
+          for (
+            let index = 0;
+            index < this.training.ejercicios_relacionados.length;
+            index++
+          ) {
+            if (
+              this.training.ejercicios_relacionados[index].dificultad ===
+              'Principiante'
+            ) {
+              MET += 2.8;
+            }
+            if (
+              this.training.ejercicios_relacionados[index].dificultad ===
+              'Experimentado'
+            ) {
+              MET += 3.8;
+            }
+            if (
+              this.training.ejercicios_relacionados[index].dificultad ===
+              'Avanzado'
+            ) {
+              MET += 8.0;
+            }
+          }
+          // Se calcula el promedio MET del ejercicio
+          const promedioMET =
+            MET / this.training.ejercicios_relacionados.length - 1;
+          // Se calcula el factor de actividad
+          const minutos = Math.round(this.tiempoTranscurrido / 60);
+          const factorActividad = promedioMET * (minutos / 60);
+          // Se calcula el metabolismo basal (MB)
+          let altura = Math.round(this.user.altura * 100);
+          const MB =
+            88.362 +
+            13.397 * this.user.peso +
+            4.799 * altura -
+            5.677 * this.user.edad;
+          // Se calculan las calorias gastadas
+          const kcal = MB * factorActividad;
+          // Obtiene la fecha actual
+          const fechaDeHoy = new Date(); 
+          const año = fechaDeHoy.getFullYear();
+          // Agrega un cero al mes si es menor que 10
+          const mes = ('0' + (fechaDeHoy.getMonth() + 1)).slice(-2); 
+           // Agrega un cero al día si es menor que 10
+          const dia = ('0' + fechaDeHoy.getDate()).slice(-2);
+          const fechaFormateada = `${año}-${mes}-${dia}`;
+          this.apiService
+            .trainingLog({
+              id_usuario: this.user.id_usuario,
+              id_entrenamiento: this.training.id_entrenamiento,
+              fecha: fechaFormateada,
+              kcal,
+            })
+            .subscribe(
+              (data: any) => {
+                console.log(data.message);
+              },
+              (err) => {
+                console.log(err.error);
+              }
+            );
+        }
+      });
+    });
+    // Se reinicia el tiempo transcurrido
+    this.reiniciarCronometro;
+  }
+  recivedBoolean(event: boolean) {
     this.modalAlert = event;
   }
-  recivedBoolean(event:boolean){
-    this.modalAlert = event
-  }
-  recivedBooleanS(event:boolean){
+  recivedBooleanS(event: boolean) {
     this.start = event;
     this.route.params.subscribe((id: any) => {
       this.apiService.getTrainingById(id.id).subscribe(
@@ -195,19 +215,6 @@ export class EntrenamientosComponent implements OnInit {
   recivedBooleanM(event: boolean) {
     this.modal = event;
   }
-/*   recivedBooleanMC(event: boolean) {
-    this.modal_temporizador = event;
-  }
-  recivedTime(event: boolean) {
-    if (event === true) {
-      if (this.ejercicio.tiempo !== 0 && this.ejercicio.tiempo !== null) {
-        this.iniciarTemporizador();
-      }
-    }
-  }
-  ngOnDestroy(): void {
-    this.detenerTemporizador();
-  } */
 
   ngOnInit(): void {
     this.route.params.subscribe((id: any) => {
@@ -222,5 +229,11 @@ export class EntrenamientosComponent implements OnInit {
         }
       );
     });
+  }
+
+  ngOnDestroy() {
+    if (this.cronometroSubscription) {
+      this.cronometroSubscription.unsubscribe();
+    }
   }
 }

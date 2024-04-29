@@ -116,7 +116,6 @@ export class InicioEntrenamientoComponent implements OnDestroy{
       this.currentExercice++;
       this.ejercicio2 =
         this.training.ejercicios_relacionados![this.currentExercice];
-      console.log(this.ejercicio2, this.currentExercice);
       if (this.ejercicio2.tiempo !== 0) {
         this.detenerTemporizador();
       }
@@ -127,7 +126,6 @@ export class InicioEntrenamientoComponent implements OnDestroy{
       this.currentExercice++;
       this.ejercicio2 =
         this.training.ejercicios_relacionados![this.currentExercice];
-      console.log(this.ejercicio2, this.currentExercice);
       if (this.ejercicio2.tiempo !== 0) {
         this.detenerTemporizador();
       }
@@ -170,14 +168,7 @@ export class InicioEntrenamientoComponent implements OnDestroy{
       }
       this.modal_temporizador = true;
     }
-    /*  if (this.ejercicio.series) {
-      this.ejercicio.series++;
-      console.log("hola3")
-    } else {
-      this.currentExercice--;
-      this.ejercicio =
-        this.training.ejercicios_relacionados![this.currentExercice];
-    }  */
+
   }
 
 }
