@@ -2,11 +2,11 @@ import { createPool } from "mysql2/promise"
 import dotenv from 'dotenv';
 dotenv.config();
 
-const host = process.env.host;
-const user = process.env.user;
-const password = process.env.password;
-const port = process.env.port;
-const database = process.env.database;
+const host = process.env.DB_host;
+const user = process.env.DB_user;
+const password = process.env.DB_password;
+const port = process.env.DB_port;
+const database = process.env.DB_name;
 
 
 

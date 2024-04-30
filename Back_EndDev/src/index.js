@@ -1,12 +1,13 @@
 import express from "express";
 import cors from "cors";
 import router from "./routes.js";
-
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 
 //Inicio de servidor
-app.listen(3000,()=>{
+app.listen(process.env.port,()=>{
  console.log("Server localhost running on port 3000");
 });
 
