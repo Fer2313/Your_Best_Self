@@ -5,10 +5,10 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
-
+const PORT = process.env.PORT
 //Inicio de servidor
-app.listen(process.env.port,()=>{
- console.log("Server localhost running on port 3000");
+app.listen(PORT,()=>{
+ console.log("Server localhost running on port "+ PORT);
 });
 
 
