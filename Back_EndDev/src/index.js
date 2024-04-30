@@ -20,6 +20,13 @@ app.use(express.urlencoded({ extended: true }))
 //Rutas
 app.use(router); 
 
+//endpointNotFound
+app.use((req,res)=>{
+res.status(404).json({
+    message:"endpoint Not Found"
+})
+})
+
 
 
 

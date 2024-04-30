@@ -1,11 +1,8 @@
 import { pool } from "../../db.js";
 import nodemailer from "nodemailer";
-import dotenv from "dotenv";
 import bcrypt from "bcrypt";
-import { Buffer } from "buffer";
 import jsonwebtoken from "jsonwebtoken";
-import { error } from "console";
-
+import dotenv from "dotenv";
 dotenv.config();
 
 export async function getUserById(id) {
