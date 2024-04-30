@@ -47,7 +47,7 @@ const upload = multer({ storage: storage });
 //Get
 
 router.get("/", (req, res) => {
-  res.send("Hola Mundo");
+  res.json({saludo:"Hola Mundo"});
 });
 
 router.get("/training/getTrainingLogById/:id",Publico,(req,res)=>{
