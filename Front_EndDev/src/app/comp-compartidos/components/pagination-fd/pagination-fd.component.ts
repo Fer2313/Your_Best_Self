@@ -5,16 +5,13 @@ import {
   Input,
   Output,
   OnChanges,
-  SimpleChanges,
 } from '@angular/core';
-import { IdexercicesService } from 'src/app/servicios/idexercices.service';
 import { PaginadoFrontService } from 'src/app/servicios/paginado-front.service';
 import { Sharedservice2Service } from 'src/app/servicios/sharedservice2.service';
 
 @Component({
   selector: 'app-pagination-fd',
   templateUrl: './pagination-fd.component.html',
-  styleUrls: ['./pagination-fd.component.css'],
 })
 export class PaginationFDComponent implements OnChanges {
   @Input() ejercices: any;

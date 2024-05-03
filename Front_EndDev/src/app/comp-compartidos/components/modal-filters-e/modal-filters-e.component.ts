@@ -71,7 +71,6 @@ export class ModalFiltersEComponent implements OnInit {
           this.filter.emit(true);
         },
         (error) => {
-          console.log(error);
           window.alert(error.error);
         }
       );

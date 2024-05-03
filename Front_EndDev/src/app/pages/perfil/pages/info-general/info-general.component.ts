@@ -1,5 +1,4 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { loginGuard } from './../../../../../../guards/loginguard';
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from 'src/app/interfaces/perfilInterfaces';
 import { ApipeticionesService } from 'src/app/servicios/apipeticiones.service';
@@ -8,7 +7,6 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-info-general',
   templateUrl: './info-general.component.html',
-  styleUrls: ['./info-general.component.css'],
 })
 export class InfoGeneralComponent implements OnInit {
   body: any;
@@ -29,7 +27,6 @@ export class InfoGeneralComponent implements OnInit {
   selectedFile?: File;
   error_image: boolean = false;
   constructor(private apiService: ApipeticionesService, private fb: FormBuilder) {
-    console.log(this.user)
   }
   miFormulario: FormGroup = this.fb.group({
     nombre:["", [Validators.required]],

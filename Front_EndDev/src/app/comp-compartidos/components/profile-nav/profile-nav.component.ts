@@ -6,7 +6,6 @@ import { ApipeticionesService } from 'src/app/servicios/apipeticiones.service';
 @Component({
   selector: 'app-profile-nav',
   templateUrl: './profile-nav.component.html',
-  styleUrls: ['./profile-nav.component.css']
 })
 export class ProfileNavComponent implements OnInit{
   obj : routesNav = {
@@ -17,7 +16,6 @@ export class ProfileNavComponent implements OnInit{
   }
   constructor(private apiservice: ApipeticionesService, private router:Router){
     this.currentRoute = this.router.url;
-    console.log(this.currentRoute)
     if (this.currentRoute === "/perfil") {
       this.obj = {
         profile: true,
@@ -41,7 +39,6 @@ export class ProfileNavComponent implements OnInit{
         security: true,
         dashboard: false
       }
-      console.log(this.obj)
     }
     if (this.currentRoute === "/perfil/dashboard") {
       this.obj = {
@@ -65,7 +62,6 @@ handleExit(){
 }
 ngOnInit(): void {
   this.apiservice.obtenerUsuario().subscribe((data:any) => {
-    console.log(data)
     this.user = data;
   });
 }

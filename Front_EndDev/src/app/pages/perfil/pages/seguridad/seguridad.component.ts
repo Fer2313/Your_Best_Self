@@ -1,14 +1,13 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from './../../../../../../environment';
 import { Component, OnInit } from '@angular/core';
-import { Usuario, user } from 'src/app/interfaces/perfilInterfaces';
+import { Usuario } from 'src/app/interfaces/perfilInterfaces';
 import { ApipeticionesService } from 'src/app/servicios/apipeticiones.service';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-seguridad',
   templateUrl: './seguridad.component.html',
-  styleUrls: ['./seguridad.component.css'],
 })
 export class SeguridadComponent implements OnInit {
   body = {}

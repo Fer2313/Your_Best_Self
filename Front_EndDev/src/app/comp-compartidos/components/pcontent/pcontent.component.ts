@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-pcontent',
   templateUrl: './pcontent.component.html',
-  styleUrls: ['./pcontent.component.css'],
   viewProviders: [provideIcons({ heroUsers })]
 })
 export class PContentComponent {

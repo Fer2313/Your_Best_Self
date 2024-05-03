@@ -11,7 +11,6 @@ import { PaginadoFrontService } from 'src/app/servicios/paginado-front.service';
 @Component({
   selector: 'app-libray-ejecices',
   templateUrl: './libray-ejecices.component.html',
-  styleUrls: ['./libray-ejecices.component.css'],
 })
 export class LibrayEjecicesComponent implements OnInit{
   ejercices: any = [];
@@ -38,7 +37,6 @@ export class LibrayEjecicesComponent implements OnInit{
   }
   recibedCurrentPage(event: number) {
     this.currentPage = event;
-    console.log(this.currentPage);
   }
   ejercicesFilterRecived(event: any) {
     this.ejercices = event;
@@ -78,20 +76,11 @@ export class LibrayEjecicesComponent implements OnInit{
     this.exerciceidshared.data$.subscribe((data) => {
       const newId = data;
       if (newId.nombre_ejercicios) {
-        console.log(newId)
         this.exerciceId = newId;
         this.booleanModel = true
       }
     });
-    /* this.sharedService.data$.subscribe((data) => {
-      const newData = data;
-      if (newData.length) {
-        this.search = true;
-        this.ejercices = newData;
-      }else{
-        this.search= false
-      }
-    }); */
+
     this.sharedService.data$.subscribe((data:any) => {
       const newData = data;
         if (newData.length) {

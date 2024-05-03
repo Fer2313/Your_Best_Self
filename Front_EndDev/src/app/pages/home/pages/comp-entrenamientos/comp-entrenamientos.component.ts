@@ -10,7 +10,6 @@ import {
 @Component({
   selector: 'app-comp-entrenamientos',
   templateUrl: './comp-entrenamientos.component.html',
-  styleUrls: ['./comp-entrenamientos.component.css'],
   animations: [
     trigger('hiden', [
       state('no', style({ opacity: 0 , display:"none" })),

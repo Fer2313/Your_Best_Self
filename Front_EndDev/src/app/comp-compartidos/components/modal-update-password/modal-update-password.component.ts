@@ -16,7 +16,7 @@ export class ModalUpdatePasswordComponent {
  
   sendMailResetPassword(){
     this.apiservice.sendResetPassword({email:this.emailValue, verificationLink:environment.clientUrl+"/resetPassword"}).subscribe(()=>{},(err)=>{
-      console.log(err)
+      this.errorAlert2()
     })
     this.closeModal()
   }
@@ -29,4 +29,13 @@ export class ModalUpdatePasswordComponent {
       confirmButtonText: 'Ok',
     });
   }
+  errorAlert2() {
+    Swal.fire({
+      title: 'Error al resetear contraseña',
+      text: "Algo salio mal",
+      icon: 'error',
+      confirmButtonText: 'Ok',
+    });
+  }
 }
+

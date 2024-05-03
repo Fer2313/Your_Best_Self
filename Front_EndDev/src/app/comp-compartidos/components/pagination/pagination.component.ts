@@ -4,7 +4,6 @@ import { Component, EventEmitter, Input, Output, OnInit, OnChanges, SimpleChange
 @Component({
   selector: 'app-pagination',
   templateUrl: './pagination.component.html',
-  styleUrls: ['./pagination.component.css'],
 })
 export class PaginationComponent implements OnInit, OnChanges{
   @Input() currentPage: any;
@@ -29,7 +28,6 @@ export class PaginationComponent implements OnInit, OnChanges{
       this.items.push(index)
     }
     });
-    console.log(this.filter)
   }
   ngOnChanges(): void {
     if(this.currentPage!==1){

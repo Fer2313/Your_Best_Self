@@ -7,7 +7,6 @@ import { AthenticationService } from 'src/app/servicios/athentication.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
   miFormulario: FormGroup;
@@ -86,13 +85,9 @@ export class RegisterComponent {
       (data: any) => {
         this.successAlert(data.message);
         this.router.navigate(['/login']);
-        /*  this.toastr.success(data.message, "Registro exitoso")
-        console.log(data) */
       },
       (error) => {
         this.errorAlert(error.error.message);
-        /*   this.toastr.error(error.error.message, "A ocurrido un error al registrarse")
-          console.log(error.error.message) */
       }
     );
   }

@@ -5,7 +5,6 @@ import { ApipeticionesService } from 'src/app/servicios/apipeticiones.service';
 @Component({
   selector: 'app-delete-user',
   templateUrl: './delete-user.component.html',
-  styleUrls: ['./delete-user.component.css']
 })
 export class DeleteUserComponent implements OnInit{
   eliminatedUser : string | boolean = "loading"

@@ -29,7 +29,6 @@ export class ApipeticionesService {
     );
   }
   VerifyUser(body: any) {
-    console.log(body);
     return this.httpClient.post(this.baseUrl + 'verifyUser', body);
   }
   trainingLog(body: any) {

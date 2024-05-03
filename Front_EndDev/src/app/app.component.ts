@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { ApipeticionesService } from './servicios/apipeticiones.service';
-import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
   title = 'your_best_self';

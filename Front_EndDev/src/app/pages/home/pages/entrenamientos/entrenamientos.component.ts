@@ -1,10 +1,8 @@
 import { Ejercicio, Training } from './../../../../interfaces/homeIntefaces';
 import {
   Component,
-  OnChanges,
   OnDestroy,
   OnInit,
-  SimpleChanges,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, interval } from 'rxjs';
@@ -14,7 +12,6 @@ import { ApipeticionesService } from 'src/app/servicios/apipeticiones.service';
 @Component({
   selector: 'app-entrenamientos',
   templateUrl: './entrenamientos.component.html',
-  styleUrls: ['./entrenamientos.component.css'],
 })
 export class EntrenamientosComponent implements OnInit, OnDestroy {
   constructor(
@@ -85,7 +82,6 @@ export class EntrenamientosComponent implements OnInit, OnDestroy {
   }
 
   startTraining() {
-    console.log();
     this.start = true;
     this.ejercicio =
       this.training.ejercicios_relacionados![this.currentExercice];
@@ -182,10 +178,10 @@ export class EntrenamientosComponent implements OnInit, OnDestroy {
             })
             .subscribe(
               (data: any) => {
-                console.log(data.message);
+                //TODO Poner sucess alert
               },
               (err) => {
-                console.log(err.error);
+                //TODO Poner error alert
               }
             );
         }

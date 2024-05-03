@@ -3,7 +3,6 @@ import {
   EventEmitter,
   Input,
   Output,
-  OnInit,
   OnDestroy,
 } from '@angular/core';
 import { Ejercicio, Training } from 'src/app/interfaces/homeIntefaces';
@@ -11,7 +10,6 @@ import { Ejercicio, Training } from 'src/app/interfaces/homeIntefaces';
 @Component({
   selector: 'app-inicio-entrenamiento',
   templateUrl: './inicio-entrenamiento.component.html',
-  styleUrls: ['./inicio-entrenamiento.component.css'],
 })
 export class InicioEntrenamientoComponent implements OnDestroy{
   @Output() finishBoolean = new EventEmitter<boolean>()
@@ -134,7 +132,6 @@ export class InicioEntrenamientoComponent implements OnDestroy{
   }
 
   previousExercice() {
-    console.log(this.series, this.ejercicio2.series);
     if (
       this.ejercicio2.series !== null &&
       this.series !== this.ejercicio2.series
@@ -162,7 +159,6 @@ export class InicioEntrenamientoComponent implements OnDestroy{
       this.currentExercice--;
       this.ejercicio2 =
         this.training.ejercicios_relacionados![this.currentExercice];
-      console.log(this.ejercicio2, this.currentExercice);
       if (this.ejercicio2.tiempo !== 0) {
         this.detenerTemporizador();
       }

@@ -1,5 +1,4 @@
-import { ApipeticionesService } from './../../../servicios/apipeticiones.service';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   trigger,
   state,
@@ -7,7 +6,7 @@ import {
   transition,
   animate,
 } from '@angular/animations';
-import { IdexercicesService } from 'src/app/servicios/idexercices.service';
+
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
@@ -20,6 +19,7 @@ import { IdexercicesService } from 'src/app/servicios/idexercices.service';
     ]),
   ],
 })
+
 export class ModalComponent {
   @Output() sendBooleanM = new EventEmitter<boolean>();
   @Input() BooleanM?: boolean;

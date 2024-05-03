@@ -5,7 +5,6 @@ import { ApipeticionesService } from 'src/app/servicios/apipeticiones.service';
 @Component({
   selector: 'app-change-email',
   templateUrl: './change-email.component.html',
-  styleUrls: ['./change-email.component.css']
 })
 export class ChangeEmailComponent implements OnInit {
   changeEmail : string | boolean = "loading"

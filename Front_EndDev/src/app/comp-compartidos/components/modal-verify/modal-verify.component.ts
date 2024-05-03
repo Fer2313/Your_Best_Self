@@ -33,12 +33,12 @@ export class ModalVerifyComponent {
       verificationLink: "http://localhost:4200/verify"
     }
     this.apiService.sendVerifyUser(this.body).subscribe((data)=>{
-         console.log(data)
+      this.successAlert()
     },(error)=>{
-      console.log(error)
+   //TODO poner un error alert
     })
     this.modalVerify.emit(false);
-    this.successAlert()
+    
   }
 
 }

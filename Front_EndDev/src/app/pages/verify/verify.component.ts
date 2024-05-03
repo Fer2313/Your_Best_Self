@@ -5,7 +5,6 @@ import { ApipeticionesService } from 'src/app/servicios/apipeticiones.service';
 @Component({
   selector: 'app-verify',
   templateUrl: './verify.component.html',
-  styleUrls: ['./verify.component.css']
 })
 export class VerifyComponent {
   verify: string | boolean = "loading"

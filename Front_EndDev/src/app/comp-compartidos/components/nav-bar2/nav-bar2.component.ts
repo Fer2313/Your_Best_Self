@@ -14,7 +14,6 @@ import { AthenticationService } from 'src/app/servicios/athentication.service';
 @Component({
   selector: 'app-nav-bar2',
   templateUrl: './nav-bar2.component.html',
-  styleUrls: ['./nav-bar2.component.css'],
   animations: [
     trigger('desplazamiento', [
       state('izquierda', style({ width: '0px' })),
@@ -96,7 +95,6 @@ export class NavBar2Component implements OnInit {
   };
   
   activateModal(id:number){
-    console.log(id)
     this.exerciceidshared.updateData(id)
   }
   handleSearch(name: string) {
@@ -157,7 +155,6 @@ export class NavBar2Component implements OnInit {
         misEntrenamientos: false,
         bibliotecaEjercicios: true,
       };
-      console.log(this.obj);
     }
   }
   toggleAnimacion() {
@@ -171,7 +168,6 @@ export class NavBar2Component implements OnInit {
   }
   toggleAnimacion3() {
     this.animar3 = !this.animar3;
-    console.log(this.animar3);
   }
   cerrarSesion() {
     this.auth.logout()
@@ -180,7 +176,6 @@ export class NavBar2Component implements OnInit {
   }
   ngOnInit(): void {
     this.apiService.obtenerUsuario().subscribe((data:any) => {
-      console.log(data.imagen)
       this.user = data;
     });
   }
