@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Usuario } from 'src/app/interfaces/perfilInterfaces';
 import { ApipeticionesService } from 'src/app/servicios/apipeticiones.service';
 import Swal from 'sweetalert2';
+import { AlertService } from 'src/app/servicios/alert.service';
 
 @Component({
   selector: 'app-seguridad',
@@ -31,7 +32,7 @@ export class SeguridadComponent implements OnInit {
     validator: this.passwordMatchValidator,
   }
   );
-  constructor(private apiservice: ApipeticionesService, private fb: FormBuilder) {}
+  constructor(private apiservice: ApipeticionesService, private fb: FormBuilder, private alert:AlertService) {}
   user: Usuario = {
     id_usuario: 0,
     nombre: '',
@@ -65,7 +66,12 @@ export class SeguridadComponent implements OnInit {
     const formData = this.miFormulario.value;
     const {oldPassword, newPassword, repeatNewPassword} = formData;
     if (!oldPassword || !newPassword || !repeatNewPassword) {
-      this.errorAlert2()
+      this.alert.alert({
+        title: "Faltan campos",
+        text: "Para poder actualizar su contraseña, por favor, proporcione todos los campos requeridos",
+        icon: 'error',
+        confirmButtonText: 'Ok'
+      })
     }else{
        this.body = {
         id:this.user.id_usuario,
@@ -97,31 +103,8 @@ export class SeguridadComponent implements OnInit {
     }
   });
  }
-  errorAlert(){
-    Swal.fire({
-      title: "No ingreso un email",
-      text: "Para poder actualizar su dirección de correo electrónico, por favor, proporcione un nuevo correo electrónico válido",
-      icon: 'error',
-      confirmButtonText: 'Ok'
-    });
-  }
-  errorAlert2(){
-    Swal.fire({
-      title: "Faltan campos",
-      text: "Para poder actualizar su contraseña, por favor, proporcione todos los campos requeridos",
-      icon: 'error',
-      confirmButtonText: 'Ok'
-    });
-  }
+ 
 
-  successAlert(str:string) {
-    Swal.fire({
-      title: "Correo enviado",
-      text: str,
-      icon: 'success',
-      confirmButtonText: 'Ok'
-    });
-  }
   changeEmail(){
     if (this.nuevoemail.length) {
       const body = {
@@ -130,10 +113,20 @@ export class SeguridadComponent implements OnInit {
         verificationLink: environment.clientUrl + "/changeEmail"
       }
       this.apiservice.sendChangeEmail(body).subscribe((data:any)=>{
-        this.successAlert(data.correo+", para poder continuar con el cambio de correo revisa la bandeja de entrada de tu correo actual y confirma el cambio")
+        this.alert.alert({
+          title: "Correo enviado",
+          text: data.correo+", para poder continuar con el cambio de correo revisa la bandeja de entrada de tu correo actual y confirma el cambio",
+          icon: 'success',
+          confirmButtonText: 'Ok'
+        })
       })
     }else{
-      this.errorAlert()
+      this.alert.alert({
+        title: "No ingreso un email",
+        text: "Para poder actualizar su dirección de correo electrónico, por favor, proporcione un nuevo correo electrónico válido",
+        icon: 'error',
+        confirmButtonText: 'Ok'
+      })
     }
   }
   ngOnInit(): void {

@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApipeticionesService } from 'src/app/servicios/apipeticiones.service';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
 import { AthenticationService } from 'src/app/servicios/athentication.service';
+import { AlertService } from 'src/app/servicios/alert.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -14,7 +14,8 @@ export class RegisterComponent {
     private fb: FormBuilder,
     private apiPeticiones: ApipeticionesService,
     private router: Router,
-    private authService: AthenticationService
+    private authService: AthenticationService,
+    private alert:AlertService
   ) {
     this.miFormulario = this.fb.group(
       {
@@ -40,22 +41,8 @@ export class RegisterComponent {
       }
     );
   }
-  successAlert(str: string) {
-    Swal.fire({
-      title: 'Usuario creado con exito',
-      text: str,
-      icon: 'success',
-      confirmButtonText: 'Ok',
-    });
-  }
-  errorAlert(str: string) {
-    Swal.fire({
-      title: 'Error al crear usuario',
-      text: str,
-      icon: 'error',
-      confirmButtonText: 'Ok',
-    });
-  }
+  
+
   passwordMatchValidator(formGroup: FormGroup) {
     const passwordControl = formGroup.get('password');
     const confirmPasswordControl = formGroup.get('repeatPassword');
@@ -83,11 +70,21 @@ export class RegisterComponent {
     };
     this.apiPeticiones.registerUser(body).subscribe(
       (data: any) => {
-        this.successAlert(data.message);
+        this.alert.alert({
+          title: 'Usuario creado con exito',
+          text: data.message,
+          icon: 'success',
+          confirmButtonText: 'Ok',
+        })
         this.router.navigate(['/login']);
       },
       (error) => {
-        this.errorAlert(error.error.message);
+        this.alert.alert({
+          title: 'Error al crear usuario',
+          text: error.error.message,
+          icon: 'error',
+          confirmButtonText: 'Ok',
+        })
       }
     );
   }

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Usuario } from 'src/app/interfaces/perfilInterfaces';
+import { AlertService } from 'src/app/servicios/alert.service';
 import { ApipeticionesService } from 'src/app/servicios/apipeticiones.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modal-verify',
@@ -10,20 +10,12 @@ import Swal from 'sweetalert2';
 })
 export class ModalVerifyComponent {
   arr: Usuario[] = [];
-  constructor(private apiService: ApipeticionesService) {}
+  constructor(private apiService: ApipeticionesService,private alert: AlertService) {}
   @Output() modalVerify = new EventEmitter<boolean>();
   @Input() title: string = '';
   @Input() descripcion: string = '';
   @Input() email: string = '';
   body: any
-  successAlert() {
-    Swal.fire({
-      title: "Comprueba tu correo",
-      text: "Hemos enviado un correo de verificacion a tu email, comprueba en tu bandeja de entrada y verificate.",
-      icon: 'success',
-      confirmButtonText: 'Ok'
-    });
-  }
   handleClose() {
     this.modalVerify.emit(false);
   }
@@ -33,9 +25,21 @@ export class ModalVerifyComponent {
       verificationLink: "http://localhost:4200/verify"
     }
     this.apiService.sendVerifyUser(this.body).subscribe((data)=>{
-      this.successAlert()
+      this.alert.alert({
+        title: "Comprueba tu correo",
+        text: "Hemos enviado un correo de verificacion a tu email, comprueba en tu bandeja de entrada y verificate.",
+        icon: 'success',
+        confirmButtonText: 'Ok'
+      })
     },(error)=>{
-   //TODO poner un error alert
+      if (error) {
+        this.alert.alert({
+          title: "Error al enviar correo",
+          text: "Error al enviar correo, intenta nuevamente",
+          icon: 'error',
+          confirmButtonText: 'Ok'
+        })
+      }
     })
     this.modalVerify.emit(false);
     

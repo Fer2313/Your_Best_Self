@@ -2,7 +2,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from 'src/app/interfaces/perfilInterfaces';
 import { ApipeticionesService } from 'src/app/servicios/apipeticiones.service';
+import { AlertService } from 'src/app/servicios/alert.service';
 import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-info-general',
@@ -26,7 +28,7 @@ export class InfoGeneralComponent implements OnInit {
   };
   selectedFile?: File;
   error_image: boolean = false;
-  constructor(private apiService: ApipeticionesService, private fb: FormBuilder) {
+  constructor(private apiService: ApipeticionesService, private fb: FormBuilder, private alert:AlertService) {
   }
   miFormulario: FormGroup = this.fb.group({
     nombre:["", [Validators.required]],
@@ -46,12 +48,12 @@ export class InfoGeneralComponent implements OnInit {
   }
 
   successAlert(title: string, text: string) {
-    Swal.fire({
-      title: title,
-      text: "Status "+ text,
-      icon: 'success',
-      confirmButtonText: 'Ok',
-    });
+   this.alert.alert({
+    title: title,
+    text: "Status "+ text,
+    icon: 'success',
+    confirmButtonText: 'Ok',
+  })
   }
   onFileSelected(event: any): void {
     this.selectedFile = event.target.files[0];
@@ -92,7 +94,6 @@ export class InfoGeneralComponent implements OnInit {
       }, ()=>{
         Swal.fire("Error al enviar", "error");
       })
-      
     } else if (result.isDenied) {
       Swal.fire("Me alegra que decidas quedarte.", "",);
     }
