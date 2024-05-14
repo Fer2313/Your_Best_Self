@@ -27,6 +27,7 @@
     "nodemailer": "^6.9.12"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.5.7",
     "nodemon": "^3.0.1"
   }
 }
