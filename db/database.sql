@@ -62,7 +62,7 @@ CREATE TABLE detalle_ejercicio (
   id_entrenamiento int,
   series int,
   repeticiones int,
-  tiempo timestamp,
+  tiempo int,
   lado ENUM("izquierdo","derecho"),
  FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
  FOREIGN KEY (id_ejercicios) REFERENCES ejercicios(id_ejercicios),
@@ -655,14 +655,17 @@ CREATE TABLE detalle_ejercicio (
 
 Creacion de entrenamientos
 
-INSERT INTO entrenamiento (id_usuario, nombre_entrenamiento, dificultad, descripcion, fecha)
+INSERT INTO entrenamiento (id_usuario, nombre_entrenamiento, dificultad, descripcion, descanso_entre_series, descanso_entre_ejercicio, imagen, fecha)
 VALUES(
   1,
-  'Rutina Núcleo Firme: Desafío Abdominal Total'
+  'Rutina Núcleo Firme: Desafío Abdominal Total',
   3,
   'Es un entrenamiento intenso diseñado para fortalecer y esculpir tus músculos abdominales. Incorpora ejercicios variados, desde abdominales clásicos hasta planchas, adaptándose a diferentes niveles de condición física. Prepárate para sentir la activación profunda de tus abdominales y avanzar hacia un núcleo fuerte y tonificado.',
+  15,
+  30,
+  "https://res.cloudinary.com/dvp8rjepk/image/upload/v1708445933/images/Entrenamientos/aom7eqp6x5bermtwogwv.jpg",
   '2024-02-19'
-)
+);
 INSERT INTO detalle_ejercicio (id_usuario, id_ejercicios, id_entrenamiento, series,  repeticiones)
 VALUES(
   1,
@@ -690,7 +693,7 @@ VALUES(
 INSERT INTO detalle_ejercicio (id_usuario, id_ejercicios, id_entrenamiento, series,  repeticiones)
 VALUES(
   1,
-  27, Elevacion de piernas
+  22,
   1,
   3,
   12
@@ -698,19 +701,22 @@ VALUES(
 INSERT INTO detalle_ejercicio (id_usuario, id_ejercicios, id_entrenamiento, tiempo)
 VALUES(
   1,
- 35, Escalador en posicion de pie
+ 30,
   1,
   60
 );
 INSERT INTO detalle_ejercicio (id_usuario, id_ejercicios, id_entrenamiento, tiempo)
 VALUES(
   1,
- 34, Escaladas abdominales
+ 29,
   1,
   30
 );
 
-
+UPDATE entrenamiento
+SET descanso_entre_ejercicio = 30;
+ALTER TABLE detalle_entrenamiento
+MODIFY COLUMN tiempo int;
 */
 
 
