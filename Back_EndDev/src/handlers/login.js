@@ -42,7 +42,7 @@ export function getUser(token) {
   let user;
   jsonwebtoken.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
-      throw Error({"Error al verificar el token": err});
+      throw Error({ "Error al verificar el token": err });
     } else {
       user = {
         idUsuario: decoded.user,
@@ -56,6 +56,7 @@ export function getUser(token) {
 }
 
 export async function loginUser(req, res) {
+
   if (req.body.name) {
     const { name, picture, email, email_verified, nickname } = req.body;
     const [user] = await pool.query(
@@ -63,7 +64,7 @@ export async function loginUser(req, res) {
     );
     if (email) {
       if (user.length) {
-        console.log("hola")
+
         if (user[0].verify === "false") {
           await pool.query(`UPDATE usuario
           SET verify = "${email_verified}"
@@ -109,11 +110,14 @@ export async function loginUser(req, res) {
     );
     return token;
   }
- 
   const { email, contraseña } = req.body;
+
   const [user] = await pool.query(
     `SELECT * FROM usuario where email = '${email}'`
   );
+
+
+
   if (!user.length || !user[0].contraseña) {
     throw new Error("La contraseña y/o el email son incorrectos");
   }

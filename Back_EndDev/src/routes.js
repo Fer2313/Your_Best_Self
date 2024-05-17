@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { Publico } from "./middlewares/authorization.js";
+import { Privado, Publico } from "./middlewares/authorization.js";
 import multer from "multer";
 import {
   getAllEjercicesRoute,
@@ -39,6 +39,7 @@ import {
   verifyResetPasswordRoute,
 } from "./routes/user.js";
 import { postImageFileRoute } from "./routes/filesUploadCloudinary.js";
+import { deleteUserAdminRoute, reactivationUserAdminRoute } from "./routes/dashboard.js";
 
 const router = Router();
 const storage = multer.memoryStorage(); // Almacenar en memoria (puedes personalizar según tus necesidades)
@@ -47,11 +48,11 @@ const upload = multer({ storage: storage });
 //Get
 
 router.get("/", (req, res) => {
-  res.json({saludo:"Hola Mundo"});
+  res.json({ saludo: "Hola Mundo" });
 });
 
-router.get("/training/getTrainingLogById/:id",Publico,(req,res)=>{
-  getTrainingLogByIDRoute(req,res)
+router.get("/training/getTrainingLogById/:id", Publico, (req, res) => {
+  getTrainingLogByIDRoute(req, res)
 })
 
 router.get("/allUsers", Publico, (req, res) => {
@@ -114,8 +115,8 @@ router.get("/admin/dashboard", authenticateJWT, (req, res) => {
 });
 
 //Post
-router.post("/crearEntrenamito", Publico, (req, res)=>{
-  crearEntrenamientoRoute(req,res)
+router.post("/crearEntrenamito", Publico, (req, res) => {
+  crearEntrenamientoRoute(req, res)
 })
 
 router.post("/training/trainingLog", Publico, (req, res) => {
@@ -145,7 +146,7 @@ router.post("/sendResetPassword", (req, res) => {
 router.post("/verifyResetPassword", (req, res) => {
   verifyResetPasswordRoute(req, res);
 });
-router.patch("/resetPassword", (req, res)=>{
+router.patch("/resetPassword", (req, res) => {
   resetPasswordRoute(req, res);
 })
 
@@ -175,6 +176,10 @@ router.patch("/user", Publico, (req, res) => {
   actualizarUserRoute(req, res);
 });
 
+router.patch("/reactivationUserAdmin/:id", Privado, (req, res) => {
+  reactivationUserAdminRoute(req, res)
+});
+
 
 
 //Delete
@@ -183,6 +188,9 @@ router.delete("/deleteUser/:token", Publico, (req, res) => {
   deleteUserRoute(req, res);
 });
 
+router.delete("/deleteUserAdmin/:id", Privado, (req, res) => {
+  deleteUserAdminRoute(req, res);
+});
 
 
 

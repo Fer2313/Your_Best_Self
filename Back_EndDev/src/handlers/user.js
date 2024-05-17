@@ -37,7 +37,6 @@ export async function sendVerifyUser(email, verificationLink) {
   });
   const hash = await bcrypt.hash(email, 10);
   const base64Hash = btoa(hash);
-  console.log(hash);
   const mailOptions = {
     from: process.env.google_email,
     to: email,
@@ -111,19 +110,19 @@ export async function verifyResetPassword(token) {
   });
 }
 
-export async function resetPassword(token, password){
-  if(!token||!password){
+export async function resetPassword(token, password) {
+  if (!token || !password) {
     throw Error("No se pudo cambiar la contraseña")
   }
   const hashPassword = await bcrypt.hash(password, 10);
-      await pool.query(`UPDATE usuario
+  await pool.query(`UPDATE usuario
       SET contraseña = "${hashPassword}"
       WHERE update_token = "${token}"`);
-      
-      await pool.query(`UPDATE usuario
+
+  await pool.query(`UPDATE usuario
       SET update_token = ${null}
       WHERE update_token = "${token}"`);
-      return true;
+  return true;
 }
 
 export async function sendChangeEmail(email, newEmail, verificationLink) {
@@ -281,10 +280,11 @@ export async function deleteUser(token) {
       id = decoded.id;
     }
   });
-  console.log("hola");
+
   await pool.query(`delete from usuario where id_usuario = ${id}`);
   return { status: "ok", message: "el usuario a sido borrado" };
 }
+
 
 export async function verifyUser(id, hashEmail) {
   const [result] = await pool.query(`
@@ -351,3 +351,4 @@ export async function actualizarUser(req) {
     return { status: "ok", message: "Actualizado" };
   }
 }
+

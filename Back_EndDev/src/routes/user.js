@@ -46,7 +46,7 @@ export async function sendVerifyUserRoute(req, res) {
     res.status(400).json({ correo_status: "fallido", error: error.message });
   }
 }
-export async function  sendResetPasswordRoute(req, res){
+export async function sendResetPasswordRoute(req, res) {
   const { email, verificationLink } = req.body;
   try {
     const { transporter, mailOptions } = await sendResetPassword(
@@ -86,7 +86,7 @@ export async function sendChangeEmailRoute(req, res) {
 export async function changeEmailRoute(req, res) {
   const { token } = req.body;
   try {
-     await changeEmail(token);
+    await changeEmail(token);
     res.json({
       status: "ok",
       correo: "Correo cambiado exitosamente",
@@ -96,26 +96,26 @@ export async function changeEmailRoute(req, res) {
   }
 }
 
-export async function changePasswordRoute(req,res){
-  const {id, oldPassword, newPassword} = req.body
-try {
-  await changePassword(id, oldPassword, newPassword)
-  res.json({
-    status:"ok",
-    message:"contraseña actualizada"
-  })
-} catch (error) {
-  res.status(400).json({ error: error.message });
-}
+export async function changePasswordRoute(req, res) {
+  const { id, oldPassword, newPassword } = req.body
+  try {
+    await changePassword(id, oldPassword, newPassword)
+    res.json({
+      status: "ok",
+      message: "contraseña actualizada"
+    })
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 }
 
-export async function verifyResetPasswordRoute(req, res){
+export async function verifyResetPasswordRoute(req, res) {
   const { token } = req.body;
   try {
     await verifyResetPassword(token)
     res.json({
-      status:"ok",
-      message:"Acceso autorizado"
+      status: "ok",
+      message: "Acceso autorizado"
     })
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -123,35 +123,35 @@ export async function verifyResetPasswordRoute(req, res){
 };
 
 
-export async function resetPasswordRoute(req, res){
+export async function resetPasswordRoute(req, res) {
   const { token, password } = req.body;
   try {
     await resetPassword(token, password)
     res.json({
-      status:"ok",
-      message:"Contraseña actualizada"
+      status: "ok",
+      message: "Contraseña actualizada"
     })
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-export async function sendDeleteUserRoute(req,res){
+export async function sendDeleteUserRoute(req, res) {
   const { email, verificationLink } = req.body;
   try {
-    const { transporter, mailOptions }= await sendDeleteUser(email,verificationLink)
+    const { transporter, mailOptions } = await sendDeleteUser(email, verificationLink)
     await transporter.sendMail(mailOptions);
     res.json({
-      status:"ok",
-      message:"Email enviado"
+      status: "ok",
+      message: "Email enviado"
     })
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 }
 
-export async function deleteUserRoute(req,res){
- const {token} = req.params 
+export async function deleteUserRoute(req, res) {
+  const { token } = req.params
   try {
     const result = await deleteUser(token);
     res.json(result);
