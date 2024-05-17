@@ -177,6 +177,10 @@ export class NavBar2Component implements OnInit {
   ngOnInit(): void {
     this.apiService.obtenerUsuario().subscribe((data:any) => {
       this.user = data;
+    },(err)=>{
+      if(err){
+        this.cerrarSesion()
+      }
     });
   }
 }

@@ -3,7 +3,7 @@
         <button routerLink="" class="text-white font-medium ">
            Your Best Self
         </button>
-        <div class="flex items-center gap-6">
+        <div *ngIf="user" class="flex items-center gap-6">
             <div *ngIf="!obj.misEntrenamientos" class="flex gap-1 items-center">
                 <div class=" flex items-center justify-end rounded-lg h-8">
                     <button (click)="handleSearch(imputValue)" [@hiden]="animar ? 'si' : 'no'"
@@ -18,10 +18,10 @@
                 <button (click)="toggleAnimacion()"><img width="20" src="../../../../assets/Vector.png"
                         alt=".."></button>
             </div>
-            <span *ngIf="user" class="text-[#295FCC]">{{user.nombreUsuario}}</span>
+            <span class="text-[#295FCC]">{{user.nombreUsuario}}</span>
             <button (click)="toggleAnimacion2()" class="flex gap-2 items-center">
-                <img *ngIf="!user.imagen.length" width="50" src="../../../../assets/Ellipse 4.png" alt="..">
-                <img *ngIf="user.imagen.length" class="rounded-full" width="50" [src]="user.imagen" alt="..">
+                <img *ngIf="!user.imagen" width="50" src="../../../../assets/Ellipse 4.png" alt="..">
+                <img *ngIf="user.imagen" class="rounded-full" width="50" [src]="user.imagen" alt="..">
                 <img width="10" src="../../../../assets/Polygon 1.png" alt="..">
             </button>
             <div [@desplazamiento2]="animar2 ? 'abajo' : 'arriba'"

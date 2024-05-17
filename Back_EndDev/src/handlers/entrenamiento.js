@@ -23,7 +23,7 @@ export async function getTrainingById(id){
     ED.repeticiones AS repeticiones,
     ED.tiempo AS tiempo,
     ED.lado AS lado
-    FROM Ejercicios E
+    FROM ejercicios E
     JOIN detalle_ejercicio ED ON E.Id_ejercicios = ED.Id_ejercicios
     WHERE ED.id_entrenamiento = ${id}`);
     entren[0]["ejercicios_relacionados"] = exercise

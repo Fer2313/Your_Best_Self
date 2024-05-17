@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/app/servicios/alert.service';
 import { ApipeticionesService } from 'src/app/servicios/apipeticiones.service';
 import { AthenticationService } from 'src/app/servicios/athentication.service';
-import Swal from 'sweetalert2';
 interface Usuario {
   email: string;
   password: string;
@@ -15,6 +15,7 @@ export class LoginComponent {
   constructor(
     private apiservice: ApipeticionesService,
     private router: Router,
+    private alert:AlertService,
     private authService: AthenticationService
   ) {}
   openModalUpadateP: boolean = false;
@@ -24,23 +25,6 @@ export class LoginComponent {
   };
   openModal = () => (this.openModalUpadateP = true);
   reciveBooleanM = (e: boolean) => (this.openModalUpadateP = e);
-  successAlert(str: string) {
-    Swal.fire({
-      title: 'Usuario loggeado con exito',
-      text: str,
-      icon: 'success',
-      confirmButtonText: 'Ok',
-    });
-  }
-  errorAlert(str: string) {
-    Swal.fire({
-      title: 'Error al iniciar session',
-      text: str,
-      icon: 'error',
-      confirmButtonText: 'Ok',
-    });
-  }
-
   handleConsole() {
     const email = this.user.email;
     const contraseña = this.user.password;
@@ -51,11 +35,21 @@ export class LoginComponent {
     this.apiservice.loginUser(user).subscribe(
       (data: any) => {
         localStorage.setItem('token', data.token['token']);
-        this.successAlert(data.message);
+        this.alert.alert({
+          title: 'Usuario loggeado con exito',
+          text: data.message,
+          icon: 'success',
+          confirmButtonText: 'Ok',
+        });
         this.router.navigate([data.redirect]);
       },
       (error) => {
-        this.errorAlert(error.error.message);
+        this.alert.alert({
+          title: 'Error al iniciar session',
+          text: error.error.message,
+          icon: 'error',
+          confirmButtonText: 'Ok',
+        });
       }
     );
   }

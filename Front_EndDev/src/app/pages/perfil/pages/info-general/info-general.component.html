@@ -5,7 +5,8 @@
         <section class="flex flex-col items-center gap-2">
             <div class="flex flex-col items-center text-2xl gap-3 text-[#295FCC]">
                 <div class="flex justify-center items-centercursor-pointer">
-                    <img class="rounded-full w-24 h-24" src="{{user.imagen_perfil}}" alt="fotouser">
+                    <img *ngIf="!user.imagen_perfil" class="rounded-full w-24 h-24" src="../../../../assets/Ellipse 4.png" alt="..">
+                    <img *ngIf="user.imagen_perfil" class="rounded-full w-24 h-24" src="{{user.imagen_perfil}}" alt="fotouser">
                     <div class="flex justify-end items-end">
                         <img class="absolute w-7 p-1 rounded-full bg-[#9FC2F1]"
                             src="../../../../../assets/camera-svgrepo-com 1.png" alt="fotoCamara">
