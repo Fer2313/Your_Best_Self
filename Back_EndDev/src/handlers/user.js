@@ -13,7 +13,7 @@ export async function getUserById(id) {
 }
 export async function getAllUsers(req) {
   const onlyemail = req.query;
-  if (onlyemail) {
+  if (onlyemail.onlyemail) {
     const [result] = await pool.query(`SELECT email FROM usuario`);
     return result;
   }

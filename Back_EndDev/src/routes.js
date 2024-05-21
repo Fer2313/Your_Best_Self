@@ -55,9 +55,10 @@ router.get("/training/getTrainingLogById/:id", Publico, (req, res) => {
   getTrainingLogByIDRoute(req, res)
 })
 
-router.get("/allUsers", Publico, (req, res) => {
+router.get("/allUsers", Privado, (req, res) => {
   getAllUsersRoute(req, res);
 });
+
 router.get("/user", Publico, (req, res) => {
   getUserRoute(req, res);
 });

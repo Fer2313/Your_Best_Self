@@ -32,8 +32,8 @@
                     <h3 class="text-[#6AAFF0] text-xl">Genero</h3>
                 <select class="form-select text-[#295FCC] {{miFormulario.get('genero')?.valid || miFormulario.get('genero')?.untouched?'':'border-red-700'}}" aria-label="Default select example" formControlName="genero">
                     <option value="DEFAULT" disabled>Seleccionar Genero</option>
-                    <option value="Masculino">Masculino</option>
-                    <option value="Femenino">Femenino</option>
+                    <option value="masculino">Masculino</option>
+                    <option value="femenino">Femenino</option>
                   </select>
                   <div [hidden]="miFormulario.get('genero')?.valid || miFormulario.get('genero')?.untouched">
                     <span class="text-red-700 text-xs">El genero obligatorio</span>
