@@ -22,7 +22,7 @@
                             <div class="flex justify-between">
                                 <button (click)="prevMonthFunction()" class="bg-[#295FCC] px-2 rounded text-white"><</button>
                                 <h6>{{currentMonthName}} {{currentYear}}</h6>
-                                <button (click)="nextMonthFunction()" class="bg-[#295FCC] px-2 rounded {{currentMonth === actualMonth?'invisible':''}} text-white">></button> 
+                                <button (click)="nextMonthFunction()" class="bg-[#295FCC] px-2 rounded {{currentMonth === actualMonth && actualYear === currentYear?'invisible':''}} text-white">></button> 
                             </div>
                             <section class="grid grid-cols-7 text-[#295FCC]">
                                 <div class="flex justify-center" *ngFor="let item of weekdays">

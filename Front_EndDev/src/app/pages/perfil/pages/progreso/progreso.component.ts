@@ -31,6 +31,7 @@ export class ProgresoComponent implements OnInit {
   months: string[] = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   weekdays: string[] = ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'];
   actualMonth: number = new Date().getMonth() + 1;
+  actualYear: number = new Date().getFullYear();
   
   // Current
   currentMonth: number = this.actualMonth;
