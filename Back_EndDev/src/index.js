@@ -12,23 +12,8 @@ app.listen(PORT, "0.0.0.0", () => {
 });
 
 
-//Configuracion
-<<<<<<< HEAD
-// const allowedOrigins = ['https://your-best-self.vercel.app', 'http://localhost:4200'];
-// const corsOptions = {
-//     origin: function (origin, callback) {
-//       // Verifica si el origen de la solicitud está en la lista de orígenes permitidos
-//       if (allowedOrigins.includes(origin)) {
-//         callback(null, true);
-//       } else {
-//         callback(new Error('Acceso no permitido desde el origen especificado'));
-//       }
-//     },
-//   };
-
-=======
 const allowedOrigins = ['https://your-best-self.vercel.app', 'http://localhost:4200'];
-/* const corsOptions = {
+ const corsOptions = {
     origin: function (origin, callback) {
       // Verifica si el origen de la solicitud está en la lista de orígenes permitidos
       if (allowedOrigins.includes(origin)) {
@@ -37,8 +22,8 @@ const allowedOrigins = ['https://your-best-self.vercel.app', 'http://localhost:4
         callback(new Error('Acceso no permitido desde el origen especificado'));
       }
     },
-  }; */
->>>>>>> 39be63bb3a038f1822e22db120c075393901c9cf
+  }; 
+  
 app.use(cors());
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))

@@ -1,4 +1,4 @@
 export const environment = {
-    clientUrl: "https://your-best-self.vercel.app",
+    clientUrl: "http://localhost:4200",
     apiUrl: 'https://yourbestself-app.fly.dev/'
   };

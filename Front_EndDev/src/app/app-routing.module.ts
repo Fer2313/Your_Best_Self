@@ -1,4 +1,3 @@
-
 import { LibrayEjecicesComponent } from './pages/home/pages/libray-ejecices/libray-ejecices.component';
 import { PersEntrenamientosComponent } from './pages/home/pages/pers-entrenamientos/pers-entrenamientos.component';
 import { CompEntrenamientosComponent } from './pages/home/pages/comp-entrenamientos/comp-entrenamientos.component';
@@ -22,6 +21,7 @@ import { VerifyComponent } from './pages/verify/verify.component';
 import { ChangeEmailComponent } from './pages/change-email/change-email.component';
 import { DeleteUserComponent } from './pages/delete-user/delete-user.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { DashboardComponent } from './pages/perfil/pages/dashboard/dashboard.component';
 
 const router: Routes = [
   {
@@ -40,38 +40,41 @@ const router: Routes = [
     canActivate: [noLoginguard],
   },
   {
-    path:"verify/:email/:id",
+    path: 'verify/:email/:id',
     component: VerifyComponent,
   },
-  { 
-    path:"changeEmail/:token",
-    component:ChangeEmailComponent,
+  {
+    path: 'changeEmail/:token',
+    component: ChangeEmailComponent,
   },
-  { 
-    path:"resetPassword/:token",
-    component:ResetPasswordComponent,
+  {
+    path: 'resetPassword/:token',
+    component: ResetPasswordComponent,
   },
-  { 
-    path:"deleteUser/:token",
-    component:DeleteUserComponent,
+  {
+    path: 'deleteUser/:token',
+    component: DeleteUserComponent,
   },
   {
     path: 'perfil',
     component: PerfilComponent,
     children: [
       {
-          path:'',
-          component: InfoGeneralComponent
+        path: '',
+        component: InfoGeneralComponent,
       },
       {
-          path:'seguridad',
-          component: SeguridadComponent
+        path: 'seguridad',
+        component: SeguridadComponent,
       },
       {
-          path:'progreso',
-          component: ProgresoComponent
+        path: 'progreso',
+        component: ProgresoComponent,
       },
-    
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+      },
     ],
     canActivate: [loginGuard],
   },

@@ -58,6 +58,7 @@ export class RegisterComponent {
   }
   submitForm() {
     const formData = this.miFormulario.value;
+    console.log(formData)
     const body = {
       email: formData.email,
       contraseña: formData.password,

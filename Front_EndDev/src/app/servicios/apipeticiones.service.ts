@@ -89,6 +89,12 @@ export class ApipeticionesService {
       this.getToken()
     );
   }
+  deleteUserAdmin(id:number){
+    return this.httpClient.delete(this.baseUrl+ "deleteUserAdmin/" + id, this.getToken())
+  }
+  reactivationUserAdmin(id:number){
+    return this.httpClient.patch(this.baseUrl+ "reactivationUserAdmin/" + id, "" ,this.getToken())
+  }
   uploadUser(body: any) {
     return this.httpClient.patch(this.baseUrl + 'user', body, this.getToken());
   }
