@@ -75,6 +75,7 @@ CREATE TABLE Registro_entrenamiento (
   id_entrenamiento int,
   fecha date,
   kcal int,
+  minutos int,
   FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
   FOREIGN KEY (id_entrenamiento) REFERENCES entrenamiento(id_entrenamiento)
 );
@@ -776,3 +777,11 @@ SELECT DISTINCT E.Id_ejercicios AS Id_ejercicios, E.nombre_ejercicios AS nombre_
 UPDATE ejercicios
 SET categoria = 'Fuerza'
 WHERE id_ejercicios = 32;
+
+INSERT INTO detalle_ejercicio (id_usuario, id_ejercicios, id_entrenamiento, tiempo)
+VALUES(
+  1,
+ 29,
+  1,
+  30
+);

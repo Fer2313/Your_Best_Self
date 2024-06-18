@@ -1,17 +1,26 @@
-import { pool } from "../../db.js"
+import { pool } from "../../db.js";
 
-export async function getAllTrainings(){
-    const [entren] = await pool.query("SELECT * FROM entrenamiento WHERE id_entrenamiento = 1");
-    return entren
+export async function getAllTrainings() {
+  const [entren] = await pool.query(
+    "SELECT * FROM entrenamiento WHERE id_entrenamiento = 1"
+  );
+  return entren;
 }
 
-export async function getTrainingLogById(id){
-
+export async function getTrainingLogById(id) {
+  const query = `SELECT * FROM Registro_entrenamiento WHERE id_usuario = ${id}`;
+  const [trainingLog] = await pool.query(query);
+  if (!trainingLog.length) {
+    throw Error("Id desconocido");
+  }
+  return trainingLog;
 }
 
-export async function getTrainingById(id){
-    const [entren] = await pool.query("SELECT * FROM entrenamiento WHERE id_entrenamiento =" + id);
-    const [exercise] = await pool.query(`SELECT
+export async function getTrainingById(id) {
+  const [entren] = await pool.query(
+    "SELECT * FROM entrenamiento WHERE id_entrenamiento =" + id
+  );
+  const [exercise] = await pool.query(`SELECT
     E.Id_ejercicios AS Id_ejercicios,
     E.nombre_ejercicios AS nombre_ejercicios,
     E.Descripcion AS descripcion,
@@ -26,20 +35,26 @@ export async function getTrainingById(id){
     FROM ejercicios E
     JOIN detalle_ejercicio ED ON E.Id_ejercicios = ED.Id_ejercicios
     WHERE ED.id_entrenamiento = ${id}`);
-    entren[0]["ejercicios_relacionados"] = exercise
-    return entren[0]
+  entren[0]["ejercicios_relacionados"] = exercise;
+  return entren[0];
 }
 
-export async function trainingLog(id_usuario, id_entrenamiento, fecha, kcal){
-    if (!id_usuario || !id_entrenamiento || !fecha || !kcal) {
-        throw Error("Faltan datos")
-    }
-    const query =
-    "INSERT INTO Registro_entrenamiento (id_usuario, id_entrenamiento, fecha, kcal) VALUES (?,?,?,?)";
-    await pool.query(query,[id_usuario, id_entrenamiento, fecha, kcal])
-    return true
+export async function trainingLog(
+  id_usuario,
+  id_entrenamiento,
+  fecha,
+  kcal,
+  minutos
+) {
+  if (!id_usuario || !id_entrenamiento || !fecha || !kcal || !minutos) {
+    throw Error("Faltan datos");
+  }
+  console.log(id_usuario, id_entrenamiento, fecha, kcal, minutos);
+  const query =
+    "INSERT INTO Registro_entrenamiento (id_usuario, id_entrenamiento, fecha, kcal, minutos) VALUES (?,?,?,?,?)";
+  await pool.query(query, [id_usuario, id_entrenamiento, fecha, kcal, minutos]);
+  return true;
 }
-
 
 /* export async function crearEntrenamiento(entrenamiento, detalles){
     const connection = await pool.promise().getConnection();

@@ -31,9 +31,9 @@ export async function getTrainingLogByIDRoute(req,res){
   }
 }
 export async function trainingLogRoute(req, res){
- const {id_usuario, id_entrenamiento, fecha, kcal} = req.body;
+ const {id_usuario, id_entrenamiento, fecha, kcal, minutos} = req.body;
   try {
-    await trainingLog(id_usuario, id_entrenamiento, fecha, kcal);
+    await trainingLog(id_usuario, id_entrenamiento, fecha, kcal, minutos);
     res.status(200).json({ status:"ok", message: "Registro de entrenamiento subido"});
   } catch (error) {
     res.status(400).send({ err: error.message });
