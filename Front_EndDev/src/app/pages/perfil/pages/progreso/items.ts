@@ -4,7 +4,7 @@ export default function calendarItems(
   daysInPreviousMonth: any,
   daysInMonth: any
 ) {
-  arrDays = []
+  arrDays = [];
   if (firstDayName === 'Lu') {
     arrDays.push(daysInPreviousMonth);
   }
@@ -30,7 +30,7 @@ export default function calendarItems(
     arrDays.push(daysInPreviousMonth - 1);
     arrDays.push(daysInPreviousMonth);
   }
-  if (firstDayName === 'Sa') {
+  if (firstDayName === 'Sá') {
     arrDays.push(daysInPreviousMonth - 5);
     arrDays.push(daysInPreviousMonth - 4);
     arrDays.push(daysInPreviousMonth - 3);
@@ -41,7 +41,14 @@ export default function calendarItems(
   for (let index = 1; index < daysInMonth + 1; index++) {
     arrDays.push(index);
   }
-  if (arrDays.length === 34) {
+  let i = 1;
+  while (arrDays.length <= 41) {
+    arrDays.push(i);
+    i++;
+  }
+  return arrDays;
+}
+/*  if (arrDays.length === 34) {
     arrDays.push(1);
   } else if (arrDays.length === 33) {
     arrDays.push(1);
@@ -76,6 +83,4 @@ export default function calendarItems(
     arrDays.push(5);
     arrDays.push(6);
     arrDays.push(7);
-  }
-  return arrDays;
-}
+  } */

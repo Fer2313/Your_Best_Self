@@ -34,6 +34,9 @@ export class ApipeticionesService {
   trainingLog(body: any) {
     return this.httpClient.post(this.baseUrl + 'training/trainingLog', body, this.getToken());
   }
+  getTrainingLogById(id: number) {
+    return this.httpClient.get(this.baseUrl + 'training/getTrainingLogById/'+ id, this.getToken());
+  }
   sendResetPassword(body: any) {
     return this.httpClient.post(this.baseUrl + 'sendResetPassword', body);
   }

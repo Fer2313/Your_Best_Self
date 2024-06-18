@@ -44,7 +44,7 @@
     <mat-spinner></mat-spinner>
 </div>
 <app-inicio-entrenamiento (finishBoolean)="recivedFinishB($event)"  (start)="recivedBooleanS($event)" [series]="series" [training]="training" [ejercicio2]="ejercicio" *ngIf="start"></app-inicio-entrenamiento>
-<app-alert (alertM)="recivedBoolean($event)" *ngIf="modalAlert" [ok]="true" [title]="'Su entrenamiento ha finalizado'" [descripcion]="'Su entrenamiento ha finalizado exitosamente, usted a perdido 200 cal'"></app-alert>
+<app-alert (alertM)="recivedBoolean($event)" *ngIf="modalAlert" [ok]="true" [title]="'Su entrenamiento ha finalizado'" [descripcion]="Kcal !==0 ?'Su entrenamiento ha finalizado exitosamente, usted a perdido '+Kcal+' calorias en este entrenamiento':'Calculando calorias gastadas...'"></app-alert>
 
 <!-- <article *ngIf="start" class="flex flex-col h-full w-full justify-center items-center">
     <div class="w-1/2 p-10 bg-white rounded shadow-sm">

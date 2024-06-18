@@ -13,34 +13,60 @@
                             <img src="../../../../../assets/fire-svgrepo-com 1.png" width="50px" alt="">
                         </div>
                     </div>
-                    <div class="bg-white rounded">Entrenamientos por semana</div>
+                    <div class="flex flex-col items-center gap-2">
+                        <span
+                            class="flex bg-[#6AAFF0] justify-center text-2xl px-10 text-white text-center items-center w-full rounded h-2/3">Entrenamientos
+                            de la semana</span>
+                        <div class="w-full">
+                            <app-trainingsinweek></app-trainingsinweek>
+                        </div>
+                    </div>
                 </section>
                 <section class="grid grid-cols-2 gap-20">
-                    <div class="flex flex-col gap-2">
+                    <div class="flex flex-col gap-1">
                         <h4 class="text-xl text-white text-center">Calendario de actividades</h4>
-                        <main class="flex flex-col gap-1 bg-white p-2 rounded">
-                            <div class="flex justify-between">
-                                <button (click)="prevMonthFunction()" class="bg-[#295FCC] px-2 rounded text-white"><</button>
-                                <h6>{{currentMonthName}} {{currentYear}}</h6>
-                                <button (click)="nextMonthFunction()" class="bg-[#295FCC] px-2 rounded {{currentMonth === actualMonth && actualYear === currentYear?'invisible':''}} text-white">></button> 
+                        <div class="flex">
+                            <app-calendario-actividades class="w-full" [id_usuario]="user.id_usuario"
+                                [traininLog]="trainingLogObj"></app-calendario-actividades>
+                        </div>
+                    </div>
+                    <section class="flex flex-col gap-3">
+                        <div class="flex flex-col gap-1">
+                            <h4 class="text-xl text-white text-center">Calorias quemadas</h4>
+                            <div class="flex flex-col items-center">
+                                <div class="flex justify-between gap-3 text-[#295FCC] rounded">
+                                    <div class="bg-white px-2 py-1 rounded">
+                                        <p class="text-xl">En general:</p>
+                                        <p class="text-slate-800 text-lg">{{trainingLogObj.calories.total}} kcal</p>
+                                    </div>
+                                    <div class="bg-white px-2 py-1 rounded">
+                                        <p class="text-xl">En el día:</p>
+                                        <p class="text-slate-800 text-lg">{{trainingLogObj.calories.hoy}} kcal</p>
+                                    </div>
+                                </div>
                             </div>
-                            <section class="grid grid-cols-7 text-[#295FCC]">
-                                <div class="flex justify-center" *ngFor="let item of weekdays">
-                                    <p>{{item}}</p>
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <h4 class="text-xl text-white text-center">Meta de peso ideal</h4>
+                            <div class="flex flex-col items-center">
+                                <div
+                                    class="flex flex-col items-center text-[#295FCC] text-xl bg-white rounded px-2 py-1">
+                                    De
+                                    {{user.peso}}Kg
+                                    a {{user.pesoIdeal}}kg
                                 </div>
-                            </section>
-                            <section class="grid grid-cols-7 bg-slate-200 rounded py-1">
-                                <div class="flex justify-center py-1" *ngFor="let item of arrDays;  let i = index">
-                                    <p class="{{item > 20 && i <= 7 || item < 7 && i > 20?'text-[#9FC2F1]':'text-black'}}">{{item}}</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <h4 class="text-xl text-white text-center">Minutos entrenados</h4>
+                            <div class="flex flex-col items-center">
+                                <div
+                                    class="flex flex-col items-center text-[#295FCC] text-xl bg-white rounded px-2 py-1">
+                                    <p>{{trainingLogObj.minutos}} minutos</p>
                                 </div>
-                            </section>
-                        </main>
-                    </div>
-                    <div class="flex flex-col gap-2">
-                        <h4 class="text-xl text-white text-center">Meta de peso ideal</h4>
-                        <div class="bg-white rounded mx-14 text-[#295FCC] text-2xl text-center py-1">De {{user.peso}}Kg
-                            a {{user.pesoIdeal}}kg</div>
-                    </div>
+                            </div>
+                        </div>
+                    </section>
                 </section>
             </article>
         </div>

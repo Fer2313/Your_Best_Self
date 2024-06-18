@@ -23,6 +23,9 @@ import { InicioEntrenamientoComponent } from './components/inicio-entrenamiento/
 import { ProfileNavComponent } from './components/profile-nav/profile-nav.component';
 import { ModalVerifyComponent } from './components/modal-verify/modal-verify.component';
 import { ModalUpdatePasswordComponent } from './components/modal-update-password/modal-update-password.component';
+import { TrainingsinweekComponent } from './components/trainingsinweek/trainingsinweek.component';
+import { CalendarioActividadesComponent } from './components/calendario-actividades/calendario-actividades.component';
+
 
 
 
@@ -45,6 +48,8 @@ import { ModalUpdatePasswordComponent } from './components/modal-update-password
   ProfileNavComponent,
   ModalVerifyComponent,
   ModalUpdatePasswordComponent,
+  TrainingsinweekComponent,
+  CalendarioActividadesComponent,
 ],
   imports: [
     CommonModule,
@@ -73,7 +78,8 @@ import { ModalUpdatePasswordComponent } from './components/modal-update-password
     ProfileNavComponent,
     ModalVerifyComponent,
     ModalUpdatePasswordComponent,
-
+    TrainingsinweekComponent,
+    CalendarioActividadesComponent,
   ],
 
 })

@@ -112,7 +112,7 @@ export class NavBar2Component implements OnInit {
       this.animar4 = false;
     }else{
        this.apiService.getExercicesByName(name).subscribe((data: any) => {
-      this.ejercicios = data.slice(0,5);
+      this.ejercicios      = data.slice(0,5);
       this.animar4 = true;
     },()=>{
      this.ejercicios = [{

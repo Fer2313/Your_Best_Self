@@ -12,6 +12,15 @@ export interface Usuario {
     pesoIdeal: number;
     imagen_perfil: string | null;
   }
+  export interface RegistroEntrenamientos {
+    fecha:            Date;
+    id_entrenamiento: number;
+    id_usuario:       number;
+    kcal:             number;
+    minutos:          number;
+    registro_id:      number;
+}
+
   
   export interface user {
     idUsuario: number;
