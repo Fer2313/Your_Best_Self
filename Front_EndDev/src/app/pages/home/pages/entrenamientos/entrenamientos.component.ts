@@ -1,9 +1,5 @@
 import { Ejercicio, Training } from './../../../../interfaces/homeIntefaces';
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, interval } from 'rxjs';
 import { Usuario } from 'src/app/interfaces/perfilInterfaces';
@@ -31,6 +27,7 @@ export class EntrenamientosComponent implements OnInit, OnDestroy {
     descanso_entre_ejercicio: 0,
     ejercicios_relacionados: [],
   };
+  Kcal: number = 0;
   user: Usuario = {
     id_usuario: 0,
     nombre: '',
@@ -152,6 +149,8 @@ export class EntrenamientosComponent implements OnInit, OnDestroy {
           // Se calcula el factor de actividad
           const minutos = Math.round(this.tiempoTranscurrido / 60);
           const factorActividad = promedioMET * (minutos / 60);
+          //se reicicia el tiempo transcurrido
+          this.tiempoTranscurrido = 0;
           // Se calcula el metabolismo basal (MB)
           let altura = Math.round(this.user.altura * 100);
           const MB =
@@ -160,28 +159,32 @@ export class EntrenamientosComponent implements OnInit, OnDestroy {
             4.799 * altura -
             5.677 * this.user.edad;
           // Se calculan las calorias gastadas
-          const kcal = MB * factorActividad;
+          const kcal = Math.round(MB * factorActividad);
           // Obtiene la fecha actual
-          const fechaDeHoy = new Date(); 
+          const fechaDeHoy = new Date();
           const año = fechaDeHoy.getFullYear();
           // Agrega un cero al mes si es menor que 10
-          const mes = ('0' + (fechaDeHoy.getMonth() + 1)).slice(-2); 
-           // Agrega un cero al día si es menor que 10
+          const mes = ('0' + (fechaDeHoy.getMonth() + 1)).slice(-2);
+          // Agrega un cero al día si es menor que 10
           const dia = ('0' + fechaDeHoy.getDate()).slice(-2);
           const fechaFormateada = `${año}-${mes}-${dia}`;
+          this.Kcal = kcal;
           this.apiService
             .trainingLog({
               id_usuario: this.user.id_usuario,
               id_entrenamiento: this.training.id_entrenamiento,
               fecha: fechaFormateada,
               kcal,
+              minutos,
             })
             .subscribe(
               (data: any) => {
                 //TODO Poner sucess alert
+                console.log(data);
               },
               (err) => {
                 //TODO Poner error alert
+                console.log(err);
               }
             );
         }

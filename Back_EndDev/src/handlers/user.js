@@ -9,6 +9,9 @@ export async function getUserById(id) {
   const [result] = await pool.query(
     `SELECT * FROM usuario Where id_usuario = ${id}`
   );
+  const [registros] = await pool.query(
+    `SELECT * FROM Registro_entrenamiento Where id_usuario = ${id}`
+  )
   return result[0];
 }
 export async function getAllUsers(req) {

@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div *ngIf="obj.bibliotecaEjercicios" [@hiden]="animar4 ? 'si' : 'no'"
-                class="flex flex-col w-80  absolute bg-white rounded top-12 right-7 gap-1">
+                class="flex flex-col w-80 top-12 absolute bg-white rounded gap-1">
                 <button (click)="activateModal(item.Id_ejercicios)" class="flex p-1 border hover:bg-[#F0F7FE] rounded gap-1" *ngFor="let item of ejercicios">
                     <img *ngIf="item.imagen" class="w-14" [src]="item.imagen" alt="imagenes">
                     <h5 class="text-start text-xs">{{item.nombre_ejercicios}}</h5>
