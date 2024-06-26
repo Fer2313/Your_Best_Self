@@ -25,6 +25,8 @@ import { ModalVerifyComponent } from './components/modal-verify/modal-verify.com
 import { ModalUpdatePasswordComponent } from './components/modal-update-password/modal-update-password.component';
 import { TrainingsinweekComponent } from './components/trainingsinweek/trainingsinweek.component';
 import { CalendarioActividadesComponent } from './components/calendario-actividades/calendario-actividades.component';
+import { RachaUserComponent } from './components/racha-user/racha-user.component';
+import { WeekTrainingsComponent } from './components/week-trainings/week-trainings.component';
 
 
 
@@ -50,6 +52,8 @@ import { CalendarioActividadesComponent } from './components/calendario-activida
   ModalUpdatePasswordComponent,
   TrainingsinweekComponent,
   CalendarioActividadesComponent,
+  RachaUserComponent,
+  WeekTrainingsComponent,
 ],
   imports: [
     CommonModule,
@@ -80,6 +84,8 @@ import { CalendarioActividadesComponent } from './components/calendario-activida
     ModalUpdatePasswordComponent,
     TrainingsinweekComponent,
     CalendarioActividadesComponent,
+    RachaUserComponent,
+    WeekTrainingsComponent,
   ],
 
 })
