@@ -46,33 +46,70 @@ export class TrainingLogService {
     return trainingLog;
   }
 
-  getWeekTrainnings(id: number) {
-    let trainingLog: any;
+  getWeekTrainnings(id: number): Promise<any> {
     const fechaActual = new Date();
-    const diasSemana = [
-      { name: 'Domingo', training: false },
-      { name: 'Lunes', training: false },
-      { name: 'Martes', training: false },
-      { name: 'Miércoles', training: false },
-      { name: 'Jueves', training: false },
-      { name: 'Viernes', training: false },
-      { name: 'Sábado', training: false },
+    const diasSemana: any = [
+      { name: 'Domingo', training: 'Non' },
+      { name: 'Lunes', training: 'Non' },
+      { name: 'Martes', training: 'Non' },
+      { name: 'Miércoles', training: 'Non' },
+      { name: 'Jueves', training: 'Non' },
+      { name: 'Viernes', training: 'Non' },
+      { name: 'Sábado', training: 'Non' },
     ];
-    this.apipeticiones.getTrainingLogById(id).subscribe((data) => {
-      trainingLog = data;
-      for (let index = 0; index < trainingLog.length; index++) {
-        if (
-          trainingLog[index].fecha.slice(0, 4) === fechaActual.getFullYear() &&
-          trainingLog[index].fecha.slice(5, 7) === fechaActual.getMonth() > 10
-            ? '0' + fechaActual.getMonth()
-            : fechaActual.getMonth()
-        ) {
-          const diaActual = diasSemana[fechaActual.getDay()].name;
-          console.log(diaActual);
+    return new Promise<void>((resolve, reject) => {
+      this.apipeticiones.getTrainingLogById(id).subscribe(
+        (data) => {
+          const datalog = data;
+          for (let index = 0; index < datalog.length; index++) {
+            if (
+              datalog[index].fecha.slice(0, 4) === fechaActual.getFullYear() &&
+              datalog[index].fecha.slice(5, 7) === fechaActual.getMonth() > 10
+                ? '0' + fechaActual.getMonth()
+                : fechaActual.getMonth()
+            ) {
+              let currentArrayDay = fechaActual.getDay();
+              let diaActualNumero = fechaActual.getDate();
+              let diaActualNombre = diasSemana[currentArrayDay].name;
+              if (diaActualNombre === 'Domingo' && diaActualNumero == datalog[index].fecha.slice(8, 10)) {
+                diasSemana[0].training = true;
+              }else if(diaActualNombre !== 'Domingo' && diaActualNumero != datalog[index].fecha.slice(8, 10)){
+                diasSemana[0].training = false;
+              }
+              while (diaActualNombre !== 'Domingo') {
+                if (diaActualNumero == datalog[index].fecha.slice(8, 10)) {
+                  diasSemana[currentArrayDay].training = true;
+                  diaActualNumero = diaActualNumero - 1;
+                  currentArrayDay = currentArrayDay - 1;
+                  diaActualNombre = diasSemana[currentArrayDay].name;
+                } else {
+                  if (
+                    diaActualNombre === diasSemana[fechaActual.getDay()].name
+                  ) {
+                    console.log(
+                      diaActualNombre,
+                      diasSemana[fechaActual.getDay()].name
+                    );
+                    diaActualNumero = diaActualNumero - 1;
+                    currentArrayDay = currentArrayDay - 1;
+                    diaActualNombre = diasSemana[currentArrayDay].name;
+                  } else {
+                    diasSemana[currentArrayDay].training = false;
+                    diaActualNumero = diaActualNumero - 1;
+                    currentArrayDay = currentArrayDay - 1;
+                    diaActualNombre = diasSemana[currentArrayDay].name;
+                  }
+                }
+              }
+            }
+          }
+          resolve(diasSemana);
+        },
+        (err) => {
+          reject(err);
         }
-      }
+      );
     });
-    return trainingLog;
   }
 
   getRacha(id: number): Observable<number> {

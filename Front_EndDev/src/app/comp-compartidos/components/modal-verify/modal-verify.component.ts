@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { environment } from 'environment';
 import { Usuario } from 'src/app/interfaces/perfilInterfaces';
 import { AlertService } from 'src/app/servicios/alert.service';
 import { ApipeticionesService } from 'src/app/servicios/apipeticiones.service';
@@ -22,7 +23,7 @@ export class ModalVerifyComponent {
   handleVerify() {
     this.body = {
       email: this.email,
-      verificationLink: "http://localhost:4200/verify"
+      verificationLink: environment.clientUrl+"/verify"
     }
     this.apiService.sendVerifyUser(this.body).subscribe((data)=>{
       this.alert.alert({
