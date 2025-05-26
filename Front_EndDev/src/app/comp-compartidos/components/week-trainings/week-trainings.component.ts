@@ -8,7 +8,12 @@ import { TrainingLogService } from 'src/app/servicios/training-log.service';
 export class WeekTrainingsComponent implements OnInit {
   @Input() id: number = 0;
   constructor(private trainingLogService: TrainingLogService) {}
-  ngOnInit(): void {
-    console.log(this.trainingLogService.getWeekTrainnings(this.id));
+  weektrainings: any;
+ 
+  async ngOnInit() {
+    this.weektrainings = await this.trainingLogService.getWeekTrainnings(
+      this.id
+    );
+    console.log(this.weektrainings)
   }
 }

@@ -4,6 +4,7 @@ import { Usuario } from 'src/app/interfaces/perfilInterfaces';
 import { ApipeticionesService } from 'src/app/servicios/apipeticiones.service';
 import { AlertService } from 'src/app/servicios/alert.service';
 import Swal from 'sweetalert2';
+import { environment } from 'environment';
 
 
 @Component({
@@ -80,7 +81,7 @@ export class InfoGeneralComponent implements OnInit {
   deleteAccount(){
     this.body = {
       email: this.user.email,
-      verificationLink: "http://localhost:4200/deleteUser"
+      verificationLink: environment.clientUrl+"/deleteUser"
     }
   Swal.fire({
     title: "Estas seguro de que quieres eliminar tu cuenta?",
