@@ -1,5 +1,6 @@
+
 export const environment = {
   production: true,
-    clientUrl: "",
-    apiUrl: ''
+  clientUrl: "undefined",
+  apiUrl: "undefined"
 };

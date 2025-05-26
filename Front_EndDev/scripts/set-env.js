@@ -1,13 +1,19 @@
-import * as fs from 'fs';
+const fs = require('fs');
 
 const targetPath = './src/environments/environment.prod.ts';
 
-const envFileContent = `
+const envConfigFile = `
 export const environment = {
   production: true,
-  apiUrl: '${process.env['API_URL']}',
-  tokenKey: '${process.env['TOKEN_KEY']}'
+  clientUrl: "${process.env.CLIENT_URL}",
+  apiUrl: "${process.env.API_URL}"
 };
 `;
 
-fs.writeFileSync(targetPath, envFileContent, { encoding: 'utf8' });
+fs.writeFile(targetPath, envConfigFile, (err) => {
+  if (err) {
+    console.error('Error al escribir el archivo environment:', err);
+  } else {
+    console.log(`Archivo generado correctamente en ${targetPath}`);
+  }
+});
