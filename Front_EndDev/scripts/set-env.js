@@ -5,8 +5,8 @@ const targetPath = './src/environments/environment.prod.ts';
 const envConfigFile = `
 export const environment = {
   production: true,
-  clientUrl: "${process.env.CLIENT_URL?process.env.CLIENT_URL:""}",
-  apiUrl: "${process.env.API_URL?process.env.API_URL:""}"
+  clientUrl: "${process.env.clientUrl?process.env.clientUrl:""}",
+  apiUrl: "${process.env.apiUrl?process.env.apiUrl:""}"
 };
 `;
 
