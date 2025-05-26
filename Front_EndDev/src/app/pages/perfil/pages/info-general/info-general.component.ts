@@ -4,7 +4,7 @@ import { Usuario } from 'src/app/interfaces/perfilInterfaces';
 import { ApipeticionesService } from 'src/app/servicios/apipeticiones.service';
 import { AlertService } from 'src/app/servicios/alert.service';
 import Swal from 'sweetalert2';
-import { environment } from 'environment';
+import { environment } from 'src/environments/environment';
 
 
 @Component({

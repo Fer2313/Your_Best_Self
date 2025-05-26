@@ -1,5 +1,5 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { environment } from './../../../../../../environment';
+import { environment } from '../../../../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from 'src/app/interfaces/perfilInterfaces';
 import { ApipeticionesService } from 'src/app/servicios/apipeticiones.service';

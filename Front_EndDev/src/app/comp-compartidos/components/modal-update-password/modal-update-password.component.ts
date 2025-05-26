@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { environment } from 'environment';
+import { environment } from 'src/environments/environment';
 import { AlertService } from 'src/app/servicios/alert.service';
 import { ApipeticionesService } from 'src/app/servicios/apipeticiones.service';
 
