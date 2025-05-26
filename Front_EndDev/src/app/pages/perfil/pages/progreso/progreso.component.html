@@ -1,0 +1,65 @@
+<main class="flex h-screen from-[#9FC2F1] to-[#FFFFFF]"
+    style="background: linear-gradient(to top, #9FC2F1 55%, #F0F7FE 45%);">
+    <app-profile-nav class="w-1/4"></app-profile-nav>
+    <div *ngIf="trainingLogObj.minutos" class="flex flex-col w-3/4 m-10">
+        <h1 class="text-3xl font-bold text-[#295FCC]">Progreso</h1>
+        <div class="flex flex-col m-10 gap-12">
+            <article class="flex flex-col gap-14 px-20">
+                <section class="grid grid-cols-2 gap-20">
+                    <app-racha-user [id]="user.id_usuario"></app-racha-user>
+                    <app-week-trainings [id]="user.id_usuario"></app-week-trainings>
+                </section>
+                <section class="grid grid-cols-2 gap-20">
+                    <div class="flex flex-col gap-1">
+                        <h4 class="text-xl text-white text-center">Calendario de actividades</h4>
+                        <div class="flex">
+                            <app-calendario-actividades class="w-full" [id_usuario]="user.id_usuario"
+                                [traininLog]="trainingLogObj"></app-calendario-actividades>
+                        </div>
+                    </div>
+                    <section class="flex flex-col gap-3">
+                        <div class="flex flex-col gap-1">
+                            <h4 class="text-xl text-white text-center">Calorias quemadas</h4>
+                            <div class="flex flex-col items-center">
+                                <div class="flex justify-between gap-3 text-[#295FCC] rounded">
+                                    <div class="bg-white px-2 py-1 rounded">
+                                        <p class="text-xl">En general:</p>
+                                        <p class="text-slate-800 text-lg">{{trainingLogObj.calories.total}} kcal</p>
+                                    </div>
+                                    <div class="bg-white px-2 py-1 rounded">
+                                        <p class="text-xl">En el día:</p>
+                                        <p class="text-slate-800 text-lg">{{trainingLogObj.calories.hoy}} kcal</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <h4 class="text-xl text-white text-center">Meta de peso ideal</h4>
+                            <div class="flex flex-col items-center">
+                                <div
+                                    class="flex flex-col items-center text-[#295FCC] text-xl bg-white rounded px-2 py-1">
+                                    De
+                                    {{user.peso}}Kg
+                                    a {{user.pesoIdeal}}kg
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <h4 class="text-xl text-white text-center">Minutos entrenados</h4>
+                            <div class="flex flex-col items-center">
+                                <div
+                                    class="flex flex-col items-center text-[#295FCC] text-xl bg-white rounded px-2 py-1">
+                                    <p>{{trainingLogObj.minutos}} minutos</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+            </article>
+        </div>
+
+    </div>
+    <div *ngIf="!trainingLogObj.minutos" class="flex w-3/4 m-10 justify-center items-center">
+        <mat-spinner></mat-spinner>
+    </div>
+</main>

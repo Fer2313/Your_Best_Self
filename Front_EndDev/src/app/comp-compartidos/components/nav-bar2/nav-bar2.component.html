@@ -1,51 +1,62 @@
 <nav class="flex flex-col ">
     <section class="flex items-center justify-between w-full h-16 px-8 bg-[#C3DFFA] border-b border-[#295FCC]">
-        <button routerLink="" class="text-slate-400">YourBestSelf</button>
-        <div class="flex items-center gap-6">
-            <div class="flex gap-1 items-center">
+        <button routerLink="" class="text-white font-medium ">
+           Your Best Self
+        </button>
+        <div *ngIf="user" class="flex items-center gap-6">
+            <div *ngIf="!obj.misEntrenamientos" class="flex gap-1 items-center">
                 <div class=" flex items-center justify-end rounded-lg h-8">
-                    <button [@hiden]="animar ? 'si' : 'no'" class="absolute rounded-l p-1">
+                    <button (click)="handleSearch(imputValue)" [@hiden]="animar ? 'si' : 'no'"
+                        class="absolute rounded-l p-1">
                         <img width="16" src="../../../../assets/Vector.png" alt="..">
                     </button>
-                    <input aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                    <input [(ngModel)]="imputValue" (ngModelChange)="getExercices(imputValue)"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
                         [@desplazamiento]="animar ? 'derecha' : 'izquierda'"
-                        class="focus:outline-none text-slate-600 text-sm rounded h-7 w-full" type="text"
-                        name="Search">
+                        class="focus:outline-none text-slate-600 text-sm rounded h-7 w-full" type="text" name="Search">
                 </div>
                 <button (click)="toggleAnimacion()"><img width="20" src="../../../../assets/Vector.png"
                         alt=".."></button>
             </div>
+            <span class="text-[#295FCC]">{{user.nombreUsuario}}</span>
             <button (click)="toggleAnimacion2()" class="flex gap-2 items-center">
-                <img width="50" src="../../../../assets/Ellipse 4.png" alt="..">
+                <img *ngIf="!user.imagen" width="50" src="../../../../assets/Ellipse 4.png" alt="..">
+                <img *ngIf="user.imagen" class="rounded-full" width="50" [src]="user.imagen" alt="..">
                 <img width="10" src="../../../../assets/Polygon 1.png" alt="..">
             </button>
             <div [@desplazamiento2]="animar2 ? 'abajo' : 'arriba'"
                 class="flex flex-col justify-center p-1 w-40 rounded text-white top-14 right-1  bg-white border-2 border-[#6374AE] absolute">
                 <div class="flex flex-col h-full justify-evenly gap-1">
-                    <button *ngIf="animar2" class="bg-[#9FC2F1] rounded">Mi prefil</button>
-                    <button *ngIf="animar2" class="bg-[#9FC2F1] rounded">Mi progreso</button>
+                    <button routerLink="/perfil" *ngIf="animar2" class="bg-[#9FC2F1] rounded">Mi prefil</button>
+                    <button *ngIf="animar2" routerLink="/perfil/progreso" class="bg-[#9FC2F1] rounded">Mi progreso</button>
+                    <button (click)="cerrarSesion()" *ngIf="animar2" class="bg-red-400 rounded">Cerrar sesíon</button>
                 </div>
             </div>
+            <div *ngIf="obj.bibliotecaEjercicios" [@hiden]="animar4 ? 'si' : 'no'"
+                class="flex flex-col w-80 top-12 absolute bg-white rounded gap-1">
+                <button (click)="activateModal(item.Id_ejercicios)" class="flex p-1 border hover:bg-[#F0F7FE] rounded gap-1" *ngFor="let item of ejercicios">
+                    <img *ngIf="item.imagen" class="w-14" [src]="item.imagen" alt="imagenes">
+                    <h5 class="text-start text-xs">{{item.nombre_ejercicios}}</h5>
+                </button>
+            </div>
+
         </div>
     </section>
     <section class="flex justify-center items-center px-4 h-11 rounded-bl-full bg-[#9FC2F1]">
         <ul class="flex gap-5 text-sm text-white">
-            <button routerLink="/home" class="hover:underline">Entrenamientos</button>
-            <button routerLink="/home/comp_entrenamientos" class="hover:underline">Entrenamientos de la
+            <button [class]="this.obj.entrenamientos ? 'underline':'no-underline'" routerLink="/home"
+                class="hover:underline" (click)="changeSection('entrenamientos')">Entrenamientos</button>
+            <button [class]="this.obj.entrenamientosComunidad ? 'underline':'no-underline'"
+                routerLink="/home/comp_entrenamientos" (click)="changeSection('entrenamientosComunidad')"
+                class="hover:underline">Entrenamientos de la
                 comunidad</button>
-            <button routerLink="/home/pers_entrenamientos" class="hover:underline">Mis Entrenamientos</button>
-            <button routerLink="/home/library_Ejercices" class="hover:underline">Bibloteca de Ejercicios</button>
+            <button [class]="this.obj.misEntrenamientos ? 'underline':'no-underline'"
+                routerLink="/home/pers_entrenamientos" (click)="changeSection('misEntrenamientos')"
+                class="hover:underline">Mis Entrenamientos</button>
+            <button [class]="this.obj.bibliotecaEjercicios ? 'underline':'no-underline'"
+                routerLink="/home/library_Ejercices" (click)="changeSection('bibliotecaEjercicios')"
+                class="hover:underline">Bibloteca de Ejercicios</button>
         </ul>
-        <!--      <section class="flex flex-col">
-        <button (click)="toggleAnimacion3()"class="bg-white text-[#84AEE5] rounded-2xl text-sm px-2 py-1 border-[#3273DE] border-2">Filtrar</button>
-        
-            <div [@hiden]="animar3 ? 'si' : 'no'" class="grid gap-3 grid-cols-2 absolute right-1 top-32 p-2 rounded bg-[#C3DFFA]">
-                <div class="flex flex-col items-center justify-center h-44 w-40 bg-white rounded">abdomen</div>
-                <div class="flex flex-col items-center justify-center h-44 w-40 bg-white rounded">flexiones</div>
-                <div class="flex flex-col items-center justify-center h-44 w-40 bg-white rounded">piernas</div>
-                <div class="flex flex-col items-center justify-center h-44 w-40 bg-white rounded">cuerpo completo</div>
-            </div>
-        </section> -->
     </section>
 
 </nav>

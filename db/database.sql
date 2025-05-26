@@ -1,16 +1,26 @@
 CREATE DATABASE IF NOT EXISTS youbestself;
+
 CREATE TABLE usuario (
   id_usuario INT AUTO_INCREMENT PRIMARY KEY,
-  nombre VARCHAR(45),
+  email VARCHAR(200),
+  contraseña varchar(150),
+  nombre VARCHAR(100),
   edad INT,
   peso INT,
+  pesoIdeal INT,
   altura FLOAT,
-  sexo VARCHAR(10)
+  racha int,
+  sexo VARCHAR(10),
+  update_token VARCHAR(255),
+  imagen_perfil varchar(255),
+  verify ENUM("true", "false") default 'false',
+  rol ENUM('admin', 'user') DEFAULT 'user'
 );
+
 
 CREATE TABLE ejercicios (
   Id_ejercicios INT AUTO_INCREMENT PRIMARY KEY,
-  nombre_ejercicios VARCHAR(45),
+  nombre_ejercicios VARCHAR(100),
   descripcion varchar(1000),
   dificultad ENUM("Principiante","Experimentado","Avanzado"),
   video varchar(500),
@@ -25,30 +35,35 @@ CREATE TABLE EjercicioMusculo (
     FOREIGN KEY (Id_ejercicios) REFERENCES ejercicios(Id_ejercicios),
     FOREIGN KEY (id_musculo) REFERENCES musculos(id_musculo)
 );
+
 CREATE TABLE musculos (
   id_musculo INT AUTO_INCREMENT PRIMARY KEY,
-  nombre_musculo varchar(50),
+  nombre_musculo varchar(100),
   imagen_musculo VARCHAR(500)
 );
 
 CREATE TABLE entrenamiento (
   id_entrenamiento int AUTO_INCREMENT PRIMARY KEY,
   id_usuario int,
-  nombre_entrenamiento varchar(20),
+  imagen varchar(500),
+  nombre_entrenamiento varchar(100),
   dificultad int,
   descripcion varchar(500),
   fecha date,
+  descanso_entre_series int,
+  descanso_entre_ejercicio int,
   FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) 
 );
 
-CREATE TABLE detalle_entrenamientos (
+CREATE TABLE detalle_ejercicio (
   id_detalle_entrenamiento int AUTO_INCREMENT PRIMARY KEY,
   id_usuario int,
   id_ejercicios int,
   id_entrenamiento int,
   series int,
   repeticiones int,
-  tiempo timestamp,
+  tiempo int,
+  lado ENUM("izquierdo","derecho"),
  FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
  FOREIGN KEY (id_ejercicios) REFERENCES ejercicios(id_ejercicios),
  FOREIGN KEY (id_entrenamiento) REFERENCES entrenamiento(id_entrenamiento)
@@ -60,6 +75,7 @@ CREATE TABLE Registro_entrenamiento (
   id_entrenamiento int,
   fecha date,
   kcal int,
+  minutos int,
   FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
   FOREIGN KEY (id_entrenamiento) REFERENCES entrenamiento(id_entrenamiento)
 );
@@ -71,84 +87,86 @@ Insercion de datos.
  values (
   'Abdomen',
   'https://res.cloudinary.com/dvp8rjepk/image/upload/v1698881656/images/abs/m3x7otqjqdbvj4qnrabn.jpg'
- )
+ );
  insert into musculos (nombre_musculo,imagen_musculo)
  values (
   'Abdomen Oblicuo',
   'https://res.cloudinary.com/dvp8rjepk/image/upload/v1698881656/images/abs/uouatkpvfnfskmn01uop.png'
- )
+ );
  insert into musculos (nombre_musculo,imagen_musculo)
  values (
   'Antebrazos-Front',
  'https://res.cloudinary.com/dvp8rjepk/image/upload/v1698881662/images/brazo%20inferior/reccryposdccgnhvyk0b.png'
- )
+ );
  insert into musculos (nombre_musculo,imagen_musculo)
  values (
   'Antebrazos-Back',
   'https://res.cloudinary.com/dvp8rjepk/image/upload/v1698881662/images/brazo%20inferior/tpjs7qxvguxkh7iopsxz.png'
- )
+ );
  
  insert into musculos (nombre_musculo,imagen_musculo)
  values (
   'Triceps',
  'https://res.cloudinary.com/dvp8rjepk/image/upload/v1698881663/images/brazo%20superior/xhneb8caevtw2bcaqccn.jpg'
- )
+ );
  insert into musculos (nombre_musculo,imagen_musculo)
  values (
   'Biseps',
  'https://res.cloudinary.com/dvp8rjepk/image/upload/v1698881663/images/brazo%20superior/yhjjwieeszrsunhuqjqo.jpg'
- )
+ );
  insert into musculos (nombre_musculo,imagen_musculo)
  values (
   'Cuello-Front',
 'https://res.cloudinary.com/dvp8rjepk/image/upload/v1698881665/images/cuello/z5k0f2nbpxkkggx0d6yl.png'
- )
+ );
  insert into musculos (nombre_musculo,imagen_musculo)
  values (
   'Cuello-Back',
 'https://res.cloudinary.com/dvp8rjepk/image/upload/v1698881665/images/cuello/v0i2o5yfui8qxbd4i7zp.png'
- )
+ );
  insert into musculos (nombre_musculo,imagen_musculo)
  values (
   'Hombro-Front',
 'https://res.cloudinary.com/dvp8rjepk/image/upload/v1698881667/images/hombros/r0fyjmoibn1hsdjrsdpa.png'
- )
+ );
  insert into musculos (nombre_musculo,imagen_musculo)
  values (
   'Hombro-Back',
 'https://res.cloudinary.com/dvp8rjepk/image/upload/v1698881667/images/hombros/mnnoccdrsta3qucvcexv.png'
- )
+ );
  insert into musculos (nombre_musculo,imagen_musculo)
  values (
   'Tibial',
 'https://res.cloudinary.com/dvp8rjepk/image/upload/v1698881669/images/piena%20baja/j3eggyf1zinfmeqmhbbn.png'
- )
+ );
  insert into musculos (nombre_musculo,imagen_musculo)
  values (
   'Pantorilla',
 'https://res.cloudinary.com/dvp8rjepk/image/upload/v1698881669/images/piena%20baja/e8k7kpmq9qi8kymoihk7.png'
- )
+ );
  insert into musculos (nombre_musculo,imagen_musculo)
  values (
   'Isquios',
 'https://res.cloudinary.com/dvp8rjepk/image/upload/v1698881671/images/pierna%20superior/gvrktdfqbyceoflyapoy.png'
- )
+ );
  insert into musculos (nombre_musculo,imagen_musculo)
  values (
   'Cuadriseps',
 'https://res.cloudinary.com/dvp8rjepk/image/upload/v1698881670/images/pierna%20superior/dzw1e8xzb6kriwgu4ims.jpg'
- )
+ );
  insert into musculos (nombre_musculo,imagen_musculo)
  values (
   'Pectorales',
 'https://res.cloudinary.com/dvp8rjepk/image/upload/v1698881672/images/Tren%20superior/hbumg9drihj0gcmxbrfg.jpg'
- )
+ );
  insert into musculos (nombre_musculo,imagen_musculo)
  values (
   'Espalda',
 'https://res.cloudinary.com/dvp8rjepk/image/upload/v1698881672/images/Tren%20superior/m3ebzakl5enk7l9oobve.jpg'
- )
- Ejercicios: 
+ );
+
+
+Ejercicios: 
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -188,7 +206,7 @@ VALUES (
   'Fuerza'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (4, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (3, 1);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -200,8 +218,8 @@ VALUES (
   'Fuerza'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (5, 1);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (5, 16);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (4, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (4, 16);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -213,9 +231,9 @@ VALUES (
   'Fuerza'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (7, 1);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (7, 14);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (7, 16);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (5, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (5, 14);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (5, 16);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -227,8 +245,8 @@ VALUES (
   'Fuerza'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (8, 1);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (8, 16);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (6, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (6, 16);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -240,7 +258,7 @@ VALUES (
   'Fuerza'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (9, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (7, 1);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -252,7 +270,7 @@ VALUES (
   'Cardio'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (10, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (8, 1);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -264,9 +282,9 @@ VALUES (
   'Fuerza'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (12, 1);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (12, 14);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (12, 16);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (9, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (9, 14);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (9, 16);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -278,11 +296,11 @@ VALUES (
   'Fuerza'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (13, 1);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (13, 14);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (13, 16);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (13, 9);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (13, 10);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (10, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (10, 14);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (10, 16);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (10, 9);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (10, 10);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -294,9 +312,9 @@ VALUES (
   'Estiramiento'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (14, 1);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (14, 13);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (14, 16);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (11, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (11, 13);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (11, 16);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -308,14 +326,14 @@ VALUES (
   'Cardio'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (17, 1);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (17, 5);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (17, 12);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (17, 15);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (17, 14);  
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (17, 10);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (17, 9);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (17, 16);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (12, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (12, 5);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (12, 12);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (12, 15);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (12, 14);  
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (12, 10);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (12, 9);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (12, 16);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -327,8 +345,8 @@ VALUES (
   'Estiramiento'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (18, 1);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (18, 13);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (13, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (13, 13);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -340,7 +358,7 @@ VALUES (
   'Fuerza'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (19, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (14, 1);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -352,13 +370,13 @@ VALUES (
   'Cardio'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (20, 1);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (20, 5);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (20, 9);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (20, 10);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (20, 13);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (20, 14);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (20, 15);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (15, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (15, 5);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (15, 9);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (15, 10);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (15, 13);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (15, 14);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (15, 15);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -370,8 +388,8 @@ VALUES (
   'Fuerza'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (21, 1);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (21, 16);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (16, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (16, 16);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -383,7 +401,7 @@ VALUES (
   'Fuerza'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (22, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (17, 1);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -395,16 +413,16 @@ VALUES (
   'Cardio'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (23, 1);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (23, 3);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (23, 4);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (23, 5);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (23, 6);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (23, 9);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (23, 10);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (23, 12);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (23, 13);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (23, 14);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (18, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (18, 3);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (18, 4);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (18, 5);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (18, 6);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (18, 9);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (18, 10);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (18, 12);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (18, 13);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (18, 14);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -416,7 +434,7 @@ VALUES (
   'Fuerza'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (24, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (19, 1);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -428,15 +446,15 @@ VALUES (
   'Cardio'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (25, 1);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (25, 5);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (25, 6);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (25, 9);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (25, 10);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (25, 12);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (25, 13);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (25, 14);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (25, 16);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (20, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (20, 5);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (20, 6);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (20, 9);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (20, 10);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (20, 12);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (20, 13);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (20, 14);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (20, 16);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -448,8 +466,8 @@ VALUES (
   'Estiramiento'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (26, 1);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (26, 13);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (21, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (21, 13);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -461,8 +479,8 @@ VALUES (
   'Fuerza'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (27, 1);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (27, 16);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (22, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (22, 16);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -474,7 +492,7 @@ VALUES (
   'Fuerza'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (28, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (23, 1);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -486,7 +504,7 @@ VALUES (
   'Fuerza'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (29, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (24, 1);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -498,7 +516,7 @@ VALUES (
   'Fuerza'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (30, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (25, 1);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -510,7 +528,7 @@ VALUES (
   'Fuerza'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (31, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (26, 1);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -522,8 +540,8 @@ VALUES (
   'Fuerza'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (32, 1);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (32, 16);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (27, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (27, 16);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -535,9 +553,9 @@ VALUES (
   'Estiramiento'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (34, 1);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (34, 16);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (34, 8);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (28, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (28, 16);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (28, 8);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -549,7 +567,7 @@ VALUES (
   'Cardio'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (35, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (29, 1);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -561,12 +579,12 @@ VALUES (
   'Cardio'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (36, 1);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (36, 9);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (36, 10);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (36, 12);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (36, 13);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (36, 14);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (30, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (30, 9);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (30, 10);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (30, 12);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (30, 13);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (30, 14);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -578,9 +596,9 @@ VALUES (
   'Estiramiento'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (37, 1);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (37, 8);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (37, 16);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (31, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (31, 8);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (31, 16);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -592,10 +610,10 @@ VALUES (
   'Estiramiento'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (38, 1);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (38, 12);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (38, 13);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (38, 14);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (32, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (32, 12);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (32, 13);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (32, 14);
 
 INSERT INTO ejercicios (nombre_ejercicios, descripcion, dificultad, video, imagen, categoria)
 VALUES (
@@ -607,10 +625,99 @@ VALUES (
   'Estiramiento'
 );
 
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (39, 1);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (39, 8);
-INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (39, 16);
 
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (33, 1);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (33, 8);
+INSERT INTO EjercicioMusculo (Id_ejercicios, id_musculo) VALUES (33, 16);
+
+SINTAXIS 
+CREATE TABLE entrenamiento (
+  id_entrenamiento int AUTO_INCREMENT PRIMARY KEY,
+  id_usuario int,
+  nombre_entrenamiento varchar(20),
+  dificultad int,
+  descripcion varchar(500),
+  fecha date,
+  FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) 
+);
+
+CREATE TABLE detalle_ejercicio (
+  id_detalle_entrenamiento int AUTO_INCREMENT PRIMARY KEY,
+  id_usuario int,
+  id_ejercicios int,
+  id_entrenamiento int,
+  series int,
+  repeticiones int,
+  tiempo timestamp,
+ FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
+ FOREIGN KEY (id_ejercicios) REFERENCES ejercicios(id_ejercicios),
+ FOREIGN KEY (id_entrenamiento) REFERENCES entrenamiento(id_entrenamiento)
+);
+
+Creacion de entrenamientos
+
+INSERT INTO entrenamiento (id_usuario, nombre_entrenamiento, dificultad, descripcion, descanso_entre_series, descanso_entre_ejercicio, imagen, fecha)
+VALUES(
+  1,
+  'Rutina Núcleo Firme: Desafío Abdominal Total',
+  3,
+  'Es un entrenamiento intenso diseñado para fortalecer y esculpir tus músculos abdominales. Incorpora ejercicios variados, desde abdominales clásicos hasta planchas, adaptándose a diferentes niveles de condición física. Prepárate para sentir la activación profunda de tus abdominales y avanzar hacia un núcleo fuerte y tonificado.',
+  15,
+  30,
+  "https://res.cloudinary.com/dvp8rjepk/image/upload/v1708445933/images/Entrenamientos/aom7eqp6x5bermtwogwv.jpg",
+  '2024-02-19'
+);
+INSERT INTO detalle_ejercicio (id_usuario, id_ejercicios, id_entrenamiento, series,  repeticiones)
+VALUES(
+  1,
+  1,
+  1, 
+  3,
+  12
+);
+INSERT INTO detalle_ejercicio (id_usuario, id_ejercicios, id_entrenamiento, tiempo, lado)
+VALUES(
+  1,
+  2,
+  1,
+  30,
+  "derecho"
+);
+INSERT INTO detalle_ejercicio (id_usuario, id_ejercicios, id_entrenamiento, tiempo, lado)
+VALUES(
+  1,
+  2,
+  1,
+  30,
+  "izquierdo"
+);
+INSERT INTO detalle_ejercicio (id_usuario, id_ejercicios, id_entrenamiento, series,  repeticiones)
+VALUES(
+  1,
+  22,
+  1,
+  3,
+  12
+);
+INSERT INTO detalle_ejercicio (id_usuario, id_ejercicios, id_entrenamiento, tiempo)
+VALUES(
+  1,
+ 30,
+  1,
+  60
+);
+INSERT INTO detalle_ejercicio (id_usuario, id_ejercicios, id_entrenamiento, tiempo)
+VALUES(
+  1,
+ 29,
+  1,
+  30
+);
+
+UPDATE entrenamiento
+SET descanso_entre_ejercicio = 30;
+ALTER TABLE detalle_entrenamiento
+MODIFY COLUMN tiempo int;
 */
 
 
@@ -626,6 +733,30 @@ FROM Ejercicios E
 JOIN EjercicioMusculo EM ON E.EjercicioID = EM.EjercicioID
 WHERE EM.MusculoID = 1;
 
+SELECT
+    M.id_musculo AS id_Musculos,
+    M.nombre_musculo AS nombre_Musculos,
+    M.imagen_musculo AS imagen_musculos
+FROM Musculos M
+JOIN EjercicioMusculo EM ON M.id_musculo = EM.id_musculo
+WHERE EM.id_ejercicios = 4;
+
+    
+    SELECT
+    E.Id_ejercicios AS Id_ejercicios,
+    E.nombre_ejercicios AS nombre_ejercicios,
+    E.Descripcion AS descripcion,
+    E.Video AS video,
+    E.Imagen AS imagen,
+    E.categoria AS categoria,
+    E.dificultad AS dificultad,
+    ED.series AS series,
+    ED.repeticiones AS repeticiones,
+    ED.tiempo AS tiempo,
+    ED.lado AS lado
+    FROM Ejercicios E
+    JOIN detalle_ejercicio ED ON E.Id_ejercicios = ED.Id_ejercicios
+    WHERE ED.id_entrenamiento = ${id}`
 
  SELECT DISTINCT
     E.Id_ejercicios AS Id_ejercicios,
@@ -641,14 +772,16 @@ WHERE EM.id_musculo IN (2,3,4,5,6,7) AND E.categoria = "Cardio" AND E.dificultad
 
 SELECT DISTINCT E.Id_ejercicios AS Id_ejercicios, E.nombre_ejercicios AS nombre_ejercicios, E.Descripcion AS descripcion, E.Video AS video, E.Imagen AS imagen, E.categoria AS categoria, E.dificultad AS dificultad FROM Ejercicios E JOIN EjercicioMusculo EM ON E.Id_ejercicios = EM.Id_ejercicios WHERE E.categoria = "Cardio" AND E.dificultad = "Experimentado" AND EM.id_musculo IN (1,2,3,4,5,6)
 
-SELECT
-    M.id_musculo AS id_Musculos,
-    M.nombre_musculo AS nombre_Musculos,
-    M.imagen_musculo AS imagen_musculos
-FROM Musculos M
-JOIN EjercicioMusculo EM ON M.id_musculo = EM.id_musculo
-WHERE EM.id_ejercicios = 4;
+
 
 UPDATE ejercicios
 SET categoria = 'Fuerza'
 WHERE id_ejercicios = 32;
+
+INSERT INTO detalle_ejercicio (id_usuario, id_ejercicios, id_entrenamiento, tiempo)
+VALUES(
+  1,
+ 29,
+  1,
+  30
+);

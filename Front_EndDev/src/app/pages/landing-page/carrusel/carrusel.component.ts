@@ -15,7 +15,7 @@ CarruselItems:CarruselItem[] =[
   {
   id:1,
   imagenUrl:"../../../assets/istockphoto-1448292619-612x612 1.png",
-  titulo:"Persolaliza tus entrenamientos",
+  titulo:"Personaliza tus entrenamientos",
   descripcion:"Diseña y adapta tus entrenamientos a medida, aprovechando todos los ejercicios que tenemos disponibles para ti."
 },
 {
@@ -62,7 +62,6 @@ CarruselItems:CarruselItem[] =[
    return this.i= this.i + 1
   }
   applyAnimationClass(boolean: boolean): string {
-    console.log(this.bolean)
     return boolean ? 'fade-in-out-animation' : '';
   }
  

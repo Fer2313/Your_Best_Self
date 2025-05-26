@@ -1,3 +1,5 @@
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
@@ -11,7 +13,22 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import { ModalFiltersEComponent } from './components/modal-filters-e/modal-filters-e.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import { Pagination2Component } from './components/pagination2/pagination2.component';
+import { PaginationFDComponent } from './components/pagination-fd/pagination-fd.component';
+import { PContentComponent } from './components/pcontent/pcontent.component';
+import { MatIconModule } from '@angular/material/icon';
+import { DificultyRComponent } from './components/dificulty-r/dificulty-r.component';
+import { ModalCronometroComponent } from './components/modal-cronometro/modal-cronometro.component';
+import { AlertComponent } from './components/alert/alert.component';
+import { InicioEntrenamientoComponent } from './components/inicio-entrenamiento/inicio-entrenamiento.component';
+import { ProfileNavComponent } from './components/profile-nav/profile-nav.component';
+import { ModalVerifyComponent } from './components/modal-verify/modal-verify.component';
+import { ModalUpdatePasswordComponent } from './components/modal-update-password/modal-update-password.component';
+import { CalendarioActividadesComponent } from './components/calendario-actividades/calendario-actividades.component';
+import { RachaUserComponent } from './components/racha-user/racha-user.component';
+import { WeekTrainingsComponent } from './components/week-trainings/week-trainings.component';
+
+
+
 
 
 @NgModule({
@@ -23,14 +40,28 @@ import { Pagination2Component } from './components/pagination2/pagination2.compo
   CardComponent,
   PaginationComponent,
   ModalFiltersEComponent,
-  Pagination2Component,
+  PaginationFDComponent,
+  PContentComponent,
+  DificultyRComponent,
+  ModalCronometroComponent,
+  AlertComponent,
+  InicioEntrenamientoComponent,
+  ProfileNavComponent,
+  ModalVerifyComponent,
+  ModalUpdatePasswordComponent,
+  CalendarioActividadesComponent,
+  RachaUserComponent,
+  WeekTrainingsComponent,
 ],
   imports: [
     CommonModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    FormsModule 
+    FormsModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule 
   ],
   exports:[
     NavBarComponent,
@@ -39,7 +70,19 @@ import { Pagination2Component } from './components/pagination2/pagination2.compo
     ModalComponent,
     CardComponent,
     PaginationComponent,
-    ModalFiltersEComponent
+    ModalFiltersEComponent,
+    PaginationFDComponent,
+    PContentComponent,
+    DificultyRComponent,
+    ModalCronometroComponent,
+    AlertComponent,
+    InicioEntrenamientoComponent,
+    ProfileNavComponent,
+    ModalVerifyComponent,
+    ModalUpdatePasswordComponent,
+    CalendarioActividadesComponent,
+    RachaUserComponent,
+    WeekTrainingsComponent,
   ],
 
 })

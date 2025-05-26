@@ -1,0 +1,64 @@
+<article class="flex flex-col h-full w-full my-10 justify-center items-center">
+    <div class="w-1/2 p-10 bg-white rounded shadow-sm">
+        <button (click)="handleAlert()" class="text-red-500 text-lg h-5 ">
+            <mat-icon>keyboard_return</mat-icon>
+        </button>
+        <video class=" rounded" [src]="ejercicio2.video" autoplay loop></video>
+        <h1 class="text-black text-xl">{{ejercicio2.nombre_ejercicios}}</h1>
+        <div class="flex flex-col w-full my-3">
+            <h4 class="text-2xl text-start text-[#295FCC]">Empieza con:</h4>
+            <span class="text-2xl text-center text-[#295FCC]" *ngIf="ejercicio2.repeticiones&&ejercicio2.series">
+                x{{ejercicio2.repeticiones}} Repeticiones / Quedan {{ejercicio2.series}} series
+            </span>
+            <span class="text-2xl text-center text-[#295FCC]" *ngIf="ejercicio2.tiempo">
+                {{tiempoEjercicio}} segundos
+            </span>
+            <span class="text-2xl text-center text-[#295FCC]" *ngIf="ejercicio2.lado">
+                De lado: {{ejercicio2.lado}}
+            </span>
+        </div>
+        <button (click)="nextExercice()" *ngIf="tiempoEjercicio === 0 || this.ejercicio2.repeticiones"
+            class="bg-[#295FCC] w-full text-center text-white py-1">Listo!</button>
+        <div class="flex w-full justify-center mt-3">
+            <span class="flex w-1/2" *ngIf="ejercicio2.series">
+                <button (click)="previousExercice()" *ngIf="currentExercice !== 0 || series !== ejercicio2.series"
+                    class="text-slate-500 border-slate-300 text-center w-full border-r">
+                    < Anterior </button>
+                        <button *ngIf="currentExercice === 0 && ejercicio2.series === series"
+                            class="text-slate-300 border-slate-300 text-center w-full border-r" disabled>
+                            < Anterior </button>
+                        </span>
+                        <span class="flex w-1/2"  *ngIf="ejercicio2.series">
+                            <button (click)="nextExercice()"
+                                *ngIf="currentExercice + 1 !== training.ejercicios_relacionados?.length || ejercicio2.series ! == 1"
+                                class="text-slate-500 border-slate-300 text-center w-full border-l">Omitir ></button>
+                            <button (click)="nextExercice()"
+                                *ngIf="currentExercice + 1 === training.ejercicios_relacionados?.length && ejercicio2.series === 1"
+                                class="text-slate-300 border-slate-300 text-center w-full border-l" disabled>Omitir
+                                ></button>
+                        </span>
+            <span class="flex w-1/2"  *ngIf="ejercicio2.tiempo">
+                <button (click)="previousExercice()" *ngIf="currentExercice !== 0 "
+                    class="text-slate-500 border-slate-300 text-center w-full border-r">
+                    < Anterior </button>
+                        <button *ngIf="currentExercice === 0"
+                            class="text-slate-300 border-slate-300 text-center w-full border-r" disabled>
+                            < Anterior </button>
+                        </span>
+
+            <span class="flex w-1/2" *ngIf="ejercicio2.tiempo">
+                <button (click)="nextExercice()"
+                    *ngIf="currentExercice + 1 !== training.ejercicios_relacionados?.length"
+                    class="text-slate-500 border-slate-300 text-center w-full border-l">Omitir ></button>
+                <button (click)="nextExercice()"
+                    *ngIf="currentExercice + 1 === training.ejercicios_relacionados?.length"
+                    class="text-slate-300 border-slate-300 text-center w-full border-l" disabled>Omitir
+                    ></button>
+            </span>
+        </div>
+    </div>
+    <app-modal-cronometro *ngIf="modal_temporizador" (changeBooleanModal)="recivedBooleanMC($event)"
+        (iniciarIsTime)="recivedTime($event)" (start)="recivedBooleanS($event)" [modal_temporizador]="modal_temporizador" [tiempo]="tiempo"
+        [ejercicio]="ejercicio2"></app-modal-cronometro>
+        <app-alert *ngIf="alertBoolean" (alertM)="recivedBoolean($event)" (start)="handleExit($event)" [title]="'¿Quieres salir?'" [descripcion]="'Estas seguro de que quieres salir del entrenamiento?'"></app-alert>
+</article>

@@ -22,25 +22,25 @@ export async function getExercisesFiltered(categoria, dificultad, Musculos) {
     }
     if (Musculos && categoria && dificultad) {
       const [result] = await pool.query(
-        `SELECT DISTINCT E.Id_ejercicios AS Id_ejercicios, E.nombre_ejercicios AS nombre_ejercicios, E.Descripcion AS descripcion, E.Video AS video, E.Imagen AS imagen, E.categoria AS categoria, E.dificultad AS dificultad FROM Ejercicios E JOIN EjercicioMusculo EM ON E.Id_ejercicios = EM.Id_ejercicios WHERE E.categoria = "${categoria}" AND E.dificultad = "${dificultad}" AND EM.id_musculo IN (${value})`,
+        `SELECT DISTINCT E.Id_ejercicios AS Id_ejercicios, E.nombre_ejercicios AS nombre_ejercicios, E.Descripcion AS descripcion, E.Video AS video, E.Imagen AS imagen, E.categoria AS categoria, E.dificultad AS dificultad FROM ejercicios E JOIN EjercicioMusculo EM ON E.Id_ejercicios = EM.Id_ejercicios WHERE E.categoria = "${categoria}" AND E.dificultad = "${dificultad}" AND EM.id_musculo IN (${value})`,
         arr
       );
       return result;
     } else if (Musculos && categoria) {
       const [result] = await pool.query(
-        `SELECT DISTINCT E.Id_ejercicios AS Id_ejercicios, E.nombre_ejercicios AS nombre_ejercicios, E.Descripcion AS descripcion, E.Video AS video, E.Imagen AS imagen, E.categoria AS categoria, E.dificultad AS dificultad FROM Ejercicios E JOIN EjercicioMusculo EM ON E.Id_ejercicios = EM.Id_ejercicios WHERE E.categoria = "${categoria}" AND EM.id_musculo IN (${value})`,
+        `SELECT DISTINCT E.Id_ejercicios AS Id_ejercicios, E.nombre_ejercicios AS nombre_ejercicios, E.Descripcion AS descripcion, E.Video AS video, E.Imagen AS imagen, E.categoria AS categoria, E.dificultad AS dificultad FROM ejercicios E JOIN EjercicioMusculo EM ON E.Id_ejercicios = EM.Id_ejercicios WHERE E.categoria = "${categoria}" AND EM.id_musculo IN (${value})`,
         arr
       );
       return result;
     } else if (Musculos && dificultad) {
       const [result] = await pool.query(
-        `SELECT DISTINCT E.Id_ejercicios AS Id_ejercicios, E.nombre_ejercicios AS nombre_ejercicios, E.Descripcion AS descripcion, E.Video AS video, E.Imagen AS imagen, E.categoria AS categoria, E.dificultad AS dificultad FROM Ejercicios E JOIN EjercicioMusculo EM ON E.Id_ejercicios = EM.Id_ejercicios WHERE E.dificultad = "${dificultad}" AND EM.id_musculo IN (${value})`,
+        `SELECT DISTINCT E.Id_ejercicios AS Id_ejercicios, E.nombre_ejercicios AS nombre_ejercicios, E.Descripcion AS descripcion, E.Video AS video, E.Imagen AS imagen, E.categoria AS categoria, E.dificultad AS dificultad FROM ejercicios E JOIN EjercicioMusculo EM ON E.Id_ejercicios = EM.Id_ejercicios WHERE E.dificultad = "${dificultad}" AND EM.id_musculo IN (${value})`,
         arr
       );
       return result;
     } else if (Musculos) {
       const [result] = await pool.query(
-        `SELECT DISTINCT E.Id_ejercicios AS Id_ejercicios, E.nombre_ejercicios AS nombre_ejercicios, E.Descripcion AS descripcion, E.Video AS video, E.Imagen AS imagen, E.categoria AS categoria, E.dificultad AS dificultad FROM Ejercicios E JOIN EjercicioMusculo EM ON E.Id_ejercicios = EM.Id_ejercicios WHERE EM.id_musculo IN (${value})`,
+        `SELECT DISTINCT E.Id_ejercicios AS Id_ejercicios, E.nombre_ejercicios AS nombre_ejercicios, E.Descripcion AS descripcion, E.Video AS video, E.Imagen AS imagen, E.categoria AS categoria, E.dificultad AS dificultad FROM ejercicios E JOIN EjercicioMusculo EM ON E.Id_ejercicios = EM.Id_ejercicios WHERE EM.id_musculo IN (${value})`,
         arr
       );
       return result;
@@ -69,17 +69,25 @@ export async function getExercisesLength() {
 }
 
 export async function getAllEjercices() {
-  const [result] = await pool.query("SELECT * FROM Ejercicios");
+  const [result] = await pool.query("SELECT * FROM ejercicios");
   return result;
 }
 
 export async function getEjercicesById(id) {
   const [musclesAsociates] = await pool.query(
-    `SELECT M.id_musculo AS id_Musculos, M.nombre_musculo AS nombre_Musculos, M.imagen_musculo AS imagen_musculos FROM Musculos M JOIN EjercicioMusculo EM ON M.id_musculo = EM.id_musculo WHERE EM.id_ejercicios = ${id};`
+    `SELECT M.id_musculo AS id_Musculos, M.nombre_musculo AS nombre_Musculos, M.imagen_musculo AS imagen_musculos FROM musculos M JOIN EjercicioMusculo EM ON M.id_musculo = EM.id_musculo WHERE EM.id_ejercicios = ${id};`
   );
   const [result] = await pool.query(
-    `SELECT * FROM EJERCICIOS WHERE ID_EJERCICIOS = ${id};`
+    `SELECT * FROM ejercicios WHERE id_ejercicios = ${id};`
   );
   result[0]["musculosRelacionados"] = musclesAsociates;
   return result[0];
+}
+
+export async function getExerciseByName(name) {
+    const [result] = await pool.query(
+      `SELECT * FROM ejercicios WHERE nombre_ejercicios LIKE ?`,
+      [`%${name}%`]
+    );
+    return result;
 }

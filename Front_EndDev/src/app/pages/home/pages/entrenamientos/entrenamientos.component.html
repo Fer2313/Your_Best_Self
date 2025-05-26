@@ -1,0 +1,108 @@
+<article *ngIf="!start && training.nombre_entrenamiento" class="m-10 bg-white rounded-lg">
+    <section class="flex flex-col bg-[#C3DFFA] p-3 rounded-t-lg gap-2">
+        <h1 class="text-lg text-[#295fcc]">{{training.nombre_entrenamiento}}</h1>
+        <div class="flex gap-3">
+            <img class="w-40 rounded" [src]="training.imagen" alt="">
+            <div class="flex flex-col justify-between">
+                <p class="text-sm">{{training.descripcion}}</p>
+                <app-dificulty-r [dificulty]="training.dificultad"></app-dificulty-r>
+                <span class="text-xs text-slate-500">{{training.fecha.slice(0,10)}}</span>
+            </div>
+        </div>
+    </section>
+    <button (click)="startTraining()" class="w-full bg-[#295FCC] py-2 text-white hover:bg-[#34569b]">Empezar!</button>
+    <section class="border-x border-b">
+        <div (click)="handleModal(item)" class="flex bg-slate-100 border-t cursor-pointer hover:bg-slate-200"
+            *ngFor="let item of training.ejercicios_relacionados">
+            <video class="rounded w-32" src="{{item.video}}" autoplay loop></video>
+            <span class=" flex flex-col w-full p-1 justify-start">
+                <h5 class="text-sm text-[#295fcc]">{{ item.nombre_ejercicios}}</h5>
+                <div class="flex text-xs gap-3">
+                    <span class="flex items-end gap-1 ">
+                        <p *ngIf="item.series">Series:</p>
+                        <p *ngIf="item.tiempo">Tiempo:</p>
+                        <h6 *ngIf="item.series">{{ item.series }}</h6>
+                        <h6 *ngIf="item.tiempo">{{ item.tiempo}}s</h6>
+                    </span>
+                    <span class="flex items-end gap-1">
+                        <p *ngIf="item.repeticiones">Repeticiones: </p>
+                        <p *ngIf="item.lado">Lado:</p>
+                        <h6 *ngIf="item.repeticiones">{{item.repeticiones}}</h6>
+                        <h6 *ngIf="item.lado">{{item.lado}}</h6>
+                    </span>
+                </div>
+                <div>
+                    <h6 class="bg-white w-min text-[#295FCC] rounded-xl text-xs px-2 py-1">{{ item.categoria}}</h6>
+                </div>
+            </span>
+        </div>
+    </section>
+    <app-modal [exerciceId]="ejercicio" [BooleanM]="modal" class="flex justify-center items-center"
+        (sendBooleanM)="recivedBooleanM($event)"></app-modal>
+</article>
+<div *ngIf="!training.imagen" class="w-full h-full flex justify-center items-center">
+    <mat-spinner></mat-spinner>
+</div>
+<app-inicio-entrenamiento (finishBoolean)="recivedFinishB($event)"  (start)="recivedBooleanS($event)" [series]="series" [training]="training" [ejercicio2]="ejercicio" *ngIf="start"></app-inicio-entrenamiento>
+<app-alert (alertM)="recivedBoolean($event)" *ngIf="modalAlert" [ok]="true" [title]="'Su entrenamiento ha finalizado'" [descripcion]="Kcal !==0 ?'Su entrenamiento ha finalizado exitosamente, usted a perdido '+Kcal+' calorias en este entrenamiento':'Calculando calorias gastadas...'"></app-alert>
+
+<!-- <article *ngIf="start" class="flex flex-col h-full w-full justify-center items-center">
+    <div class="w-1/2 p-10 bg-white rounded shadow-sm">
+        <video class=" rounded" [src]="ejercicio.video" autoplay loop></video>
+        <h1 class="text-black text-xl">{{ejercicio.nombre_ejercicios}}</h1>
+        <div class="flex flex-col w-full my-3">
+            <h4 class="text-2xl text-start text-[#295FCC]">Empieza con:</h4>
+            <span class="text-2xl text-center text-[#295FCC]" *ngIf="ejercicio.repeticiones&&ejercicio.series">
+                x{{ejercicio.repeticiones}} Repeticiones / Quedan {{ejercicio.series}} series
+            </span>
+            <span class="text-2xl text-center text-[#295FCC]" *ngIf="ejercicio.tiempo">
+                Con {{tiempoEjercicio}} segundos
+            </span>
+            <span class="text-2xl text-center text-[#295FCC]" *ngIf="ejercicio.lado">
+                De lado: {{ejercicio.lado}}
+            </span>
+        </div>
+        <button (click)="nextExercice()" *ngIf="tiempoEjercicio === 0 || this.ejercicio.repeticiones"
+            class="bg-[#295FCC] w-full text-center text-white py-1">Listo!</button>
+        <div class="flex w-full justify-center mt-3">
+            <span class="flex w-1/2" *ngIf="ejercicio.series">
+                <button (click)="previousExercice()" *ngIf="currentExercice !== 0 || series !== ejercicio.series"
+                    class="text-slate-500 border-slate-300 text-center w-full border-r">
+                    < Anterior </button>
+                        <button *ngIf="currentExercice === 0 && ejercicio.series === series"
+                            class="text-slate-300 border-slate-300 text-center w-full border-r" disabled>
+                            < Anterior </button>
+                        </span>
+                        <span class="flex w-1/2"  *ngIf="ejercicio.series">
+                            <button (click)="nextExercice()"
+                                *ngIf="currentExercice + 1 !== training.ejercicios_relacionados?.length || ejercicio.series ! == 1"
+                                class="text-slate-500 border-slate-300 text-center w-full border-l">Omitir ></button>
+                            <button (click)="nextExercice()"
+                                *ngIf="currentExercice + 1 === training.ejercicios_relacionados?.length && ejercicio.series === 1"
+                                class="text-slate-300 border-slate-300 text-center w-full border-l" disabled>Omitir
+                                ></button>
+                        </span>
+            <span class="flex w-1/2"  *ngIf="ejercicio.tiempo">
+                <button (click)="previousExercice()" *ngIf="currentExercice !== 0 "
+                    class="text-slate-500 border-slate-300 text-center w-full border-r">
+                    < Anterior </button>
+                        <button *ngIf="currentExercice === 0"
+                            class="text-slate-300 border-slate-300 text-center w-full border-r" disabled>
+                            < Anterior </button>
+                        </span>
+
+            <span class="flex w-1/2" *ngIf="ejercicio.tiempo">
+                <button (click)="nextExercice()"
+                    *ngIf="currentExercice + 1 !== training.ejercicios_relacionados?.length"
+                    class="text-slate-500 border-slate-300 text-center w-full border-l">Omitir ></button>
+                <button (click)="nextExercice()"
+                    *ngIf="currentExercice + 1 === training.ejercicios_relacionados?.length"
+                    class="text-slate-300 border-slate-300 text-center w-full border-l" disabled>Omitir
+                    ></button>
+            </span>
+        </div>
+    </div>
+    <app-modal-cronometro *ngIf="modal_temporizador" (changeBooleanModal)="recivedBooleanMC($event)"
+        (iniciarIsTime)="recivedTime($event)" (start)="recivedBooleanS($event)" [modal_temporizador]="modal_temporizador" [tiempo]="tiempo"
+        [ejercicio]="ejercicio"></app-modal-cronometro>
+</article> -->

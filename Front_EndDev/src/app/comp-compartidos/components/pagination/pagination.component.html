@@ -1,4 +1,4 @@
-<article [ngClass]="{'mt-28': allEjercices.length < 5, 'mt-5': allEjercices.length > 5} " class="flex justify-center items-center">
+<article class="flex justify-center mt-5 items-center">
     <nav aria-label="Page navigation example">
         <ul class="flex items-center -space-x-px h-10 text-base">
             <li>
@@ -25,6 +25,7 @@
                 <button (click)="handleItem(item)" [ngClass]="{'text-cyan-600': item === currentPage, 'text-gray-500': item !== currentPage}"
                     class="flex items-center bg-[#f8fdff] justify-center px-4 h-10 leading-tight border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{item}}</button>
             </li>
+          
             <li>
                 <button *ngIf="currentPage!==pages" (click)="handleNext()"
                     class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">

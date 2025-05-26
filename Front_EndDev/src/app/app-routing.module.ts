@@ -4,56 +4,113 @@ import { CompEntrenamientosComponent } from './pages/home/pages/comp-entrenamien
 import { HomeComponent } from './pages/home/pages/home/home.component';
 import { HPComponent } from './pages/home/hp/hp.component';
 import { NotFoundComponentComponent } from './pages/not-found-component/not-found-component.component';
-import { NgModule, Component } from '@angular/core';
+import { NgModule } from '@angular/core';
+import { PerfilComponent } from './pages/perfil/perfil.component';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { loginGuard } from '../../guards/loginguard';
+import { noLoginguard } from '../../guards/Nologinandregisterguard';
+import { EntrenamientosComponent } from './pages/home/pages/entrenamientos/entrenamientos.component';
+import { InfoGeneralComponent } from './pages/perfil/pages/info-general/info-general.component';
+import { SeguridadComponent } from './pages/perfil/pages/seguridad/seguridad.component';
+import { ProgresoComponent } from './pages/perfil/pages/progreso/progreso.component';
+import { VerifyComponent } from './pages/verify/verify.component';
+import { ChangeEmailComponent } from './pages/change-email/change-email.component';
+import { DeleteUserComponent } from './pages/delete-user/delete-user.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { DashboardComponent } from './pages/perfil/pages/dashboard/dashboard.component';
+
 const router: Routes = [
   {
-    path:"",
-    component: LandingPageComponent
+    path: '',
+    component: LandingPageComponent,
+    canActivate: [noLoginguard],
   },
   {
-    path:"login",
-    component:LoginComponent
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [noLoginguard],
   },
   {
-    path:"register",
-    component:RegisterComponent
+    path: 'register',
+    component: RegisterComponent,
+    canActivate: [noLoginguard],
   },
   {
-    path:"home",
-    component:HPComponent,
-    children:[
+    path: 'verify/:email/:id',
+    component: VerifyComponent,
+  },
+  {
+    path: 'changeEmail/:token',
+    component: ChangeEmailComponent,
+  },
+  {
+    path: 'resetPassword/:token',
+    component: ResetPasswordComponent,
+  },
+  {
+    path: 'deleteUser/:token',
+    component: DeleteUserComponent,
+  },
+  {
+    path: 'perfil',
+    component: PerfilComponent,
+    children: [
       {
-        path:"",
-        component:HomeComponent
+        path: '',
+        component: InfoGeneralComponent,
       },
       {
-        path:"comp_entrenamientos",
-        component:CompEntrenamientosComponent
+        path: 'seguridad',
+        component: SeguridadComponent,
       },
       {
-        path:"pers_entrenamientos",
-        component:PersEntrenamientosComponent
+        path: 'progreso',
+        component: ProgresoComponent,
       },
       {
-        path:"library_Ejercices",
-        component:LibrayEjecicesComponent
-      }
+        path: 'dashboard',
+        component: DashboardComponent,
+      },
     ],
+    canActivate: [loginGuard],
   },
-  { path: '**', component: NotFoundComponentComponent }
-]
+  {
+    path: 'home',
+    component: HPComponent,
+    children: [
+      {
+        path: '',
+        component: HomeComponent,
+      },
+      {
+        path: 'comp_entrenamientos',
+        component: CompEntrenamientosComponent,
+      },
+      {
+        path: 'entrenamiento/:id',
+        component: EntrenamientosComponent,
+      },
+      {
+        path: 'pers_entrenamientos',
+        component: PersEntrenamientosComponent,
+      },
+      {
+        path: 'library_Ejercices',
+        component: LibrayEjecicesComponent,
+      },
+    ],
+    canActivate: [loginGuard],
+  },
+  { path: '**', component: NotFoundComponentComponent },
+];
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    RouterModule.forRoot(router)
-  ],
-  exports:[RouterModule]
+  imports: [CommonModule, RouterModule.forRoot(router)],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -1,5 +1,5 @@
 <div [@hiden]="BooleanM ? 'Verdadero' : 'Falso'" class="modal-overlay">
-  <div class="mimodal">
+  <div *ngIf="BooleanM" class="mimodal">
     <div class="modal-header">
       <h2 class="text-lg text-[#295FCC]">{{this.exerciceId.nombre_ejercicios}}</h2>
       <span class="close-btn" (click)="sendEventM()">&times;</span>
@@ -13,14 +13,21 @@
           <h4 class="font-semibold">Categoria</h4>
           <p>{{this.exerciceId.categoria}}</p>
           <h4 class="font-semibold mb-1">Musculos afectados</h4>
-          <div class="flex flex-col gap-1 w-full max-h-72 overflow-y-auto" >
-            <div class="flex gap-3 bg-slate-200 w-full items-center p-1 rounded" *ngFor="let item of this.exerciceId.musculosRelacionados">
+          <div class="flex flex-col gap-1 w-full max-h-72 overflow-y-auto">
+            <div class="flex gap-3 bg-slate-200 w-full items-center p-1 rounded"
+              *ngFor="let item of this.exerciceId.musculosRelacionados">
               <img class="w-20 rounded" src="{{item.imagen_musculos}}" alt="aqui aparece la imagen del musculo">
               <h5>{{item.nombre_Musculos}}</h5>
             </div>
           </div>
         </span>
       </section>
+      <span class="flex gap-3 text-lg text-[#295FCC]">
+        <p *ngIf="exerciceId.series">Series: {{exerciceId.series}}</p>
+        <p *ngIf="exerciceId.repeticiones">Repeticiones: {{exerciceId.repeticiones}}</p>
+        <p *ngIf="exerciceId.tiempo">Tiempo: {{exerciceId.tiempo}}</p>
+        <p *ngIf="exerciceId.lado">Lado: {{exerciceId.lado}}</p>
+      </span>
       <p>{{this.exerciceId.descripcion}}</p>
       <div>
 

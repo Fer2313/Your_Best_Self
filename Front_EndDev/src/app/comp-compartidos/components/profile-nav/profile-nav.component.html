@@ -1,0 +1,8 @@
+
+<article class="flex flex-col min-h-screen h-full p-1 gap-1 bg-[#C3DFFA]">
+    <button (click)="handleExit()" class="bg-white text-red-500 py-1 rounded flex items-center justify-center gap-1"><mat-icon>keyboard_return</mat-icon> Salir</button>
+    <button [class]="obj.profile?'bg-[#6E92DA]':'bg-[#9FC2F1]'" routerLink="/perfil" class=" text-white py-1 rounded">Mi perfil</button>
+    <button [class]="obj.security?'bg-[#6E92DA]':'bg-[#9FC2F1]'" routerLink="/perfil/seguridad" class="text-white py-1 rounded">Seguridad</button>
+    <button [class]="obj.progress?'bg-[#6E92DA]':'bg-[#9FC2F1]'" routerLink="/perfil/progreso" class="text-white py-1 rounded">Mi progreso</button>
+    <button [class]="obj.dashboard?'bg-[#6E92DA]':'bg-[#9FC2F1]'" routerLink="/perfil/dashboard"  *ngIf="user.rol === 'admin'" class="text-white py-1 rounded">Dashboard</button>
+</article>

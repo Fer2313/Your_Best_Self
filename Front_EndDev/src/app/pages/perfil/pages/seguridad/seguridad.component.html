@@ -1,0 +1,77 @@
+<article class="flex">
+    <app-profile-nav class="w-1/4"></app-profile-nav>
+    <div *ngIf="security && user.nombre" class="w-3/4 m-10">
+        <h1 class="text-3xl h-4 font-bold text-[#295FCC] mb-2">Seguridad</h1>
+        <section class="flex w-full flex-col gap-2 items-center justify-center">
+            <div class="flex flex-col gap-2 w-1/2">
+                <span class="flex flex-col gap-1">
+                    <h4 class="text-lg text-[#84AEE5] mb-1">Cambiar email</h4>
+                    <h6 class="text-sm text-slate-600">Email</h6>
+                    <input class="p-2 w-full rounded text-slate-700 bg-slate-200" type="email" value="{{user.email}}"
+                        disabled>
+                    <h6 class="text-sm text-slate-600">Nuevo email</h6>
+                    <input name="email" [(ngModel)]="nuevoemail" type="email" placeholder="Ingresa tu nuevo email"
+                        class="form-control {{ email.valid || email.untouched ? '':'border-danger'}}"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" #email="ngModel"
+                        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}">
+                    <p class="text-red-900 text-xs" [hidden]="email.valid || email.untouched">Debe ser un correo
+                        electronico válido</p>
+                    <div class="flex w-full justify-end">
+                        <button (click)="changeEmail()" class="py-1 px-2 rounded mt-1 text-red-400 bg-white"
+                            [disabled]="!email.valid">Cambiar email</button>
+                    </div>
+                </span>
+                <form [formGroup]="miFormulario" (submit)="changePassword()" class="flex flex-col gap-1">
+                    <h4 class="text-lg text-[#84AEE5] mb-1">Cambiar contraseña</h4>
+                    <h6 class="text-sm text-slate-600">Contraseña actual</h6>
+                    <input class="p-2 w-full rounded" class="form-control" aria-label="Sizing example input" formControlName="oldPassword"
+                        aria-describedby="inputGroup-sizing-default" placeholder="Ingresa tu contraseña actual"
+                        type="password">
+                    <h6 class="text-sm text-slate-600">Nueva contraseña</h6>
+                    <input class="p-2 w-full rounded" type="password" formControlName="newPassword"
+                        class="form-control {{miFormulario.get('newPassword')?.valid || miFormulario.get('newPassword')?.pristine?'':'border-red-700'}}"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                        placeholder="Ingresa tu nueva contraseña">
+                    <div
+                        [hidden]="miFormulario.get('newPassword')?.valid || miFormulario.get('newPassword')?.pristine">
+                        <span class="text-red-700 text-xs"
+                            *ngIf="miFormulario.get('newPassword')?.errors?.['minlength']">La contraseña debe tener un
+                            mínimo de 8 caracteres</span>
+                        <span class="text-red-700 text-xs"
+                            *ngIf="miFormulario.get('newPassword')?.errors?.['maxlength']">La contraseña debe tener un
+                            máximo de 15 caracteres</span>
+                    </div>
+                    <h6 class="text-sm text-slate-600">Repetir contraseña</h6>
+                    <input class="p-2 w-full rounded" type="password"
+                        class="form-control {{miFormulario.get('repeatNewPassword')?.valid || miFormulario.get('repeatNewPassword')?.pristine?'':'border-red-700'}}"
+                        formControlName="repeatNewPassword" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-default" placeholder="Repite la contraseña">
+                        <div [hidden]="miFormulario.get('repeatNewPassword')?.valid || miFormulario.get('repeatNewPassword')?.pristine">
+                            <span class="text-red-700 text-xs" >Las contraseñas deben coincidir</span>
+                        </div>
+                    <div class="flex w-full justify-end">
+                        <button class="bg-white py-1 px-2 rounded mt-1 text-red-400" [disabled]="!miFormulario.get('repeatNewPassword')?.valid || !miFormulario.get('newPassword')?.valid">Cambiar contraseña</button>
+                    </div>
+                </form>
+
+            </div>
+        </section>
+    </div>
+    <div *ngIf="!security" class="w-3/4 m-10">
+        <section class="flex w-full flex-col gap-2 items-center justify-center">
+            <div class="flex flex-col gap-2 w-1/2 shadow-sm">
+                <span class="bg-white rounded w-full p-10">
+                    <h1>Tienes que verificar tu correo para ver las opciones de seguridad</h1>
+                    <button (click)="openModalVerify()" class="bg-lime-400 py-1 px-2 rounded mt-3 text-white">Verificar
+                        correo</button>
+                </span>
+            </div>
+        </section>
+        <app-modal-verify *ngIf="modalVerify" (modalVerify)="recivedModalVerify($event)" [email]="user.email"
+            title="Verificar email"
+            descripcion="Te enviaremos un mensaje a tu correo electrónico. Haz clic en el enlace de verificación y verifica tu bandeja de entrada para confirmar."></app-modal-verify>
+    </div>
+    <div *ngIf="!user.nombre" class="w-3/4 m-10 flex justify-center items-center">
+        <mat-spinner></mat-spinner>
+    </div>
+</article>

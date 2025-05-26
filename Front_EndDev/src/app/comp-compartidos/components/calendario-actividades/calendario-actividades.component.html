@@ -1,0 +1,30 @@
+<main class="flex flex-col gap-1 bg-white p-2 rounded">
+    <section [@desplazamiento]="animar?'abajo':'arriba'" class="absolute" class="pb-1">
+        <span class="flex justify-end items-center">
+            <button (click)="quitActivityInfo()" class="text-xs text-red-500 absolute">x</button>
+        </span>
+        Actividad
+        <span *ngIf="daySelected" class="flex justify-between my-1 text-xs">
+            <h4>Kcal: {{daySelected.kcal}}</h4>
+            <h4>Fecha: {{daySelected.fecha.slice(0, 10)}}</h4>
+            <h4>Minutos: {{daySelected.minutos}}</h4>
+        </span>
+    </section>
+    <div class="flex justify-between">
+        <button (click)="prevMonthFunction()" class="bg-[#295FCC] px-2 rounded text-white"> {{"<"}}</button>
+                <h6>{{currentMonthName}} {{currentYear}}</h6>
+                <button (click)="nextMonthFunction()" class="bg-[#295FCC] px-2 rounded {{currentMonth === actualMonth && actualYear === currentYear?'invisible':''}} text-white">></button>
+    </div>
+    <section class="grid grid-cols-7 text-[#295FCC]">
+        <div class="flex justify-center" *ngFor="let item of weekdays">
+            <p>{{item}}</p>
+        </div>
+    </section>
+    <section class="grid grid-cols-7">
+        <div (click)="handleSelectDay(item)" [ngClass]="getClassCurrentDay(item, i)"
+            class="flex justify-center cursor-pointer hover:bg-slate-100 py-1"
+            *ngFor="let item of arrDays; let i = index;">
+            <p [ngClass]="getClass(item, i)">{{item}}</p>
+        </div>
+    </section>
+</main>

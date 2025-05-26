@@ -1,19 +1,26 @@
-
-    <section *ngIf="ejercices.length > 0" class="flex">
-        <button (click)="animarFunction()" 
-            class="absolute left-11 mt-1 bg-[#295fcc] text-white rounded px-2 py-1">Filtrar</button>
-    </section>
-    <section class="flex flex-col m-10" *ngIf="ejercices.length > 0">
-        <app-modal-filters-e (ejercicios)="handleFilter($event)" [animacion]="animar" (animar)="recibedAnimar($event)"></app-modal-filters-e>
-        <app-card (sendBoolean)="recivedBoolean($event)" (sendExercise)="recivedmensage($event)"
-            class="grid grid-cols-4 gap-4" [ejercices]="ejercices"></app-card>
-        <app-pagination [allEjercices]="ejercices" (ejercices)="recivedEjercices($event)"
-            [currentPage]="currentPage"></app-pagination>
-            
-        <app-modal [exerciceId]="exerciceId" [BooleanM]="booleanModel" class="flex justify-center items-center"
-            (sendBooleanM)="recivedBooleanM($event)"></app-modal>
-
-    </section>
-    <div *ngIf="ejercices.length === 0" class="w-full h-full flex justify-center items-center">
-        <mat-spinner></mat-spinner>
+<section *ngIf="ejercices.length > 0" class="flex">
+    <div *ngIf="search" class="flex items-center justify-center w-full">
+    <button (click)="desactivateSearch()" class="absolute p-1 px-3 mt-10 bg-[#295fcc] text-white rounded" ><</button>
     </div>
+    <button *ngIf="!search" (click)="animarFunction()"
+        class="absolute left-11 mt-1 bg-[#295fcc] text-white rounded px-2 py-1">Filtrar</button>
+</section>
+<section class="flex flex-col m-10" *ngIf="ejercices.length > 0">
+    <app-modal-filters-e [currentPage]="currentPage" (currentPageEvent)="recibedCurrentPage($event)"
+        (ejercicesLength)="recivedEjercicesLength($event)" (filter)="booleanFilter($event)"
+        (ejercicios)="handleFilter($event)" [animacion]="animar" (animar)="recibedAnimar($event)"></app-modal-filters-e>
+    <app-card (sendBoolean)="recivedBoolean($event)" (sendExercise)="recivedmensage($event)"
+        class="grid grid-cols-4 gap-4" [ejercices]="ejercices"></app-card>
+    <span *ngIf="ejercices.length < 5" class="mt-16"></span>
+    <app-pagination *ngIf="!filter && !search" (ejercicesLengthEmit)="recivedEjercicesLength($event)"
+        [allEjercices]="ejercices" (ejercices)="recivedEjercices($event)" [currentPage]="currentPage"></app-pagination>
+    <app-pagination-fd *ngIf="filter || search" [currentPage]="currentPage" [ejercices]="ejercicesLength"
+        (ejercicios)="ejercicesFilterRecived($event)" [ejerciciosfiltrados]="ejercices"></app-pagination-fd>
+
+    <app-modal [exerciceId]="exerciceId" [BooleanM]="booleanModel" class="flex justify-center items-center"
+        (sendBooleanM)="recivedBooleanM($event)"></app-modal>
+    <span *ngIf="search&&ejercices.length < 5" class="mb-20 mt-1"></span>
+</section>
+<div *ngIf="ejercices.length === 0" class="w-full h-full flex justify-center items-center">
+    <mat-spinner></mat-spinner>
+</div>
